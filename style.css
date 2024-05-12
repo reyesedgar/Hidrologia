@@ -12,3 +12,7 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+p {
+  text-align: justify;
+}

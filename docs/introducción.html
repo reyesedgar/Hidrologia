@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 1 Introducción | reportehidrologia.knit</title>
+  <meta name="description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 1 Introducción | reportehidrologia.knit" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/logo.png" />
+  <meta property="og:description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 1 Introducción | reportehidrologia.knit" />
+  
+  <meta name="twitter:description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <meta name="twitter:image" content="/logo.png" />
+
+<meta name="author" content="" />
+
+
+<meta name="date" content="2024-05-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="modelo-fisiográfico.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Estudio Hidrológico</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#objetivo"><i class="fa fa-check"></i><b>1.1</b> Objetivo</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#normativa-aplicada"><i class="fa fa-check"></i><b>1.2</b> Normativa aplicada</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#localización-del-proyecto"><i class="fa fa-check"></i><b>1.3</b> Localización del proyecto</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html"><i class="fa fa-check"></i><b>2</b> Modelo Fisiográfico</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#topografía-documentada"><i class="fa fa-check"></i><b>2.1</b> Topografía documentada</a></li>
+<li class="chapter" data-level="2.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#delimitación-del-área-de-escurrimiento-y-red-hidrográfica"><i class="fa fa-check"></i><b>2.2</b> Delimitación del área de escurrimiento y red hidrográfica</a></li>
+<li class="chapter" data-level="2.3" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#descripción-del-relieve"><i class="fa fa-check"></i><b>2.3</b> Descripción del Relieve</a></li>
+<li class="chapter" data-level="2.4" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#red-de-drenaje"><i class="fa fa-check"></i><b>2.4</b> Red de drenaje</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#análisis-de-pendiente-del-cauce-principal-de-la-cuenca"><i class="fa fa-check"></i><b>2.4.1</b> Análisis de pendiente del cauce principal de la cuenca</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#breve-introducción-a-la-estimación-del-coeficiente-de-escurrimiento"><i class="fa fa-check"></i><b>2.5</b> Breve introducción a la estimación del coeficiente de escurrimiento</a></li>
+<li class="chapter" data-level="2.6" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-de-tipo-de-suelo"><i class="fa fa-check"></i><b>2.6</b> Identificación de tipo de suelo</a></li>
+<li class="chapter" data-level="2.7" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-del-grupo-hidrológico-del-suelo"><i class="fa fa-check"></i><b>2.7</b> Identificación del grupo hidrológico del suelo</a></li>
+<li class="chapter" data-level="2.8" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-de-uso-de-suelo-y-vegetación"><i class="fa fa-check"></i><b>2.8</b> Identificación de uso de suelo y vegetación</a></li>
+<li class="chapter" data-level="2.9" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#número-de-curva"><i class="fa fa-check"></i><b>2.9</b> Número de Curva</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#nc-calculado-por-imta"><i class="fa fa-check"></i><b>2.9.1</b> NC calculado por IMTA</a></li>
+<li class="chapter" data-level="2.9.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#nc-semiautomatizado"><i class="fa fa-check"></i><b>2.9.2</b> NC semiautomatizado</a></li>
+<li class="chapter" data-level="2.9.3" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#discusión-final-sobre-el-cálculo-del-número-de-curva"><i class="fa fa-check"></i><b>2.9.3</b> Discusión final sobre el cálculo del Número de Curva</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempos-de-estudio"><i class="fa fa-check"></i><b>2.10</b> Tiempos de estudio</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-kirpich"><i class="fa fa-check"></i><b>2.10.1</b> Tiempo de concentracion por kirpich</a></li>
+<li class="chapter" data-level="2.10.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-rowe"><i class="fa fa-check"></i><b>2.10.2</b> Tiempo de concentracion por Rowe</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html"><i class="fa fa-check"></i><b>3</b> Modelo meteorológico</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#selección-de-estaciones-climatológicas"><i class="fa fa-check"></i><b>3.1</b> Selección de estaciones climatológicas</a></li>
+<li class="chapter" data-level="3.2" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#homogenización-de-datos-climatológicos"><i class="fa fa-check"></i><b>3.2</b> Homogenización de datos climatológicos</a></li>
+<li class="chapter" data-level="3.3" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#funciones-de-las-distribuciones-probabilísticas-de-las-estaciones-climatológicas"><i class="fa fa-check"></i><b>3.3</b> Funciones de las distribuciones probabilísticas de las estaciones climatológicas</a></li>
+<li class="chapter" data-level="3.4" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#curvas-idtr-y-pdtr"><i class="fa fa-check"></i><b>3.4</b> Curvas IDTR y PDTR</a></li>
+<li class="chapter" data-level="3.5" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#hietograma"><i class="fa fa-check"></i><b>3.5</b> Hietograma</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html"><i class="fa fa-check"></i><b>4</b> Modelo Hidrológico</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#cálculo-de-caudales"><i class="fa fa-check"></i><b>4.1</b> Cálculo de caudales</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#caudal-q-por-hut-hidrograma-uniforme-triangular"><i class="fa fa-check"></i><b>4.1.1</b> Caudal Q por HUT (Hidrograma Uniforme Triangular)</a></li>
+<li class="chapter" data-level="4.1.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-racional"><i class="fa fa-check"></i><b>4.1.2</b> METODO RACIONAL</a></li>
+<li class="chapter" data-level="4.1.3" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-vente-chow"><i class="fa fa-check"></i><b>4.1.3</b> METODO VENTE CHOW</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#hidrograma"><i class="fa fa-check"></i><b>4.2</b> HIDROGRAMA</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>5</b> Conclusiones</a></li>
+<li class="appendix"><span><b>Recursos adicionales</b></span></li>
+<li class="chapter" data-level="A" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>A</b> Apéndice</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="apéndice.html"><a href="apéndice.html#apéndice-del-modelo-fisiográfico"><i class="fa fa-check"></i><b>A.1</b> Apéndice del Modelo Fisiográfico</a></li>
+<li class="chapter" data-level="A.2" data-path="apéndice.html"><a href="apéndice.html#apéndice-del-modelo-meteorológico"><i class="fa fa-check"></i><b>A.2</b> Apéndice del Modelo Meteorológico</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introducción" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">Capítulo 1</span> Introducción<a href="introducción.html#introducción" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>La hidrología es la ciencia que estudia el ciclo hidrológico y los procesos que rigen el movimiento y distribución del agua en la Tierra <span class="citation">(<a href="#ref-campos1998">Daniel F. Campos Aranda 1998</a>)</span>. El ciclo hidrológico es un proceso continuo donde el agua circula entre la atmósfera, la superficie terrestre y el subsuelo, a través de fenómenos como la precipitación, la escorrentía, la infiltración, la evaporación y la condensación.</p>
+<p>Una proporción del agua precipitada se infiltra en el suelo formando acuíferos o capas freáticas, mientras que otra parte escurre superficialmente hasta llegar a ríos, lagos u océanos. Esta distribución depende de factores como la permeabilidad del sustrato, la pendiente y la cobertura vegetal. La falta de cobertura vegetal constituye un problema ambiental crítico, ya que favorece la erosión hídrica del suelo y el aumento de sedimentos y contaminantes en los cuerpos de agua.</p>
+<p>En las últimas décadas, el cambio climático ha exacerbado la ocurrencia de eventos climáticos extremos como precipitaciones intensas e inundaciones <span class="citation">(<a href="#ref-ruiz2024">Ruiz Hurtado 2024</a>; <a href="#ref-bbc2024">BBC News Mundo 2024</a>)</span>, así como sequías prolongadas <span class="citation">(<a href="#ref-foxsports2024">Fox Sports 2024</a>)</span>. Ante estos desafíos, la hidrología desempeña un papel fundamental en la prevención y gestión de riesgos asociados a estos fenómenos, brindando herramientas y modelos para el diseño de soluciones de protección territorial.</p>
+<p>En este contexto, el presente estudio tiene como objetivo desarrollar un modelo hidrológico confiable para estimar las avenidas máximas en una cuenca hidrográfica costera, con el fin de dimensionar adecuadamente las obras de protección para un puente de una carretera federal. Para ello, se requiere un análisis detallado de la geomorfología de la zona de estudio, que contemple los parámetros que describen las propiedades de la superficie y determinan el movimiento del agua, así como un análisis meteorológico que caracterice los patrones de precipitación en la región.</p>
+<p>Para la generación del modelo fisiográfico se usa el software GIS de código libre <strong>QGIS</strong>, y dentro del ambiente se usan las extensiones <em>GDAL</em> para gestionar capas vectoriales y rasters, <em>GRASS</em> para delimitar el área y red de drenaje, y <em>SAGA NEXT GEN</em> para procesos auxiliares.</p>
+<p>Para la generación del modelo meteorológico, se utiliza el software de código libre <strong>RStudio</strong> que se basa en el lenguaje <em>R</em>, un lenguaje de programación computacional estadística. Dentro del ambiente, se hace uso de librerías especializadas para el uso de datos climatológicos y para la selección de modelos probabilísticos para estimar las tormentas de diseño.</p>
+<p>De manera particular se revisan metodologías para el cálculo del <em>Número de Curva</em> y para el cálculo del <em>caudal</em>, considerando que la cuenca no está aforada y se deben hacer ajustes para poder emplear las metodologías propuestas.</p>
+<div id="objetivo" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Objetivo<a href="introducción.html#objetivo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Determinar el caudal de diseño para la propuesta de una obra de protección localizada sobre el punto de control PC-008 para el seguro encauzamiento de agua de acuerdo con el periodo de retorno de estudio propuesto.</p>
+</div>
+<div id="normativa-aplicada" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Normativa aplicada<a href="introducción.html#normativa-aplicada" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para el diseño del modelo hidrológico se ha seguido la normativa establecida en el Manual de Agua Potable, Alcantarillado y Saneamiento <span class="citation">(<a href="#ref-conagua2019">CONAGUA 2019</a>)</span> y el Instructivo de Hidrología para Determinar la Avenida Máxima Ordinaria <span class="citation">(<a href="#ref-conagua1987">CONAGUA 1987</a>)</span>.</p>
+</div>
+<div id="localización-del-proyecto" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Localización del proyecto<a href="introducción.html#localización-del-proyecto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El área de estudio comprende una cuenca hidrográfica ubicada en el estado de Baja California, México, abarcando territorios de los municipios de Ensenada, Playas de Rosarito, Tijuana y Tecate. La cuenca presenta características predominantemente rurales, con algunos asentamientos urbanos dispersos en su porción final, como las colonias Francisco Zarco y Ejido El Porvenir.</p>
+<p>El punto de control establecido para el análisis hidrológico se encuentra en el puente La Misión, localizado en las coordenadas -116.88258, 32.08942, sobre la carretera federal Tijuana-San Miguel, en el kilómetro 69+338. Este puente cruza el cauce principal de la cuenca y su dimensionamiento adecuado es crucial para garantizar la protección de la infraestructura vial ante eventos de avenidas extraordinarias.</p>
+<p>La caracterización detallada de la fisiografía de la cuenca, incluyendo su topografía, red de drenaje, tipos de suelo y cobertura vegetal, así como el análisis de los patrones de precipitación en la región, son elementos clave para el desarrollo del modelo hidrológico y la estimación confiable de los caudales máximos esperados en el punto de control.</p>
+<div class="figure"><span style="display:block;" id="fig:figura-contextoterritorial"></span>
+<img src="Mapa%20contexto%20territorial.png" alt="Contexto territorial de la subcuenca R. Gudalupe" width="1754" />
+<p class="caption">
+Figura 1.1: Contexto territorial de la subcuenca R. Gudalupe
+</p>
+</div>
+
+</div>
+</div>
+<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-bbc2024" class="csl-entry">
+BBC News Mundo. 2024. <span>“Qué Causó La Histórica Tormenta Que Desató El Caos En Dubái y Generó Severas Inundaciones En La Península Arábiga.”</span> <em>BBC News Mundo</em>, April. <a href="https://www.bbc.com/mundo/articles/c51nm89r3zyo">https://www.bbc.com/mundo/articles/c51nm89r3zyo</a>.
+</div>
+<div id="ref-campos1998" class="csl-entry">
+Campos Aranda, Daniel F. 1998. <em>Procesos Del Ciclo Hidrológico</em>. 3rd ed. San Luis Potosí, México: Universidad Autónoma de San Luis Potosí.
+</div>
+<div id="ref-conagua1987" class="csl-entry">
+CONAGUA. 1987. <em>Instructivo de Hidrología Para Determinar La Avenida Máxima Ordinaria</em>. Comisión Nacional del Agua, Subdirección General de Administración del Agua, Gerencia de Aguas Superficiales e Ingeniería de Ríos.
+</div>
+<div id="ref-conagua2019" class="csl-entry">
+———. 2019. <em>Manual de Agua Potable, Alcantarillado y Saneamiento. Drenaje Pluvial Urbano</em>. México, D.F.: Secretaría de Medio Ambiente y Recursos Naturales. <a href="https://www.conagua.gob.mx">https://www.conagua.gob.mx</a>.
+</div>
+<div id="ref-foxsports2024" class="csl-entry">
+Fox Sports. 2024. <span>“Fenómeno El Niño Eleva SEQUÍAS Al Cierre de Abril GOLPEANDO Al 60.”</span> <em>Fox Sports</em>, April. <a href="https://www.foxsports.com.mx/2024/04/25/fenomeno-el-nino-eleva-sequias-al-cierre-de-abril-golpeando-al-60-de-mexico-estados-afectados/">https://www.foxsports.com.mx/2024/04/25/fenomeno-el-nino-eleva-sequias-al-cierre-de-abril-golpeando-al-60-de-mexico-estados-afectados/</a>.
+</div>
+<div id="ref-ruiz2024" class="csl-entry">
+Ruiz Hurtado, Angie Nataly. 2024. <span>“Las Razones Detrás de Las Históricas Inundaciones En Porto Alegre y Otras Zonas Del Sur de Brasil: Van 100 Muertos.”</span> <em>El Tiempo</em>, May. <a href="https://www.eltiempo.com/mundo/latinoamerica/las-razones-que-provocaron-las-historicas-inundaciones-en-porto-alegre-y-el-sur-de-brasil-3340895">https://www.eltiempo.com/mundo/latinoamerica/las-razones-que-provocaron-las-historicas-inundaciones-en-porto-alegre-y-el-sur-de-brasil-3340895</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modelo-fisiográfico.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/reyesedgar/Hidrologia/edit/main/01-intoduccion.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/reyesedgar/Hidrologia/blob/main/01-intoduccion.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

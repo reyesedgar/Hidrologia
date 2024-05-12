@@ -1,19 +1,29 @@
-book_filename: "finalproj"
+book_filename: "reportehidrologia"
 output_dir: docs
 delete_merged_file: true
-edit: https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/edit/main/%s
-view: https://github.com/YOUR GITHUB USERNAME/YOUR REPO NAME/blob/main/%s
+edit: https://github.com/reyesedgar/Hidrologia/edit/main/%s
+view: https://github.com/reyesedgar/Hidrologia/blob/main/%s
 language:
+  label:
+    fig: "Figura "
+    tab: "Tabla "
+    ref: "Referencia "
   ui:
-    chapter_name: "Chapter "
+    chapter_name: "Capítulo "
+    label:
+      fig: "Figura "
+      tab: "Tabla "
+      ref: "Referencia "
 
 rmd_files: [
   'index.Rmd',
-  'proposal.Rmd',
-  'data.Rmd',
-  'results.Rmd',
-  'interactive.Rmd',
-  'conclusion.Rmd'
+  '01-intoduccion.Rmd',
+  '02-modelo_fisiografico.Rmd',
+  '03-modelo_meteorologico.Rmd',
+  '04-modelo_hidrologico.Rmd',
+  '05-conclusiones.Rmd',
+  '06-apendice.Rmd',
+  '07-referencias.Rmd'
   ]
 
 

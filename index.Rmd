@@ -1,9 +1,36 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: ""
+author: ""
 date: "`r Sys.Date()`"
+bibliography:
+- book.bib
+- packages.bib
+biblio-style: apalike
+link-citations: true
+cover-image: logo.png
+description: Este es un ejemplo de la automatización de un reporte de un estudio hidrológico
+  usando QGIS y RStudio
 site: bookdown::bookdown_site
 ---
 
-# Introduction
+<div style="text-align:center;">
+
+# Presentación {.unlisted .unnumbered}
+
+**Estudio hidrológico de control de la subcuenca R. Guadalupe**
+
+**Instituo Enzo Levi**
+
+**Centro de Investigación para la Restauración y Saturación del Suelo**
+
+**Elaboró: Ing. Edgar Reyes Vargas **
+
+**Revisor: Ing. Edson Regalado**
+
+<div style="display:flex; justify-content:center; align-items:center; margin-top:20px;">
+<img src="D:/CIRSS/hidrologia/R/Hidrologia/logo.png" style="height:250px; margin-right:20px;">
+<img src="D:/CIRSS/hidrologia/R/Hidrologia/logoenzo.png" style="height:100px;">
+</div>
+
+</div>
 

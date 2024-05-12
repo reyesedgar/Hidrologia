@@ -1,0 +1,329 @@
+# Modelo Hidrológico
+
+El diseño hidrológico para el control de aguas tiene como objetivo principal la mitigación de los efectos adversos causados por caudales altos. Se considera una creciente a cualquier caudal elevado que desborde los terraplenes, ya sean artificiales o naturales, debido a sus elevadas elevaciones y volúmenes [@chow1994].
+
+```{r, include=FALSE}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(magrittr) # %<>%
+library(readxl)
+library(sf)
+#library(RHydro)
+library(units)
+```
+
+```{r, eval=FALSE, include=FALSE}
+remotes::install_github("geocompr/geocompkg")
+```
+
+## Cálculo de caudales
+
+Ante la falta de información hidrológica en una zona en estudio, para hacer una estimación de los gastos de escurrimiento se recomiendan los métodos empíricos, ecuaciones que consideran uno o dos parámetros deducidos de una región o ciudad [@conagua2019].
+
+Los parámetros que se ocupan para los cálculos de las metodologías presentadas, son los siguientes. 
+
+
+```{r, include=FALSE}
+
+S <- ((25400 / 71.469) - 254) #   Retención Potencial Máxima del Suelo. rango 0-1. valor relacionado con el suelo y calidad de la cobertura 
+#se usa el valor de CN corregido por pendiente
+
+Ia <- 0.2*S #precipitacion/abstraccion inicial, son los milimietros (altura de la lluvia) que requiere el suelo para poder saturarse. capacidad de retencion del agua
+
+tr = drop_units(tc_hr * 0.6) #tiempo de retraso
+
+de <- 2 * sqrt(drop_units(tc_hr)) #duración efectiva para cuencas grandes, para cuencas menores a 250km2, de = tc. Mi cuenca es intermedia grande
+
+tp = (de / 2) + tr #tiempo pico
+
+tb = 2.67 * tp   #tiempo base
+```
+
+
+```{r, results='asis', message=FALSE, echo=FALSE}
+cat("El área de la cuenca es:", round(cuenca$area_km2, 2), "km^2^", "\n\n")
+
+cat("El número de curva corregido por pendiente por el IMTA es:", 71.469, "\n\n") 
+
+cat("La retención potencial máxima del suelo es:", round(S, 2), "mm", "\n\n")
+
+cat("La abstracción inicial es:", round(Ia, 2), "mm", ".\n\n")
+
+cat("El tiempo de concentración calculado por Kirpich para toda el área de estudio es:", round(tc_hr, 2), "horas", "o", round(tc, 2), "minutos", "\n\n")
+
+cat("El tiempo de retraso es:", round(tr, 2), "horas", "\n\n")
+
+cat("La duración efectiva es:", round(de, 2), "horas", "\n\n")
+
+cat("El tiempo pico es:", round(tp, 2), "horas", "\n\n")
+
+cat("El tiempo base es:", round(tb, 2), "horas", "\n\n")
+
+cat("El coeficiente FRA es:", round(FRA, 2), "\n")
+```
+
+
+### Caudal Q por HUT (Hidrograma Uniforme Triangular)
+
+La técnica del hidrograma unitario tiene una base teórica y es bastante consistente, por ello ha alcanzado gran universalidad. El hidrograma unitario se define como el hidrograma de gasto resultante de una lluvia en exceso unitaria ocurriendo uniformemente sobre la cuenca y durante la duración unitaria especificada. La definición anterior limita a los 1,300 km^2^, el tamaño máximo de las cuencas en las que el método puede ser aplicado sin ser subdivididas, ya que en tales cuencas es todavía muy probable que la lluvia procedente de un fenómeno no ciclónico iguale la magnitud de las crecientes originadas por las precipitaciones ciclónicas. $$ Q = \frac {0.208 * P_e * A} {T_p} $$.
+
+El USDA TR 55 explica como calcular S, la retención potencial máxima del suelo, con la ecuación $$ S = \frac{1000}{CN} - 10 $$ en sistema inglés.
+
+```{r, tabla-intensidadeshut, message=FALSE, echo=FALSE}
+# Definir los rangos de duración y período de retorno
+de_min <- de * 60 # Duración efectiva en minutos
+periodos_retorno <- (c(2, 5, 10, 20, 25, 50, 100, 200, 500, 1000, 2000, 5000, 10000))  # Períodos de retorno en años
+
+
+# Crear una matriz para almacenar los resultados
+I <- matrix(0, nrow = length(de_min), ncol = length(periodos_retorno))
+colnames(I) <- periodos_retorno
+rownames(I) <- de_min
+
+# Calcular las intensidades de lluvia para cada combinación de duración y período de retorno
+for (i in 1:length(de_min)) {
+  for (j in 1:length(periodos_retorno)) {
+    t <- de_min[i]
+    Tr <- periodos_retorno[j]
+    
+    alpha_Tr <- a * P1hr_10a * log10(10^(2-F_) * Tr^(F_-1))
+    intensidad <- alpha_Tr / (t + b)^c
+    
+    I[i, j] <- intensidad
+  }
+}
+
+# Imprimir
+colnames(I) <- paste0("Tr_", colnames(I))
+
+knitr::kable(I, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Intensidades de lluvia (mm/hr)", label = NA)%>%
+  kable_classic_2(bootstrap_options = "basic", 
+                  full_width = F, 
+                  font_size = 12, 
+                  position = "center") 
+```
+
+Obtenemos la precipitación multiplicando la intensidad por la duración efectiva y luego corregimos el resultado con el parámetro FRA.
+
+```{r, tabla-pahut, message=FALSE, echo=FALSE}
+
+P <- (I * de)
+
+P_ajustada <- P * FRA
+
+knitr::kable(P_ajustada, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Precipitaciones ajustadas (mm) ", label = NA)%>%
+  kable_classic_2(bootstrap_options = "basic", 
+                  full_width = F, 
+                  font_size = 12, 
+                  position = "center") 
+```
+
+
+```{r, tabla-pehut, message=FALSE, echo=FALSE}
+
+#P_ajustada debe ser mayor que Ia para que ocurra un escurrimiento, P_efectiva es la lluvia que esta generando un escurrimiento en el suelo
+
+P_efectiva <- (ifelse(P_ajustada - Ia <0, 0, (P_ajustada -(5080/71.469) + 50.8)**2 / (P_ajustada + (20320/71.469) - 203.2) )) 
+
+knitr::kable(P_efectiva, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Precipitaciones efectivas (mm)", label = NA)%>%
+  kable_classic_2(bootstrap_options = "basic", 
+                  full_width = F, 
+                  font_size = 12, 
+                  position = "center") 
+```
+
+
+El resultado final es la tabla de caudales calculados por HUT.
+
+
+```{r, tabla-qhut, message=FALSE, echo=FALSE}
+Q_hut = (0.208 * cuenca$area_km2 * (P_efectiva)) / tp
+
+#Q_hut = (0.208 * set_units(cuenca$area_km2,"m^2") * set_units(P_efectiva, "m")) / set_units(tp,"s")
+
+# Asignar los encabezados utilizando colnames()
+colnames(Q_hut) <- periodos_retorno
+colnames(Q_hut) <- paste0("Tr_", colnames(Q_hut))
+
+knitr::kable(Q_hut, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Caudales (m^3^/s) calculados por HUT", label = NA)%>%
+  kable_classic_2(bootstrap_options = "basic", 
+                  full_width = F, 
+                  font_size = 12, 
+                  position = "center") 
+```
+
+### METODO RACIONAL
+
+La concepción fundamental del método Racional establece que la intensidad de lluvia i comienza instantáneamente y continúa indefinidamente, la cantidad de escurrImiento se va incrementando hasta alcanzar el tiempo de concentración (T~c~), cuando toda la cuenca está contribuyendo al flujo en su salida. Por lo anterior, la intensidad i tiene una duración igual al T~c~ y corresponde al periodo de retomo de la creciente o gasto máximo que se estima. El cociente entre el producto de la intensidad de lluvia i por el área de cuenca A y el gasto máximo Q, que ocurre al llegar al T~c~, se denomina coeficiente de escurrimiento C y lógicamente varía de cero a uno.
+
+$$ 0.278 * C * I * A $$
+
+```{r, tabla-coefesc, echo=FALSE}
+C = P_efectiva / P_ajustada
+
+knitr::kable(C, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Coeficiente de escurrimiento", label = NA)%>%
+  kable_classic_2(bootstrap_options = "basic", 
+                  full_width = F, 
+                  font_size = 12, 
+                  position = "center") 
+```
+
+Después de realizar las operaciones, el método racional arroja los siguientes caudales.
+
+```{r, tabla-qrac, echo=FALSE}
+
+Q_racional = 0.278 * C * I * cuenca$area_km2
+
+knitr::kable(Q_racional, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Caudales (m^3^/s) calculados por el método Racional", label = NA)%>%
+  kable_classic_2(bootstrap_options = "basic", 
+                  full_width = F, 
+                  font_size = 12, 
+                  position = "center") 
+```
+
+### METODO VENTE CHOW
+
+Este método es aplicable a cuencas menores de 24.3 km^2^, está basado en la teoría del hidrograma unitario y de la curva S la cual permite obtener otros hidrogramas unitarios con duraciones diferentes. El caudal se expresa mediante la ecuación $$ Q = A * X * Y * Z $$.
+
+La formula sugerida en la hoja de cálculo para calcular T~r~ por Chow esta indicada para cuencas pequeñas en el instructivo de CONAGUA, mismo libro que dice que para cuencas grandes, se debe usar $$ t_r = 0.6\times t_c $$.
+
+
+```{r, eval=FALSE, include=FALSE}
+Tr_chow <- 0.00505*(pendiente_uniforme_longitud_total/ sqrt(pendiente_uniforme))**0.64
+Tr_chow
+```
+
+```{r, include=FALSE}
+duraciones <- seq(5, 1440, 5) 
+duraciones_hr <- duraciones / 60
+relacion_dt <- duraciones_hr / tr
+```
+
+
+```{r, include=FALSE}
+calcular_z <- function(relacion_dt) {
+  z <- ifelse(relacion_dt <= 0.5, relacion_dt * 0.00245 + 0.75922,
+              ifelse(relacion_dt <= 1, relacion_dt * 0.08741 + 0.58929,
+                     ifelse(relacion_dt <= 2, relacion_dt * 0.3534 + 0.3233,
+                            1)))
+  return(z)
+}
+
+Z <- calcular_z(relacion_dt)
+```
+
+```{r, include=FALSE}
+  fra <- 1.0 - 0.3549 * (duraciones_hr)^(-0.42723) * (1.0 - exp(-0.005794*cuenca$area_km2))
+FRA2 <- ifelse(fra > 0.1, fra, 0)
+```
+
+```{r, include=FALSE}
+tabla_Q_chow <- tabla_PDTR__long %>%
+  mutate(P_ajustada = Precipitacion * FRA2) %>%
+  mutate(P_efectiva = ifelse(P_ajustada - Ia <0, 0, (P_ajustada -(5080/71.469) + 50.8)**2 / (P_ajustada + (20320/71.469) - 203.2))) %>%
+  mutate(X = P_efectiva / duraciones_hr) %>%
+  mutate(Q_chow = cuenca$area_km2 * X * 0.278 * Z )
+```
+
+Después de realizar las operaciones, la fórmula de Chow arroja los siguientes caudales.
+
+```{r, tabla-qchow, echo=FALSE}
+Q_chow <- aggregate(Q_chow ~ Periodo_Retorno, data = tabla_Q_chow, FUN = function(x) max(x))
+
+
+knitr::kable(Q_chow, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Caudales (m^3^/s) calculados por Chow", label = NA)%>%
+  kable_classic_2(bootstrap_options = "basic", 
+                  full_width = F, 
+                  font_size = 12, 
+                  position = "center") 
+
+```
+
+Se presentan los caudales de las 3 metodologías para poder compararlos y tomar la decisión de que caudal será el recomendado para diseñar las obras de control.
+
+```{r, tabla-qcomparativa, echo=FALSE}
+# Convertir Q_racional a un data frame y transponer
+Q_racional_df <- data.frame(t(Q_racional))
+colnames(Q_racional_df) <- c("Q_racional")
+
+# Agregar una columna de Periodo_Retorno a Q_racional_df
+Q_racional_df$Periodo_Retorno <- c("2 años", "5 años", "10 años", "20 años", "25 años", "50 años", "100 años", "200 años", "500 años", "1000 años", "2000 años", "5000 años", "10000 años")
+
+# Convertir Q_hut a un data frame y transponer
+Q_hut_df <- data.frame(t(Q_hut))
+colnames(Q_hut_df) <- c("Q_hut")
+
+# Agregar una columna de Periodo_Retorno a Q_hut_df
+Q_hut_df$Periodo_Retorno <- c("2 años", "5 años", "10 años", "20 años", "25 años", "50 años", "100 años", "200 años", "500 años", "1000 años", "2000 años", "5000 años", "10000 años")
+
+# Combinar los data frames por la columna Periodo_Retorno
+Q_comparacion <- merge(Q_hut_df,Q_racional_df, by = "Periodo_Retorno", all = TRUE)
+Q_comparacion <- merge(Q_comparacion, Q_chow , by = "Periodo_Retorno", all = TRUE)
+
+# Definir el orden deseado de los períodos de retorno
+periodos_orden <- c("2 años", "5 años", "10 años", "20 años", "25 años", "50 años", "100 años", "200 años", "500 años", "1000 años", "2000 años", "5000 años", "10000 años")
+
+# Convertir la columna Periodo_Retorno a un factor con los niveles en el orden deseado
+Q_comparacion$Periodo_Retorno <- factor(Q_comparacion$Periodo_Retorno, levels = periodos_orden)
+
+# Ordenar el data frame por la columna Periodo_Retorno
+Q_comparacion <- Q_comparacion[order(Q_comparacion$Periodo_Retorno), ]
+
+# Mostrar la tabla comparativa ordenada
+knitr::kable(Q_comparacion, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Comparación de caudales (m^3^/s) por 3 metodologías", label = NA)%>%
+  kable_classic_2(bootstrap_options = "basic", 
+                  full_width = F, 
+                  font_size = 12, 
+                  position = "center") 
+```
+
+La metodología sugerida a usar es la de HUT, debido que es la que más se asemeja a las características de la cuenca y además arroja los resultados más conservadores.
+
+## HIDROGRAMA
+
+Se presenta el hidrograma para el Perído de Retorno de diseño, 100 años. El hidrograma se elaboró siguiendo la metodología HUT.
+
+```{r, figura-hidrograma, echo=FALSE}
+rel_t_tp <- c(0.000, 0.100, 0.300, 0.400, 0.600, 0.700, 0.800, 0.900, 1.000, 1.100, 1.200, 1.300, 1.500, 1.700, 1.900, 2.200, 2.600, 3.200, 5.000)
+rel_Q_Qp <- c(0.000, 0.030, 0.190, 0.310, 0.660, 0.820, 0.930, 0.990, 1.000, 0.990, 0.930, 0.860, 0.680, 0.460, 0.330, 0.210, 0.110, 0.040, 0.000)
+
+hidrograma_scs <- data.frame(rel_t_tp, rel_Q_Qp)
+
+hidrograma_scs$t_hr <- rel_t_tp * tp
+hidrograma_scs$t_hmin <- hidrograma_scs$t_hr %>%
+  set_units("min")
+hidrograma_scs$Tr_100 <- hidrograma_scs$rel_Q_Qp * Q_hut_df$Q_hut[Q_hut_df$Periodo_Retorno == "100 años"]
+
+plot(hidrograma_scs$t_hr, hidrograma_scs$Tr_100, type = "l", 
+     xlab = "Tiempo", ylab = "Caudal (m^3^/s)",
+     main = "Hidrograma - Periodo de Retorno de 100 años",
+     xlim = c(0, max(hidrograma_scs$t_hr)),
+     ylim = c(0, max(hidrograma_scs$Tr_100)))
+```
+
+

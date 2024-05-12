@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 4 Modelo Hidrológico | reportehidrologia.knit</title>
+  <meta name="description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 4 Modelo Hidrológico | reportehidrologia.knit" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/logo.png" />
+  <meta property="og:description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 4 Modelo Hidrológico | reportehidrologia.knit" />
+  
+  <meta name="twitter:description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <meta name="twitter:image" content="/logo.png" />
+
+<meta name="author" content="" />
+
+
+<meta name="date" content="2024-05-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="modelo-meteorológico.html"/>
+<link rel="next" href="conclusiones.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Estudio Hidrológico</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#objetivo"><i class="fa fa-check"></i><b>1.1</b> Objetivo</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#normativa-aplicada"><i class="fa fa-check"></i><b>1.2</b> Normativa aplicada</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#localización-del-proyecto"><i class="fa fa-check"></i><b>1.3</b> Localización del proyecto</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html"><i class="fa fa-check"></i><b>2</b> Modelo Fisiográfico</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#topografía-documentada"><i class="fa fa-check"></i><b>2.1</b> Topografía documentada</a></li>
+<li class="chapter" data-level="2.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#delimitación-del-área-de-escurrimiento-y-red-hidrográfica"><i class="fa fa-check"></i><b>2.2</b> Delimitación del área de escurrimiento y red hidrográfica</a></li>
+<li class="chapter" data-level="2.3" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#descripción-del-relieve"><i class="fa fa-check"></i><b>2.3</b> Descripción del Relieve</a></li>
+<li class="chapter" data-level="2.4" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#red-de-drenaje"><i class="fa fa-check"></i><b>2.4</b> Red de drenaje</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#análisis-de-pendiente-del-cauce-principal-de-la-cuenca"><i class="fa fa-check"></i><b>2.4.1</b> Análisis de pendiente del cauce principal de la cuenca</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#breve-introducción-a-la-estimación-del-coeficiente-de-escurrimiento"><i class="fa fa-check"></i><b>2.5</b> Breve introducción a la estimación del coeficiente de escurrimiento</a></li>
+<li class="chapter" data-level="2.6" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-de-tipo-de-suelo"><i class="fa fa-check"></i><b>2.6</b> Identificación de tipo de suelo</a></li>
+<li class="chapter" data-level="2.7" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-del-grupo-hidrológico-del-suelo"><i class="fa fa-check"></i><b>2.7</b> Identificación del grupo hidrológico del suelo</a></li>
+<li class="chapter" data-level="2.8" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-de-uso-de-suelo-y-vegetación"><i class="fa fa-check"></i><b>2.8</b> Identificación de uso de suelo y vegetación</a></li>
+<li class="chapter" data-level="2.9" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#número-de-curva"><i class="fa fa-check"></i><b>2.9</b> Número de Curva</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#nc-calculado-por-imta"><i class="fa fa-check"></i><b>2.9.1</b> NC calculado por IMTA</a></li>
+<li class="chapter" data-level="2.9.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#nc-semiautomatizado"><i class="fa fa-check"></i><b>2.9.2</b> NC semiautomatizado</a></li>
+<li class="chapter" data-level="2.9.3" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#discusión-final-sobre-el-cálculo-del-número-de-curva"><i class="fa fa-check"></i><b>2.9.3</b> Discusión final sobre el cálculo del Número de Curva</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempos-de-estudio"><i class="fa fa-check"></i><b>2.10</b> Tiempos de estudio</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-kirpich"><i class="fa fa-check"></i><b>2.10.1</b> Tiempo de concentracion por kirpich</a></li>
+<li class="chapter" data-level="2.10.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-rowe"><i class="fa fa-check"></i><b>2.10.2</b> Tiempo de concentracion por Rowe</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html"><i class="fa fa-check"></i><b>3</b> Modelo meteorológico</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#selección-de-estaciones-climatológicas"><i class="fa fa-check"></i><b>3.1</b> Selección de estaciones climatológicas</a></li>
+<li class="chapter" data-level="3.2" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#homogenización-de-datos-climatológicos"><i class="fa fa-check"></i><b>3.2</b> Homogenización de datos climatológicos</a></li>
+<li class="chapter" data-level="3.3" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#funciones-de-las-distribuciones-probabilísticas-de-las-estaciones-climatológicas"><i class="fa fa-check"></i><b>3.3</b> Funciones de las distribuciones probabilísticas de las estaciones climatológicas</a></li>
+<li class="chapter" data-level="3.4" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#curvas-idtr-y-pdtr"><i class="fa fa-check"></i><b>3.4</b> Curvas IDTR y PDTR</a></li>
+<li class="chapter" data-level="3.5" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#hietograma"><i class="fa fa-check"></i><b>3.5</b> Hietograma</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html"><i class="fa fa-check"></i><b>4</b> Modelo Hidrológico</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#cálculo-de-caudales"><i class="fa fa-check"></i><b>4.1</b> Cálculo de caudales</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#caudal-q-por-hut-hidrograma-uniforme-triangular"><i class="fa fa-check"></i><b>4.1.1</b> Caudal Q por HUT (Hidrograma Uniforme Triangular)</a></li>
+<li class="chapter" data-level="4.1.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-racional"><i class="fa fa-check"></i><b>4.1.2</b> METODO RACIONAL</a></li>
+<li class="chapter" data-level="4.1.3" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-vente-chow"><i class="fa fa-check"></i><b>4.1.3</b> METODO VENTE CHOW</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#hidrograma"><i class="fa fa-check"></i><b>4.2</b> HIDROGRAMA</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>5</b> Conclusiones</a></li>
+<li class="appendix"><span><b>Recursos adicionales</b></span></li>
+<li class="chapter" data-level="A" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>A</b> Apéndice</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="apéndice.html"><a href="apéndice.html#apéndice-del-modelo-fisiográfico"><i class="fa fa-check"></i><b>A.1</b> Apéndice del Modelo Fisiográfico</a></li>
+<li class="chapter" data-level="A.2" data-path="apéndice.html"><a href="apéndice.html#apéndice-del-modelo-meteorológico"><i class="fa fa-check"></i><b>A.2</b> Apéndice del Modelo Meteorológico</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modelo-hidrológico" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Capítulo 4</span> Modelo Hidrológico<a href="modelo-hidrológico.html#modelo-hidrológico" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>El diseño hidrológico para el control de aguas tiene como objetivo principal la mitigación de los efectos adversos causados por caudales altos. Se considera una creciente a cualquier caudal elevado que desborde los terraplenes, ya sean artificiales o naturales, debido a sus elevadas elevaciones y volúmenes <span class="citation">(<a href="#ref-chow1994">Chow, Maidment, and Mays 1994</a>)</span>.</p>
+<div id="cálculo-de-caudales" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Cálculo de caudales<a href="modelo-hidrológico.html#cálculo-de-caudales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ante la falta de información hidrológica en una zona en estudio, para hacer una estimación de los gastos de escurrimiento se recomiendan los métodos empíricos, ecuaciones que consideran uno o dos parámetros deducidos de una región o ciudad <span class="citation">(<a href="#ref-conagua2019">CONAGUA 2019</a>)</span>.</p>
+<p>Los parámetros que se ocupan para los cálculos de las metodologías presentadas, son los siguientes.</p>
+<p>El área de la cuenca es: 2403.79 km<sup>2</sup></p>
+<p>El número de curva corregido por pendiente por el IMTA es: 71.469</p>
+<p>La retención potencial máxima del suelo es: 101.4 mm</p>
+<p>La abstracción inicial es: 20.28 mm .</p>
+<p>El tiempo de concentración calculado por Kirpich para toda el área de estudio es: 19.78 horas o 1187 minutos</p>
+<p>El tiempo de retraso es: 11.87 horas</p>
+<p>La duración efectiva es: 8.9 horas</p>
+<p>El tiempo pico es: 16.32 horas</p>
+<p>El tiempo base es: 43.57 horas</p>
+<p>El coeficiente FRA es: 0.91</p>
+<div id="caudal-q-por-hut-hidrograma-uniforme-triangular" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Caudal Q por HUT (Hidrograma Uniforme Triangular)<a href="modelo-hidrológico.html#caudal-q-por-hut-hidrograma-uniforme-triangular" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La técnica del hidrograma unitario tiene una base teórica y es bastante consistente, por ello ha alcanzado gran universalidad. El hidrograma unitario se define como el hidrograma de gasto resultante de una lluvia en exceso unitaria ocurriendo uniformemente sobre la cuenca y durante la duración unitaria especificada. La definición anterior limita a los 1,300 km<sup>2</sup>, el tamaño máximo de las cuencas en las que el método puede ser aplicado sin ser subdivididas, ya que en tales cuencas es todavía muy probable que la lluvia procedente de un fenómeno no ciclónico iguale la magnitud de las crecientes originadas por las precipitaciones ciclónicas. <span class="math display">\[ Q = \frac {0.208 * P_e * A} {T_p} \]</span>.</p>
+<p>El USDA TR 55 explica como calcular S, la retención potencial máxima del suelo, con la ecuación <span class="math display">\[ S = \frac{1000}{CN} - 10 \]</span> en sistema inglés.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-intensidadeshut">Tabla 4.1: </span>Intensidades de lluvia (mm/hr)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Tr_2
+</th>
+<th style="text-align:right;">
+Tr_5
+</th>
+<th style="text-align:right;">
+Tr_10
+</th>
+<th style="text-align:right;">
+Tr_20
+</th>
+<th style="text-align:right;">
+Tr_25
+</th>
+<th style="text-align:right;">
+Tr_50
+</th>
+<th style="text-align:right;">
+Tr_100
+</th>
+<th style="text-align:right;">
+Tr_200
+</th>
+<th style="text-align:right;">
+Tr_500
+</th>
+<th style="text-align:right;">
+Tr_1000
+</th>
+<th style="text-align:right;">
+Tr_2000
+</th>
+<th style="text-align:right;">
+Tr_5000
+</th>
+<th style="text-align:right;">
+Tr_10000
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+533.741779439795
+</td>
+<td style="text-align:right;">
+15.4287
+</td>
+<td style="text-align:right;">
+17.6208
+</td>
+<td style="text-align:right;">
+19.279
+</td>
+<td style="text-align:right;">
+20.9372
+</td>
+<td style="text-align:right;">
+21.4711
+</td>
+<td style="text-align:right;">
+23.1293
+</td>
+<td style="text-align:right;">
+24.7875
+</td>
+<td style="text-align:right;">
+26.4457
+</td>
+<td style="text-align:right;">
+28.6378
+</td>
+<td style="text-align:right;">
+30.296
+</td>
+<td style="text-align:right;">
+31.9542
+</td>
+<td style="text-align:right;">
+34.1463
+</td>
+<td style="text-align:right;">
+35.8045
+</td>
+</tr>
+</tbody>
+</table>
+<p>Obtenemos la precipitación multiplicando la intensidad por la duración efectiva y luego corregimos el resultado con el parámetro FRA.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-pahut">Tabla 4.2: </span>Precipitaciones ajustadas (mm)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Tr_2
+</th>
+<th style="text-align:right;">
+Tr_5
+</th>
+<th style="text-align:right;">
+Tr_10
+</th>
+<th style="text-align:right;">
+Tr_20
+</th>
+<th style="text-align:right;">
+Tr_25
+</th>
+<th style="text-align:right;">
+Tr_50
+</th>
+<th style="text-align:right;">
+Tr_100
+</th>
+<th style="text-align:right;">
+Tr_200
+</th>
+<th style="text-align:right;">
+Tr_500
+</th>
+<th style="text-align:right;">
+Tr_1000
+</th>
+<th style="text-align:right;">
+Tr_2000
+</th>
+<th style="text-align:right;">
+Tr_5000
+</th>
+<th style="text-align:right;">
+Tr_10000
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+533.741779439795
+</td>
+<td style="text-align:right;">
+124.7194
+</td>
+<td style="text-align:right;">
+142.439
+</td>
+<td style="text-align:right;">
+155.8434
+</td>
+<td style="text-align:right;">
+169.2478
+</td>
+<td style="text-align:right;">
+173.563
+</td>
+<td style="text-align:right;">
+186.9674
+</td>
+<td style="text-align:right;">
+200.3718
+</td>
+<td style="text-align:right;">
+213.7762
+</td>
+<td style="text-align:right;">
+231.4958
+</td>
+<td style="text-align:right;">
+244.9002
+</td>
+<td style="text-align:right;">
+258.3046
+</td>
+<td style="text-align:right;">
+276.0242
+</td>
+<td style="text-align:right;">
+289.4286
+</td>
+</tr>
+</tbody>
+</table>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-pehut">Tabla 4.3: </span>Precipitaciones efectivas (mm)
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Tr_2
+</th>
+<th style="text-align:right;">
+Tr_5
+</th>
+<th style="text-align:right;">
+Tr_10
+</th>
+<th style="text-align:right;">
+Tr_20
+</th>
+<th style="text-align:right;">
+Tr_25
+</th>
+<th style="text-align:right;">
+Tr_50
+</th>
+<th style="text-align:right;">
+Tr_100
+</th>
+<th style="text-align:right;">
+Tr_200
+</th>
+<th style="text-align:right;">
+Tr_500
+</th>
+<th style="text-align:right;">
+Tr_1000
+</th>
+<th style="text-align:right;">
+Tr_2000
+</th>
+<th style="text-align:right;">
+Tr_5000
+</th>
+<th style="text-align:right;">
+Tr_10000
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+533.741779439795
+</td>
+<td style="text-align:right;">
+52.9912
+</td>
+<td style="text-align:right;">
+66.7517
+</td>
+<td style="text-align:right;">
+77.5545
+</td>
+<td style="text-align:right;">
+88.6358
+</td>
+<td style="text-align:right;">
+92.2552
+</td>
+<td style="text-align:right;">
+103.6411
+</td>
+<td style="text-align:right;">
+115.2192
+</td>
+<td style="text-align:right;">
+126.9633
+</td>
+<td style="text-align:right;">
+142.7066
+</td>
+<td style="text-align:right;">
+154.7587
+</td>
+<td style="text-align:right;">
+166.9177
+</td>
+<td style="text-align:right;">
+183.1344
+</td>
+<td style="text-align:right;">
+195.4973
+</td>
+</tr>
+</tbody>
+</table>
+<p>El resultado final es la tabla de caudales calculados por HUT.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-qhut">Tabla 4.4: </span>Caudales (m<sup>3</sup>/s) calculados por HUT
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Tr_2
+</th>
+<th style="text-align:right;">
+Tr_5
+</th>
+<th style="text-align:right;">
+Tr_10
+</th>
+<th style="text-align:right;">
+Tr_20
+</th>
+<th style="text-align:right;">
+Tr_25
+</th>
+<th style="text-align:right;">
+Tr_50
+</th>
+<th style="text-align:right;">
+Tr_100
+</th>
+<th style="text-align:right;">
+Tr_200
+</th>
+<th style="text-align:right;">
+Tr_500
+</th>
+<th style="text-align:right;">
+Tr_1000
+</th>
+<th style="text-align:right;">
+Tr_2000
+</th>
+<th style="text-align:right;">
+Tr_5000
+</th>
+<th style="text-align:right;">
+Tr_10000
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+533.741779439795
+</td>
+<td style="text-align:right;">
+1623.684
+</td>
+<td style="text-align:right;">
+2045.313
+</td>
+<td style="text-align:right;">
+2376.316
+</td>
+<td style="text-align:right;">
+2715.855
+</td>
+<td style="text-align:right;">
+2826.757
+</td>
+<td style="text-align:right;">
+3175.626
+</td>
+<td style="text-align:right;">
+3530.385
+</td>
+<td style="text-align:right;">
+3890.231
+</td>
+<td style="text-align:right;">
+4372.618
+</td>
+<td style="text-align:right;">
+4741.902
+</td>
+<td style="text-align:right;">
+5114.459
+</td>
+<td style="text-align:right;">
+5611.349
+</td>
+<td style="text-align:right;">
+5990.157
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="metodo-racional" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> METODO RACIONAL<a href="modelo-hidrológico.html#metodo-racional" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La concepción fundamental del método Racional establece que la intensidad de lluvia i comienza instantáneamente y continúa indefinidamente, la cantidad de escurrImiento se va incrementando hasta alcanzar el tiempo de concentración (T<sub>c</sub>), cuando toda la cuenca está contribuyendo al flujo en su salida. Por lo anterior, la intensidad i tiene una duración igual al T<sub>c</sub> y corresponde al periodo de retomo de la creciente o gasto máximo que se estima. El cociente entre el producto de la intensidad de lluvia i por el área de cuenca A y el gasto máximo Q, que ocurre al llegar al T<sub>c</sub>, se denomina coeficiente de escurrimiento C y lógicamente varía de cero a uno.</p>
+<p><span class="math display">\[ 0.278 * C * I * A \]</span></p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-coefesc">Tabla 4.5: </span>Coeficiente de escurrimiento
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Tr_2
+</th>
+<th style="text-align:right;">
+Tr_5
+</th>
+<th style="text-align:right;">
+Tr_10
+</th>
+<th style="text-align:right;">
+Tr_20
+</th>
+<th style="text-align:right;">
+Tr_25
+</th>
+<th style="text-align:right;">
+Tr_50
+</th>
+<th style="text-align:right;">
+Tr_100
+</th>
+<th style="text-align:right;">
+Tr_200
+</th>
+<th style="text-align:right;">
+Tr_500
+</th>
+<th style="text-align:right;">
+Tr_1000
+</th>
+<th style="text-align:right;">
+Tr_2000
+</th>
+<th style="text-align:right;">
+Tr_5000
+</th>
+<th style="text-align:right;">
+Tr_10000
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+533.741779439795
+</td>
+<td style="text-align:right;">
+0.4249
+</td>
+<td style="text-align:right;">
+0.4686
+</td>
+<td style="text-align:right;">
+0.4976
+</td>
+<td style="text-align:right;">
+0.5237
+</td>
+<td style="text-align:right;">
+0.5315
+</td>
+<td style="text-align:right;">
+0.5543
+</td>
+<td style="text-align:right;">
+0.575
+</td>
+<td style="text-align:right;">
+0.5939
+</td>
+<td style="text-align:right;">
+0.6165
+</td>
+<td style="text-align:right;">
+0.6319
+</td>
+<td style="text-align:right;">
+0.6462
+</td>
+<td style="text-align:right;">
+0.6635
+</td>
+<td style="text-align:right;">
+0.6755
+</td>
+</tr>
+</tbody>
+</table>
+<p>Después de realizar las operaciones, el método racional arroja los siguientes caudales.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-qrac">Tabla 4.6: </span>Caudales (m<sup>3</sup>/s) calculados por el método Racional
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Tr_2
+</th>
+<th style="text-align:right;">
+Tr_5
+</th>
+<th style="text-align:right;">
+Tr_10
+</th>
+<th style="text-align:right;">
+Tr_20
+</th>
+<th style="text-align:right;">
+Tr_25
+</th>
+<th style="text-align:right;">
+Tr_50
+</th>
+<th style="text-align:right;">
+Tr_100
+</th>
+<th style="text-align:right;">
+Tr_200
+</th>
+<th style="text-align:right;">
+Tr_500
+</th>
+<th style="text-align:right;">
+Tr_1000
+</th>
+<th style="text-align:right;">
+Tr_2000
+</th>
+<th style="text-align:right;">
+Tr_5000
+</th>
+<th style="text-align:right;">
+Tr_10000
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+533.741779439795
+</td>
+<td style="text-align:right;">
+4380.688
+</td>
+<td style="text-align:right;">
+5518.24
+</td>
+<td style="text-align:right;">
+6411.284
+</td>
+<td style="text-align:right;">
+7327.359
+</td>
+<td style="text-align:right;">
+7626.57
+</td>
+<td style="text-align:right;">
+8567.815
+</td>
+<td style="text-align:right;">
+9524.953
+</td>
+<td style="text-align:right;">
+10495.82
+</td>
+<td style="text-align:right;">
+11797.29
+</td>
+<td style="text-align:right;">
+12793.62
+</td>
+<td style="text-align:right;">
+13798.77
+</td>
+<td style="text-align:right;">
+15139.38
+</td>
+<td style="text-align:right;">
+16161.4
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="metodo-vente-chow" class="section level3 hasAnchor" number="4.1.3">
+<h3><span class="header-section-number">4.1.3</span> METODO VENTE CHOW<a href="modelo-hidrológico.html#metodo-vente-chow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Este método es aplicable a cuencas menores de 24.3 km<sup>2</sup>, está basado en la teoría del hidrograma unitario y de la curva S la cual permite obtener otros hidrogramas unitarios con duraciones diferentes. El caudal se expresa mediante la ecuación <span class="math display">\[ Q = A * X * Y * Z \]</span>.</p>
+<p>La formula sugerida en la hoja de cálculo para calcular T<sub>r</sub> por Chow esta indicada para cuencas pequeñas en el instructivo de CONAGUA, mismo libro que dice que para cuencas grandes, se debe usar <span class="math display">\[ t_r = 0.6\times t_c \]</span>.</p>
+<p>Después de realizar las operaciones, la fórmula de Chow arroja los siguientes caudales.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-qchow">Tabla 4.7: </span>Caudales (m<sup>3</sup>/s) calculados por Chow
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Periodo_Retorno
+</th>
+<th style="text-align:right;">
+Q_chow
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2 años
+</td>
+<td style="text-align:right;">
+4420.164
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5 años
+</td>
+<td style="text-align:right;">
+5329.986
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10 años
+</td>
+<td style="text-align:right;">
+6028.817
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+20 años
+</td>
+<td style="text-align:right;">
+6734.838
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+25 años
+</td>
+<td style="text-align:right;">
+6963.435
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+50 años
+</td>
+<td style="text-align:right;">
+7677.032
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+100 años
+</td>
+<td style="text-align:right;">
+8395.260
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+200 años
+</td>
+<td style="text-align:right;">
+9117.390
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+500 años
+</td>
+<td style="text-align:right;">
+10077.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1000 años
+</td>
+<td style="text-align:right;">
+10806.130
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000 años
+</td>
+<td style="text-align:right;">
+11537.603
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5000 años
+</td>
+<td style="text-align:right;">
+12507.658
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10000 años
+</td>
+<td style="text-align:right;">
+13243.507
+</td>
+</tr>
+</tbody>
+</table>
+<p>Se presentan los caudales de las 3 metodologías para poder compararlos y tomar la decisión de que caudal será el recomendado para diseñar las obras de control.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-qcomparativa">Tabla 4.8: </span>Comparación de caudales (m<sup>3</sup>/s) por 3 metodologías
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Periodo_Retorno
+</th>
+<th style="text-align:right;">
+Q_hut
+</th>
+<th style="text-align:right;">
+Q_racional
+</th>
+<th style="text-align:right;">
+Q_chow
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+2 años
+</td>
+<td style="text-align:right;">
+1623.684
+</td>
+<td style="text-align:right;">
+4380.688
+</td>
+<td style="text-align:right;">
+4420.164
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:left;">
+5 años
+</td>
+<td style="text-align:right;">
+2045.313
+</td>
+<td style="text-align:right;">
+5518.240
+</td>
+<td style="text-align:right;">
+5329.986
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+10 años
+</td>
+<td style="text-align:right;">
+2376.316
+</td>
+<td style="text-align:right;">
+6411.284
+</td>
+<td style="text-align:right;">
+6028.817
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+20 años
+</td>
+<td style="text-align:right;">
+2715.855
+</td>
+<td style="text-align:right;">
+7327.359
+</td>
+<td style="text-align:right;">
+6734.838
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:left;">
+25 años
+</td>
+<td style="text-align:right;">
+2826.757
+</td>
+<td style="text-align:right;">
+7626.570
+</td>
+<td style="text-align:right;">
+6963.435
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+11
+</td>
+<td style="text-align:left;">
+50 años
+</td>
+<td style="text-align:right;">
+3175.626
+</td>
+<td style="text-align:right;">
+8567.815
+</td>
+<td style="text-align:right;">
+7677.032
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+100 años
+</td>
+<td style="text-align:right;">
+3530.385
+</td>
+<td style="text-align:right;">
+9524.953
+</td>
+<td style="text-align:right;">
+8395.260
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:left;">
+200 años
+</td>
+<td style="text-align:right;">
+3890.231
+</td>
+<td style="text-align:right;">
+10495.816
+</td>
+<td style="text-align:right;">
+9117.390
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+12
+</td>
+<td style="text-align:left;">
+500 años
+</td>
+<td style="text-align:right;">
+4372.618
+</td>
+<td style="text-align:right;">
+11797.292
+</td>
+<td style="text-align:right;">
+10077.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+1000 años
+</td>
+<td style="text-align:right;">
+4741.902
+</td>
+<td style="text-align:right;">
+12793.618
+</td>
+<td style="text-align:right;">
+10806.130
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+2000 años
+</td>
+<td style="text-align:right;">
+5114.459
+</td>
+<td style="text-align:right;">
+13798.774
+</td>
+<td style="text-align:right;">
+11537.603
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+13
+</td>
+<td style="text-align:left;">
+5000 años
+</td>
+<td style="text-align:right;">
+5611.349
+</td>
+<td style="text-align:right;">
+15139.379
+</td>
+<td style="text-align:right;">
+12507.658
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+10000 años
+</td>
+<td style="text-align:right;">
+5990.157
+</td>
+<td style="text-align:right;">
+16161.402
+</td>
+<td style="text-align:right;">
+13243.507
+</td>
+</tr>
+</tbody>
+</table>
+<p>La metodología sugerida a usar es la de HUT, debido que es la que más se asemeja a las características de la cuenca y además arroja los resultados más conservadores.</p>
+</div>
+</div>
+<div id="hidrograma" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> HIDROGRAMA<a href="modelo-hidrológico.html#hidrograma" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se presenta el hidrograma para el Perído de Retorno de diseño, 100 años. El hidrograma se elaboró siguiendo la metodología HUT.</p>
+<p><img src="reportehidrologia_files/figure-html/figura-hidrograma-1.png" width="672" /></p>
+
+</div>
+</div>
+<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-chow1994" class="csl-entry">
+Chow, Ven Te, David R. Maidment, and Larry W. Mays. 1994. <em>Hidrología Aplicada</em>. 1st ed. Santafé de Bogotá, Colombia: McGraw-Hill Interamericana, S.A.
+</div>
+<div id="ref-conagua2019" class="csl-entry">
+———. 2019. <em>Manual de Agua Potable, Alcantarillado y Saneamiento. Drenaje Pluvial Urbano</em>. México, D.F.: Secretaría de Medio Ambiente y Recursos Naturales. <a href="https://www.conagua.gob.mx">https://www.conagua.gob.mx</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="modelo-meteorológico.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="conclusiones.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/reyesedgar/Hidrologia/edit/main/04-modelo_hidrologico.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/reyesedgar/Hidrologia/blob/main/04-modelo_hidrologico.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

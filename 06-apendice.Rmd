@@ -1,0 +1,500 @@
+# (APPENDIX) Recursos adicionales {-}
+
+# Apéndice
+
+Este apéndice sirve para documentar las memorias de cálculo de los diferentes procesos del estudio.
+
+```{r include=FALSE}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(magrittr) # %<>%
+library(latexpdf)
+library(tinytex)
+library(climatol) #quality control, homogenization and missing data in-filling of climatological series 
+library(readxl)
+library(writexl)
+library(vegan) #prueba de independencia, Cochran-Mantel-Haenszel Chi-Squared Test 
+library(FAdist) #logpearson III y otras
+library(nsRFA) #analisis frecuencias. talvez es el que impera.
+library(fitdistrplus) #ajustar distribuciones
+library(sp) #objetos espaciales
+library(sf) #objetos vectoriales
+library(raster)
+library(rgdal) #lee shapefiles
+library(units) #scales with units
+library(knitr)
+library(kableExtra)
+```
+
+
+
+## Apéndice del Modelo Fisiográfico
+
+Se documentan las memorias de cálculo generadas para obtener las pendientes por las metodologías propuestas por Taylor Shwarz.
+
+```{r include=FALSE}
+pendiente_ts_ec <- function(dataframe, paso_elevacion = 10) {
+  # Extraer el primer valor de elevación del dataframe
+  elevacion_inicial <- dataframe$elevacion[1]
+
+  # Calcular el número de elevaciones constantes descendentes necesarias
+  num_elevaciones <- ceiling((elevacion_inicial - min(dataframe$elevacion)) / paso_elevacion) + 1
+
+  # Generar el vector de elevaciones constantes descendentes
+  elevaciones_constantes <- seq(elevacion_inicial, by = -paso_elevacion, length.out = num_elevaciones)
+
+
+  # Crear una lista para almacenar los valores justo arriba y justo abajo de cada elevación constante
+  valores_around <- vector("list", length(elevaciones_constantes))
+
+  # Iterar sobre cada valor en elevaciones_constantes
+  for (i in 1:length(elevaciones_constantes)) {
+    # Encontrar el índice del valor justo arriba del valor actual en elevaciones_constantes
+    index_above <- max(which(dataframe$elevacion >= elevaciones_constantes[i]))
+    # Encontrar el índice del valor justo abajo del valor actual en elevaciones_constantes
+    index_below <- min(which(dataframe$elevacion <= elevaciones_constantes[i]))
+
+    # Almacenar los valores justo arriba y justo abajo en la lista
+    valor_arriba <- dataframe$elevacion[index_above]
+    valor_abajo <- ifelse(is.infinite(index_below), elevaciones_constantes[i], dataframe$elevacion[index_below])
+    valores_around[[i]] <- c(valor_arriba, valor_abajo)
+  }
+
+  # Crear una lista para almacenar los cadenamientos asociados a cada valor de elevación
+  cadenamientos_around <- vector("list", length(valores_around))
+
+  # Iterar sobre cada elemento en valores_around
+  for (i in 1:length(valores_around)) {
+    # Extraer los valores de elevación justo arriba y justo abajo
+    elev_arriba <- valores_around[[i]][1]
+    elev_abajo <- valores_around[[i]][2]
+
+    # Encontrar los índices de los valores justo arriba y justo abajo en el dataframe original
+    index_arriba <- which(dataframe$elevacion == elev_arriba)
+    index_abajo <- which(dataframe$elevacion == elev_abajo)
+
+    # Extraer los cadenamientos asociados
+    cadenamiento_arriba <- dataframe$cadenamiento[index_arriba]
+    cadenamiento_abajo <- dataframe$cadenamiento[index_abajo]
+
+    # Almacenar los cadenamientos asociados en la lista
+    cadenamientos_around[[i]] <- c(cadenamiento_arriba, cadenamiento_abajo)
+  }
+
+  # Obtener el valor de arriba y el valor de abajo de la última fila de valores_around
+  valor_arriba_ultima <- valores_around[[length(valores_around)]][1]
+  valor_abajo_ultima <- valores_around[[length(valores_around)]][2]
+
+  # Obtener el valor de cadenamiento de la última fila de cadenamientos_around
+  cadenamiento_ultima <- cadenamientos_around[[length(cadenamientos_around)]]
+
+  # Interpolar para obtener el valor de cadenamiento faltante
+  cadenamiento_interp <- approx(
+    x = c(valor_arriba_ultima, valor_abajo_ultima),
+    y = c(cadenamiento_ultima, cadenamiento_ultima),
+    xout = elevaciones_constantes[length(elevaciones_constantes)],
+    method = "linear"
+  )$y
+
+  # Agregar el valor interpolado a la última fila de cadenamientos_around
+  cadenamientos_around[[length(cadenamientos_around)]] <- c(cadenamientos_around[[length(cadenamientos_around)]], cadenamiento_interp)
+
+  # Crear un dataframe para almacenar los resultados
+  resultados <- data.frame(
+    elevacion_constante = elevaciones_constantes,
+    elev_arriba = numeric(length(elevaciones_constantes)),
+    elev_abajo = numeric(length(elevaciones_constantes)),
+    cadena_arriba = numeric(length(elevaciones_constantes)),
+    cadena_abajo = numeric(length(elevaciones_constantes))
+  )
+
+  # Llenar el dataframe con los valores
+  for (i in 1:length(valores_around)) {
+    resultados[i, "elev_arriba"] <- valores_around[[i]][1]
+    resultados[i, "elev_abajo"] <- valores_around[[i]][2]
+    resultados[i, "cadena_arriba"] <- cadenamientos_around[[i]][1]
+    resultados[i, "cadena_abajo"] <- cadenamientos_around[[i]][2]
+  }
+
+  # Calcular la interpolación constante para encontrar el cadenamiento asociado a cada elevación constante
+  cadenamientos_interp <- approx(
+    x = resultados$elev_abajo,  # Valores de elevación justo abajo
+    y = resultados$cadena_abajo, # Cadenamientos asociados justo abajo
+    xout = resultados$elevacion_constante, # Valores de elevación constantes
+    method = "constant",  # Usar interpolación constante
+    yleft = NA,  # No especificar valor para puntos por debajo del rango
+    yright = NA,  # No especificar valor para puntos por encima del rango
+    rule = 2  # Utilizar el valor más cercano para puntos fuera del rango
+  )$y
+
+  # Agregar los resultados de la interpolación al dataframe
+  resultados$cadena_interp <- cadenamientos_interp
+
+  # Obtener el último valor de cadenamiento del dataframe original
+  ultimo_cadenamiento <- tail(dataframe$cadenamiento, 1)
+
+  # Reemplazar NA en cadena_interp con el último valor de cadenamiento
+  resultados$cadena_interp[is.na(resultados$cadena_interp)] <- ultimo_cadenamiento
+
+  # Obtener el último valor de la columna elevacion del dataframe original
+  ultimo_valor_elevacion <- tail(dataframe$elevacion, n = 1)
+
+  # Asignar el último valor de elevacion del dataframe original a la última fila de elevacion_constante en resultados
+  resultados$elevacion_constante[nrow(resultados)] <- ultimo_valor_elevacion
+
+  # Calcular la diferencia entre los valores de cadenamiento consecutivos
+  resultados$diferencia <- c(diff(resultados$cadena_interp), NA)
+
+  # Calcular la diferencia de elevación entre filas consecutivas
+  resultados$htramo <- c(-diff(resultados$elevacion_constante), NA)
+
+  # Calcular la longitud_tramo / raíz cuadrada(htramo / longitud_tramo)
+  resultados$relacion <- resultados$diferencia / sqrt(resultados$htramo / resultados$diferencia)
+
+  # Calcular la sumatoria de longitud_tramo
+  pendiente_taylor_ec_numerador <- sum(resultados$diferencia, na.rm = TRUE)
+
+  # Calcular la sumatoria de relacion
+  pendiente_taylor_ec_denominador <- sum(resultados$relacion, na.rm = TRUE)
+
+  # Calcular (sum_longitud_tramo / sum_relacion)^2
+  pendiente_taylor_elev <- (pendiente_taylor_ec_numerador / pendiente_taylor_ec_denominador)^2
+
+  
+  # Devolver el dataframe de resultados
+  knitr::kable(resultados, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Valores tabulados del cálculo de pendiente de elevaciones constantes por Taylor Schwarz", label = NA) %>%
+  kable_classic_2(bootstrap_options = "condensed", 
+                  full_width = F, 
+                  font_size = 10, 
+                  position = "center")
+}
+
+```
+
+```{r results='asis', echo=FALSE, warning=FALSE}
+pendiente_ts_ec(cauce_principal, paso_elevacion = 50)
+```
+
+```{r include=FALSE}
+pendiente_ts_lc <- function(dataframe, paso_cadenamiento = 500) {
+  # Extraer el primer valor de cadenamiento del dataframe
+  cadenamiento_inicial <- dataframe$cadenamiento[1]
+
+  # Calcular el número de cadenamientos constantes ascendentes necesarios
+  num_cadenamientos <- ceiling((max(dataframe$cadenamiento) - cadenamiento_inicial) / paso_cadenamiento) + 1
+
+  # Generar el vector de cadenamientos constantes ascendentes
+  cadenamientos_constantes <- seq(cadenamiento_inicial, by = paso_cadenamiento, length.out = num_cadenamientos)
+
+  # Crear una lista para almacenar los valores justo arriba y justo abajo de cada cadenamiento constante
+  valores_around <- vector("list", length(cadenamientos_constantes))
+
+  # Iterar sobre cada valor en cadenamientos_constantes
+  for (i in 1:length(cadenamientos_constantes)) {
+    # Encontrar el índice del valor justo arriba del valor actual en cadenamientos_constantes
+    index_above <- min(which(dataframe$cadenamiento >= cadenamientos_constantes[i]))
+    # Encontrar el índice del valor justo abajo del valor actual en cadenamientos_constantes
+    index_below <- max(which(dataframe$cadenamiento <= cadenamientos_constantes[i]))
+
+    # Almacenar los valores justo arriba y justo abajo en la lista
+    valor_arriba <- ifelse(is.infinite(index_above), cadenamientos_constantes[i], dataframe$cadenamiento[index_above])
+    valor_abajo <- dataframe$cadenamiento[index_below]
+    valores_around[[i]] <- c(valor_arriba, valor_abajo)
+  }
+
+  # Crear una lista para almacenar las elevaciones asociadas a cada valor de cadenamiento
+  elevaciones_around <- vector("list", length(valores_around))
+
+  # Iterar sobre cada elemento en valores_around
+  for (i in 1:length(valores_around)) {
+    # Extraer los valores de cadenamiento justo arriba y justo abajo
+    cad_arriba <- valores_around[[i]][1]
+    cad_abajo <- valores_around[[i]][2]
+
+    # Encontrar los índices de los valores justo arriba y justo abajo en el dataframe original
+    index_arriba <- which(dataframe$cadenamiento == cad_arriba)
+    index_abajo <- which(dataframe$cadenamiento == cad_abajo)
+
+    # Extraer las elevaciones asociadas
+    elevacion_arriba <- dataframe$elevacion[index_arriba]
+    elevacion_abajo <- dataframe$elevacion[index_abajo]
+
+    # Almacenar las elevaciones asociadas en la lista
+    elevaciones_around[[i]] <- c(elevacion_arriba, elevacion_abajo)
+  }
+
+  # Obtener el valor de arriba y el valor de abajo de la última fila de valores_around
+  valor_arriba_ultima <- valores_around[[length(valores_around)]][1]
+  valor_abajo_ultima <- valores_around[[length(valores_around)]][2]
+
+  # Obtener el valor de elevación de la última fila de elevaciones_around
+  elevacion_ultima <- elevaciones_around[[length(elevaciones_around)]]
+
+  # Interpolar para obtener el valor de elevación faltante
+  elevacion_interp <- approx(
+    x = c(valor_arriba_ultima, valor_abajo_ultima),
+    y = c(elevacion_ultima, elevacion_ultima),
+    xout = cadenamientos_constantes[length(cadenamientos_constantes)],
+    method = "linear"
+  )$y
+
+  # Agregar el valor interpolado a la última fila de elevaciones_around
+  elevaciones_around[[length(elevaciones_around)]] <- c(elevaciones_around[[length(elevaciones_around)]], elevacion_interp)
+
+  
+  # Crear un dataframe para almacenar los resultados
+resultados2 <- data.frame(
+  cadenamiento_constante = cadenamientos_constantes,
+  cad_arriba = numeric(length(cadenamientos_constantes)),
+  cad_abajo = numeric(length(cadenamientos_constantes)),
+  elev_arriba = numeric(length(cadenamientos_constantes)),
+  elev_abajo = numeric(length(cadenamientos_constantes))
+)
+
+# Llenar el dataframe con los valores
+for (i in 1:length(valores_around)) {
+  resultados2[i, "cad_arriba"] <- valores_around[[i]][1]
+  resultados2[i, "cad_abajo"] <- valores_around[[i]][2]
+  resultados2[i, "elev_arriba"] <- elevaciones_around[[i]][1]
+  resultados2[i, "elev_abajo"] <- elevaciones_around[[i]][2]
+}
+
+  
+# Calcular la interpolación para encontrar la elevación asociada a cada cadenamiento constante
+elevaciones_interp <- splinefun(
+  x = resultados2$cad_abajo,   # Valores de cadenamiento justo arriba
+  y = resultados2$elev_abajo,  # Elevaciones asociadas justo arriba
+  method = "natural"  # Utilizar el método spline natural
+)(resultados2$cadenamiento_constante)  # Aplicar la interpolación al vector de cadenamientos constantes
+
+
+
+
+# Agregar los resultados de la interpolación al dataframe
+resultados2$elevacion_interp <- elevaciones_interp
+
+
+# Obtener el último valor de elevación del dataframe original
+ultima_elevacion <- tail(dataframe$elevacion, 1)
+
+# Reemplazar NA en elevacion_interp con el último valor de elevación
+resultados2$elevacion_interp[is.na(resultados2$elevacion_interp)] <- ultima_elevacion
+
+# Obtener el último valor de la columna cadenamiento del dataframe original
+ultimo_valor_cadenamiento <- tail(dataframe$cadenamiento, n = 1)
+
+# Asignar el último valor de cadenamiento del dataframe original a la última fila de cadenamiento_constante en resultados
+resultados2$cadenamiento_constante[nrow(resultados2)] <- ultimo_valor_cadenamiento
+
+
+  # Calcular la diferencia entre los valores de cadenamiento consecutivos
+resultados2$longitud_tramo <- c(diff(resultados2$cadenamiento_constante), NA)
+
+# Calcular la diferencia de elevación entre filas consecutivas
+resultados2$htramo <- c(-diff(resultados2$elevacion_interp), NA)
+
+# Calcular la longitud_tramo / raíz cuadrada(htramo / longitud_tramo)
+resultados2$relacion <- 1 / sqrt(resultados2$htramo / resultados2$longitud_tramo)
+
+# Calcular la sumatoria de longitud_tramo
+pendiente_taylor_lc_numerador <- nrow(resultados2)
+
+# Calcular la sumatoria de relacion
+pendiente_taylor_lc_denominador <- sum(resultados2$relacion, na.rm = TRUE)
+
+# Calcular (sum_longitud_tramo / sum_relacion)^2
+pendiente_taylor_long <- (pendiente_taylor_lc_numerador / pendiente_taylor_lc_denominador)^2
+
+   # Devolver el dataframe de resultados
+  knitr::kable(resultados2, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Valores tabulados del cálculo de pendiente de longitudes constantes por Taylor Schwarz", label = NA)%>%
+  kable_classic_2(bootstrap_options = "condensed", 
+                  full_width = F, 
+                  font_size = 10, 
+                  position = "center") 
+  
+}
+```
+
+```{r results='asis', echo=FALSE, warning=FALSE}
+pendiente_ts_lc(cauce_principal, paso_cadenamiento = 5000)
+```
+
+## Apéndice del Modelo Meteorológico
+
+Se documentan las tablas de las estaciones climátologicas que contienen los valores mensuales de las precipitaciones extremas.
+
+```{r, est2001-tab, echo=FALSE}
+ knitr::kable(estacion_2001, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Registros mensuales de precipitaciones extremas de la estación 2001", label = NA)%>%
+  kable_classic_2(bootstrap_options = "condensed", 
+                  full_width = F, 
+                  font_size = 10, 
+                  position = "center") 
+```
+
+```{r, est2004-tab, echo=FALSE}
+ knitr::kable(estacion_2004, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Registros mensuales de precipitaciones extremas de la estación 2004", label = NA)%>%
+  kable_classic_2(bootstrap_options = "condensed", 
+                  full_width = F, 
+                  font_size = 10, 
+                  position = "center") 
+```
+
+```{r, est2036-tab, echo=FALSE}
+ knitr::kable(estacion_2036, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Registros mensuales de precipitaciones extremas de la estación 2036", label = NA)%>%
+  kable_classic_2(bootstrap_options = "condensed", 
+                  full_width = F, 
+                  font_size = 10, 
+                  position = "center") 
+```
+
+```{r, est2077-tab, echo=FALSE}
+ knitr::kable(estacion_2077, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Registros mensuales de precipitaciones extremas de la estación 2077", label = NA)%>%
+  kable_classic_2(bootstrap_options = "condensed", 
+                  full_width = F, 
+                  font_size = 10, 
+                  position = "center") 
+```
+
+```{r, est2118-tab, echo=FALSE}
+ knitr::kable(estacion_2118, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Registros mensuales de precipitaciones extremas de la estación 2118", label = NA)%>%
+  kable_classic_2(bootstrap_options = "condensed", 
+                  full_width = F, 
+                  font_size = 10, 
+                  position = "center") 
+```
+
+```{r, est2164-tab, echo=FALSE}
+ knitr::kable(estacion_2164, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Registros mensuales de precipitaciones extremas de la estación 2164", label = NA)%>%
+  kable_classic_2(bootstrap_options = "condensed", 
+                  full_width = F, 
+                  font_size = 10, 
+                  position = "center") 
+```
+
+
+Se documentan los histogramas y resultados de la función *MsClaio2008*, que sirve para encontrar la distribución que refleja el comportamiento de los datos climatológicos.
+
+```{r, echo=FALSE, warning=FALSE, comment = ""}
+hist(estaciones_lluviamax24h$X2164, freq = FALSE, col = "skyblue", main = "Histograma de precipitaciones extremas de  la estación 2164")
+lines(density(estaciones_lluviamax24h$X2164), col = "red", lwd = 2)
+
+MSClaio2008(estaciones_lluviamax24h$X2164, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC"))
+
+summary(MSClaio2008(estaciones_lluviamax24h$X2164, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC")))
+
+plot(MSClaio2008(estaciones_lluviamax24h$X2164, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC")))
+```
+
+```{r,  echo=FALSE, warning=FALSE, comment = ""}
+hist(estaciones_lluviamax24h$X2036, freq = FALSE, col = "skyblue", main = "Histograma de precipitaciones extremas de  la estación 2036")
+lines(density(estaciones_lluviamax24h$X2036), col = "red", lwd = 2)
+
+MSClaio2008(estaciones_lluviamax24h$X2036, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC"))
+
+summary(MSClaio2008(estaciones_lluviamax24h$X2036, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC")))
+
+plot(MSClaio2008(estaciones_lluviamax24h$X2036, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC")))
+```
+
+```{r,  echo=FALSE, warning=FALSE, comment = ""}
+hist(estaciones_lluviamax24h$X2001, freq = FALSE, col = "skyblue", main = "Histograma de precipitaciones extremas de  la estación 2001")
+lines(density(estaciones_lluviamax24h$X2001), col = "red", lwd = 2)
+
+MSClaio2008(estaciones_lluviamax24h$X2001, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC"))
+
+summary(MSClaio2008(estaciones_lluviamax24h$X2001, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC")))
+
+plot(MSClaio2008(estaciones_lluviamax24h$X2001, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC")))
+```
+
+```{r,  echo=FALSE, warning=FALSE, comment = ""}
+hist(estaciones_lluviamax24h$X2004, freq = FALSE, col = "skyblue", main = "Histograma de precipitaciones extremas de  la estación 2004")
+lines(density(estaciones_lluviamax24h$X2004), col = "red", lwd = 2)
+
+MSClaio2008(estaciones_lluviamax24h$X2004, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC"))
+
+summary(MSClaio2008(estaciones_lluviamax24h$X2004, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC")))
+
+plot(MSClaio2008(estaciones_lluviamax24h$X2004, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC")))
+```
+
+```{r,  echo=FALSE, warning=FALSE, comment = ""}
+hist(estaciones_lluviamax24h$X2077, freq = FALSE, col = "skyblue", main = "Histograma de precipitaciones extremas de  la estación 2077")
+lines(density(estaciones_lluviamax24h$X2077), col = "red", lwd = 2)
+
+MSClaio2008(estaciones_lluviamax24h$X2077, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC"))
+
+summary(MSClaio2008(estaciones_lluviamax24h$X2077, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC")))
+
+plot(MSClaio2008(estaciones_lluviamax24h$X2077, 
+                         dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC")))
+```
+
+
+Se documenta la memoria de cálculo para obtener la gráfica IDTR.
+
+```{r}
+# Imprimir la tabla IDTR
+knitr::kable(tabla_IDTR, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Estasciones homogenizadas", label = NA) %>%
+  kable_classic_2(bootstrap_options = "condensed", 
+                  full_width = F, 
+                  font_size = 10, 
+                  position = "center")
+```
+
+Se documenta la memoria de cálculo para obtener la gráfica PDTR.
+
+```{r}
+# Imprimir la tabla PDTR
+knitr::kable(tabla_PDTR, 
+               digits = 4, 
+               booktabs = TRUE, 
+               caption = "Estasciones homogenizadas", label = NA) %>%
+  kable_classic_2(bootstrap_options = "condensed", 
+                  full_width = F, 
+                  font_size = 10, 
+                  position = "center")
+```
+

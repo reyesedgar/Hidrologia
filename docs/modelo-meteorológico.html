@@ -1,0 +1,2693 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 3 Modelo meteorológico | reportehidrologia.knit</title>
+  <meta name="description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 3 Modelo meteorológico | reportehidrologia.knit" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/logo.png" />
+  <meta property="og:description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 3 Modelo meteorológico | reportehidrologia.knit" />
+  
+  <meta name="twitter:description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <meta name="twitter:image" content="/logo.png" />
+
+<meta name="author" content="" />
+
+
+<meta name="date" content="2024-05-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="modelo-fisiográfico.html"/>
+<link rel="next" href="modelo-hidrológico.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Estudio Hidrológico</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#objetivo"><i class="fa fa-check"></i><b>1.1</b> Objetivo</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#normativa-aplicada"><i class="fa fa-check"></i><b>1.2</b> Normativa aplicada</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#localización-del-proyecto"><i class="fa fa-check"></i><b>1.3</b> Localización del proyecto</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html"><i class="fa fa-check"></i><b>2</b> Modelo Fisiográfico</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#topografía-documentada"><i class="fa fa-check"></i><b>2.1</b> Topografía documentada</a></li>
+<li class="chapter" data-level="2.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#delimitación-del-área-de-escurrimiento-y-red-hidrográfica"><i class="fa fa-check"></i><b>2.2</b> Delimitación del área de escurrimiento y red hidrográfica</a></li>
+<li class="chapter" data-level="2.3" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#descripción-del-relieve"><i class="fa fa-check"></i><b>2.3</b> Descripción del Relieve</a></li>
+<li class="chapter" data-level="2.4" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#red-de-drenaje"><i class="fa fa-check"></i><b>2.4</b> Red de drenaje</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#análisis-de-pendiente-del-cauce-principal-de-la-cuenca"><i class="fa fa-check"></i><b>2.4.1</b> Análisis de pendiente del cauce principal de la cuenca</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#breve-introducción-a-la-estimación-del-coeficiente-de-escurrimiento"><i class="fa fa-check"></i><b>2.5</b> Breve introducción a la estimación del coeficiente de escurrimiento</a></li>
+<li class="chapter" data-level="2.6" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-de-tipo-de-suelo"><i class="fa fa-check"></i><b>2.6</b> Identificación de tipo de suelo</a></li>
+<li class="chapter" data-level="2.7" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-del-grupo-hidrológico-del-suelo"><i class="fa fa-check"></i><b>2.7</b> Identificación del grupo hidrológico del suelo</a></li>
+<li class="chapter" data-level="2.8" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-de-uso-de-suelo-y-vegetación"><i class="fa fa-check"></i><b>2.8</b> Identificación de uso de suelo y vegetación</a></li>
+<li class="chapter" data-level="2.9" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#número-de-curva"><i class="fa fa-check"></i><b>2.9</b> Número de Curva</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#nc-calculado-por-imta"><i class="fa fa-check"></i><b>2.9.1</b> NC calculado por IMTA</a></li>
+<li class="chapter" data-level="2.9.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#nc-semiautomatizado"><i class="fa fa-check"></i><b>2.9.2</b> NC semiautomatizado</a></li>
+<li class="chapter" data-level="2.9.3" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#discusión-final-sobre-el-cálculo-del-número-de-curva"><i class="fa fa-check"></i><b>2.9.3</b> Discusión final sobre el cálculo del Número de Curva</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempos-de-estudio"><i class="fa fa-check"></i><b>2.10</b> Tiempos de estudio</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-kirpich"><i class="fa fa-check"></i><b>2.10.1</b> Tiempo de concentracion por kirpich</a></li>
+<li class="chapter" data-level="2.10.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-rowe"><i class="fa fa-check"></i><b>2.10.2</b> Tiempo de concentracion por Rowe</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html"><i class="fa fa-check"></i><b>3</b> Modelo meteorológico</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#selección-de-estaciones-climatológicas"><i class="fa fa-check"></i><b>3.1</b> Selección de estaciones climatológicas</a></li>
+<li class="chapter" data-level="3.2" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#homogenización-de-datos-climatológicos"><i class="fa fa-check"></i><b>3.2</b> Homogenización de datos climatológicos</a></li>
+<li class="chapter" data-level="3.3" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#funciones-de-las-distribuciones-probabilísticas-de-las-estaciones-climatológicas"><i class="fa fa-check"></i><b>3.3</b> Funciones de las distribuciones probabilísticas de las estaciones climatológicas</a></li>
+<li class="chapter" data-level="3.4" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#curvas-idtr-y-pdtr"><i class="fa fa-check"></i><b>3.4</b> Curvas IDTR y PDTR</a></li>
+<li class="chapter" data-level="3.5" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#hietograma"><i class="fa fa-check"></i><b>3.5</b> Hietograma</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html"><i class="fa fa-check"></i><b>4</b> Modelo Hidrológico</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#cálculo-de-caudales"><i class="fa fa-check"></i><b>4.1</b> Cálculo de caudales</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#caudal-q-por-hut-hidrograma-uniforme-triangular"><i class="fa fa-check"></i><b>4.1.1</b> Caudal Q por HUT (Hidrograma Uniforme Triangular)</a></li>
+<li class="chapter" data-level="4.1.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-racional"><i class="fa fa-check"></i><b>4.1.2</b> METODO RACIONAL</a></li>
+<li class="chapter" data-level="4.1.3" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-vente-chow"><i class="fa fa-check"></i><b>4.1.3</b> METODO VENTE CHOW</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#hidrograma"><i class="fa fa-check"></i><b>4.2</b> HIDROGRAMA</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>5</b> Conclusiones</a></li>
+<li class="appendix"><span><b>Recursos adicionales</b></span></li>
+<li class="chapter" data-level="A" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>A</b> Apéndice</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="apéndice.html"><a href="apéndice.html#apéndice-del-modelo-fisiográfico"><i class="fa fa-check"></i><b>A.1</b> Apéndice del Modelo Fisiográfico</a></li>
+<li class="chapter" data-level="A.2" data-path="apéndice.html"><a href="apéndice.html#apéndice-del-modelo-meteorológico"><i class="fa fa-check"></i><b>A.2</b> Apéndice del Modelo Meteorológico</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modelo-meteorológico" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Capítulo 3</span> Modelo meteorológico<a href="modelo-meteorológico.html#modelo-meteorológico" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>En el análisis hidrológico de una cuenca, el estudio de los datos climatológicos es fundamental para dimensionar adecuadamente la precipitación que alimenta la red de drenaje. La serie temporal de interés en este caso es la de valores mensuales de la precipitación máxima en 24 horas, ya que esta variable es la más ampliamente disponible según la Comisión Nacional del Agua <span class="citation">(<a href="#ref-conagua1987">CONAGUA 1987</a>)</span>. Esta variable sirve como entrada en el modelo hidrológico para simular el ciclo hidrológico y predecir el suministro de agua en la región. Debido a la naturaleza aleatoria de la precipitación, es necesario abordar el ciclo hidrológico desde un enfoque probabilístico.</p>
+<p>A fin de generar un modelo probabilístico robusto, se han estudiado diferentes metodologías para el tratamiento de series temporales de datos climatológicos, con el propósito de homogeneizar los datos, identificar y tratar valores faltantes y atípicos. En este contexto, RStudio se presenta como una herramienta valiosa, ya que permite explorar las metodologías propuestas por diversos autores, aprovechando el poder computacional del software estadístico.</p>
+<p>Para el trabajo con los datos climatológicos, se ha decidido utilizar la librería <em>climatol</em> <span class="citation">(<a href="#ref-guijarro2024">Guijarro 2024</a>)</span>, debido a que se basa en las guías de homogeneización establecidas por la Organización Meteorológica Mundial y ha sido referenciada en comunidades de hidrólogos.</p>
+<p>En cuanto a la selección de las distribuciones probabilísticas de los eventos hidrológicos futuros, se utiliza principalmente la librería <em>nsRFA</em> <span class="citation">(<a href="#ref-nsRFA2023">Viglione et al. 2023</a>)</span>, ya que ofrece una colección de herramientas estadísticas para la aplicación objetiva (no supervisada) de los métodos de Análisis de Frecuencia Regional en Hidrología. En otras palabras, permite al hidrólogo ajustar funciones de distribución a las curvas de crecimiento regionales empíricas haciendo uso de modelos de aprendizaje automático.</p>
+<p>En los últimos años, se han realizado numerosos estudios en diferentes países sobre el análisis regional de frecuencias de precipitaciones <span class="citation">(<a href="#ref-dominguez2018">Domínguez et al. 2018</a>)</span>. Por tanto, el uso de estas aplicaciones no supervisadas puede ser de gran valor para la creación de modelos probabilísticos que permitan estimar de manera confiable las tormentas de diseño, contribuyendo así a una gestión eficiente y sostenible de los recursos hídricos en la cuenca.</p>
+<div id="selección-de-estaciones-climatológicas" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Selección de estaciones climatológicas<a href="modelo-meteorológico.html#selección-de-estaciones-climatológicas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En el proceso de modelación hidrológica, la selección adecuada de estaciones climatológicas es crucial para garantizar la calidad y representatividad de los datos de precipitación utilizados. En el presente estudio, el criterio para determinar la cantidad de estaciones a considerar se fundamenta en las recomendaciones de la librería climatol, la cual sugiere el uso de al menos seis estaciones para obtener mejores resultados en la homogeneización de los datos climatológicos.</p>
+<p>Afortunadamente, la cuenca en estudio cuenta con un número suficiente de estaciones climatológicas para cumplir con este criterio. Las tablas con los datos climatológicos de las seis estaciones seleccionadas fueron descargadas del portal de CONAGUA e importadas en RStudio para ser tratadas mediante las funciones de la librería climatol.</p>
+<p>La selección de estaciones climatológicas representativas es un paso crucial en el análisis hidrológico, ya que los datos de precipitación obtenidos servirán como entrada en el modelo hidrológico para simular el ciclo hidrológico y predecir el suministro de agua en la región. Una adecuada cobertura espacial de las estaciones garantiza que se capturen las variaciones locales en los patrones de precipitación, lo cual es esencial para obtener estimaciones precisas de los caudales y volúmenes de escorrentía.</p>
+<p>Además de la cantidad de estaciones, es importante considerar otros factores como la distribución espacial, la longitud y calidad de los registros históricos, y la presencia de posibles fuentes de error o inconsistencias en los datos. La aplicación de técnicas de homogeneización, como las proporcionadas por la librería climatol, permiten identificar y tratar valores atípicos o faltantes, mejorando la confiabilidad de los datos utilizados en el modelo hidrológico.</p>
+<div class="figure"><span style="display:block;" id="fig:figura-voronoi"></span>
+<img src="voronoi.png" alt="Polígonos de Voronoi para analizar la influencia de las estaciones en la subcuenca R. Guadalupe" width="1754" />
+<p class="caption">
+Figura 3.1: Polígonos de Voronoi para analizar la influencia de las estaciones en la subcuenca R. Guadalupe
+</p>
+</div>
+<p>Se muestra una extracción de la tabla <a href="modelo-meteorológico.html#tab:tabla-pre2001">3.1</a> con las precipitaciones extremas de la estación 2001 . Las 6 tablas originales se encuentran en el <a href="apéndice.html#apéndice-del-modelo-meteorológico">Apéndice del Modelo Meteorológico</a>.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-pre2001">Tabla 3.1: </span>Previsualización de los registros mensuales de Pmax<sub>24h</sub> de la estación 2001
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+AÑO
+</th>
+<th style="text-align:right;">
+ENE
+</th>
+<th style="text-align:right;">
+FEB
+</th>
+<th style="text-align:right;">
+MAR
+</th>
+<th style="text-align:right;">
+ABR
+</th>
+<th style="text-align:right;">
+MAY
+</th>
+<th style="text-align:right;">
+JUN
+</th>
+<th style="text-align:right;">
+JUL
+</th>
+<th style="text-align:right;">
+AGO
+</th>
+<th style="text-align:right;">
+SEP
+</th>
+<th style="text-align:right;">
+OCT
+</th>
+<th style="text-align:right;">
+NOV
+</th>
+<th style="text-align:right;">
+DIC
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1969
+</td>
+<td style="text-align:right;">
+19.5
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+15.0
+</td>
+<td style="text-align:right;">
+2.5
+</td>
+<td style="text-align:right;">
+5.5
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+6.5
+</td>
+<td style="text-align:right;">
+9.5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1970
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+29.0
+</td>
+<td style="text-align:right;">
+3.8
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+2.5
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+<td style="text-align:right;">
+24.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1971
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+14.1
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+12.5
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+4.5
+</td>
+<td style="text-align:right;">
+13.5
+</td>
+<td style="text-align:right;">
+0.5
+</td>
+<td style="text-align:right;">
+9.5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1972
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+37.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+<td style="text-align:right;">
+17.5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1973
+</td>
+<td style="text-align:right;">
+11.5
+</td>
+<td style="text-align:right;">
+17.0
+</td>
+<td style="text-align:right;">
+23.5
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+0.5
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.5
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+12.0
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1974
+</td>
+<td style="text-align:right;">
+39.0
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+19.6
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+22.8
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+18.0
+</td>
+<td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
+9.5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1975
+</td>
+<td style="text-align:right;">
+10.5
+</td>
+<td style="text-align:right;">
+13.5
+</td>
+<td style="text-align:right;">
+19.5
+</td>
+<td style="text-align:right;">
+19.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+0.4
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+17.5
+</td>
+<td style="text-align:right;">
+6.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1976
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+37.0
+</td>
+<td style="text-align:right;">
+14.5
+</td>
+<td style="text-align:right;">
+6.7
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+0.4
+</td>
+<td style="text-align:right;">
+34.5
+</td>
+<td style="text-align:right;">
+2.1
+</td>
+<td style="text-align:right;">
+40.0
+</td>
+<td style="text-align:right;">
+23.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1977
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+11.0
+</td>
+<td style="text-align:right;">
+12.0
+</td>
+<td style="text-align:right;">
+3.2
+</td>
+<td style="text-align:right;">
+17.0
+</td>
+<td style="text-align:right;">
+2.8
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+70.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+12.5
+</td>
+<td style="text-align:right;">
+6.5
+</td>
+<td style="text-align:right;">
+49.5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1978
+</td>
+<td style="text-align:right;">
+38.5
+</td>
+<td style="text-align:right;">
+33.0
+</td>
+<td style="text-align:right;">
+35.5
+</td>
+<td style="text-align:right;">
+9.5
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+8.5
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+38.0
+</td>
+<td style="text-align:right;">
+28.5
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="homogenización-de-datos-climatológicos" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Homogenización de datos climatológicos<a href="modelo-meteorológico.html#homogenización-de-datos-climatológicos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se tiene que preparar la información para presentarla conforme los requerimientos de las funciones de la librería climatol.</p>
+<p>La función <strong>csv2climatol</strong> ocupa un archivo con el código de las estaciones, sus coordenadas geográficas en decimales y su nombre; y otro archivo con los datos climatológicos.</p>
+<p>Para este segundo archivo, el algoritmo toma los archivos de cada estación en formato csv, borra los años que tengan al menos una NA y genera un archivo único.</p>
+<p>La metodología estadística usada para la homogenización de datos es la <em>Standard Normal Homogeneity Test (SNHT)</em> que usa la siguiente expresión para calcular la prueba estadística.</p>
+<p><span class="math display">\[ T_k = k z_1^2 + \left(n - k\right) z_2^2 \qquad (1 \le k &lt; n) \]</span></p>
+<p>donde</p>
+<p><span class="math display">\[ \begin{array}{l l} z_1 = \frac{1}{k} \sum_{i=1}^k \frac{x_i - \bar{x}}{\sigma} &amp; z_2 = \frac{1}{n-k} \sum_{i=k+1}^n \frac{x_i - \bar{x}}{\sigma}. \\ \end{array} \]</span></p>
+<p>El valor crítico es:</p>
+<p><span class="math display">\[T = \max T_k\]</span></p>
+<p>El algoritmo realiza una serie de pasos y presenta parámetros estadigráficos de la prueba, el error cuadrático medio del valor estimado, el porcentaje de los datos originales, las anomalías presentes en los diferentes intervalos de confianza y el rango derecho del intervalo de confianza para la prueba estadística. El algoritmo también genera archivos que se pueden usar para cálculos posteriores, así como un reporte de los diferentes resultados que genera el proceso de homogenización de datos como el control de calidad de las series, el resumen de los datos disponibles, gráficos de detección y corrección de anomalías, etc.</p>
+<pre><code>
+HOMOGEN() APPLICATION OUTPUT  (From R&#39;s contributed package &#39;climatol&#39; 4.1.0)
+
+=========== Homogenization of precipitacion, 1980-2020. (Sat May 11 17:47:37 2024)
+
+ Parameters: varcli=precipitacion, anyi=1980, anyf=2020, test=snht, nref=10 10 4, std=NA, swa=NA, ndec=1, niqd=4 1, dz.max=0.01, dz.min=-0.01, cumc=NA, wd=0 0 100, inht=25, sts=5, maxdif=0.05, maxite=999, force=FALSE, wz=0.001, mindat=NA, onlyQC=FALSE, annual=mean, ini=NA, na.strings=NA, vmin=NA, vmax=NA, hc.method=ward.D2, nclust=300, cutlev=NA, grdcol=#666666, mapcol=#666666, expl=FALSE, metad=FALSE, sufbrk=m, tinc=NA, tz=utc, rlemin=NA, rlemax=NA, cex=1.1, uni=NA, raway=TRUE, graphics=TRUE, verb=TRUE, logf=TRUE, snht1=NA, snht2=NA, gp=NA
+
+Data matrix: 492 data x 6 stations 
+
+-------------------------------------------
+Stations in the 2 clusters :
+
+$`1`
+[1] 1 4 5 6
+
+$`2`
+[1] 2 3
+
+---------------------------------------------
+Computing inter-station distances ...  1  2  3  4  5
+
+
+========== STAGE 1 (SNHT on overlapping temporal windows) ===========
+
+ Calculation of missing data with outlier removal 
+(Suggested data replacements are provisional) 
+  Station(rank) Date: Observed -&gt; Suggested (Anomaly, in std. devs.) 
+2001(4) 1991-02-01: 42 -&gt; 80.7 (-6.5)
+2004(5) 1991-02-01: 132 -&gt; 67.3 (7.35)
+
+ Performing shift analysis on the 6 series... 
+
+
+========== STAGE 2 (SNHT on the whole series) =======================
+
+ Calculation of missing data with outlier removal 
+(Suggested data replacements are provisional) 
+  Station(rank) Date: Observed -&gt; Suggested (Anomaly, in std. devs.) 
+(No detected outliers) 
+
+ Performing shift analysis on the 6 series... 
+
+
+========== STAGE 3 (Final calculation of all missing data) ==========
+
+Computing inter-station weights... (done) 
+
+ Calculation of missing data with outlier removal 
+(Suggested data replacements are provisional) 
+
+ The following lines will have one of these formats: 
+  Station(rank) Date: Observed -&gt; Suggested (Anomaly, in std. devs.) 
+  Iteration Max_data_difference (Station_code) 
+2 0.413 (2077)
+3 0.235 (2077)
+4 0.133 (2077)
+5 0.075 (2077)
+6 0.042 (2077)
+Prescribed convergence reached 
+
+Last series readjustment (please, be patient...) 
+
+======== End of the homogenization process, after 0.93 secs 
+
+----------- Final calculations :
+
+ SNHT: Standard normal homogeneity test (on anomaly series) 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  2.900   6.175   9.250   9.183   9.625  18.800 
+
+ RMSE: Root mean squared error of the estimated data 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  5.689   8.255   8.598   8.269   8.797   9.724 
+
+ POD: Percentage of original data 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  45.00   57.25   81.00   75.00   91.25   99.00 
+
+  SNHT RMSE POD Code Name                  
+1  5.2 8.6  45  2164 EJIDO_EL_PORVENIR     
+2 18.8 8.6  93  2118 VALLE_DE_SAN_RAFAEL   
+3  9.4 9.7  76  2036 OLIVARES_MEXICANOS    
+4  9.7 5.7  99  2001 AGUACALIENTE          
+5  9.1 8.2  86  2004 IGNACIO_ZARAGOZA_BELEN
+6  2.9 8.9  51  2077 LA_MISION             
+
+Frequency distribution tails of residual anomalies and SNHT 
+
+Left tail of standardized anomalies: 
+0.1% 0.2% 0.5%   1%   2%   5%  10% 
+-5.5 -5.1 -3.4 -2.9 -2.3 -1.5 -0.8 
+Right tail of standardized anomalies: 
+  90%   95%   98%   99% 99.5% 99.8% 99.9% 
+  0.9   1.5   2.7   3.6   4.2   5.0   6.1 
+Right tail of SNHT on windows of 120 terms with up to 4 references:
+  90%   95%   98%   99% 99.5% 99.8% 99.9% 
+ 13.2  13.8  14.1  14.2  14.3  14.3  14.3 
+Right tail of SNHT with up to 4 references:
+  90%   95%   98%   99% 99.5% 99.8% 99.9% 
+ 14.2  16.5  17.9  18.3  18.6  18.7  18.8 
+
+----------- Generated output files: -------------------------
+
+precipitacion_1980-2020.txt : Text output of the whole process
+precipitacion_1980-2020_out.csv : List of corrected outliers
+precipitacion_1980-2020_brk.csv : List of corrected breaks
+precipitacion_1980-2020.pdf : Diagnostic graphics
+precipitacion_1980-2020.rda : Homogenization results. Postprocess with (examples):
+   dahstat(&#39;precipitacion&#39;,1980,2020) # averages 
+   dahstat(&#39;precipitacion&#39;,1980,2020,stat=&#39;tnd&#39;) #OLS trends and p-values
+   dahstat(&#39;precipitacion&#39;,1980,2020,stat=&#39;series&#39;) #homogenized series
+   dahgrid(&#39;precipitacion&#39;,1980,2020,grid=YOURGRID) #homogenized grids
+   ... (See other options in the package documentation)</code></pre>
+<p>Se extrae uno de los archivos generados por la función para poder construir la tabla de estaciones con los datos climatológicos homogenizados <a href="modelo-meteorológico.html#tab:tabla-esthomog">3.2</a>.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-esthomog">Tabla 3.2: </span>Estaciones homogenizadas
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:right;">
+X2164
+</th>
+<th style="text-align:right;">
+X2118
+</th>
+<th style="text-align:right;">
+X2036
+</th>
+<th style="text-align:right;">
+X2001
+</th>
+<th style="text-align:right;">
+X2004
+</th>
+<th style="text-align:right;">
+X2077
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1980
+</td>
+<td style="text-align:right;">
+112.8
+</td>
+<td style="text-align:right;">
+66.3
+</td>
+<td style="text-align:right;">
+107.0
+</td>
+<td style="text-align:right;">
+112.0
+</td>
+<td style="text-align:right;">
+125.5
+</td>
+<td style="text-align:right;">
+115.3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1981
+</td>
+<td style="text-align:right;">
+28.2
+</td>
+<td style="text-align:right;">
+25.0
+</td>
+<td style="text-align:right;">
+25.5
+</td>
+<td style="text-align:right;">
+27.5
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+27.3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1982
+</td>
+<td style="text-align:right;">
+41.1
+</td>
+<td style="text-align:right;">
+35.0
+</td>
+<td style="text-align:right;">
+41.5
+</td>
+<td style="text-align:right;">
+29.0
+</td>
+<td style="text-align:right;">
+44.2
+</td>
+<td style="text-align:right;">
+41.2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1983
+</td>
+<td style="text-align:right;">
+59.5
+</td>
+<td style="text-align:right;">
+48.0
+</td>
+<td style="text-align:right;">
+80.0
+</td>
+<td style="text-align:right;">
+63.5
+</td>
+<td style="text-align:right;">
+61.0
+</td>
+<td style="text-align:right;">
+62.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1984
+</td>
+<td style="text-align:right;">
+38.6
+</td>
+<td style="text-align:right;">
+36.0
+</td>
+<td style="text-align:right;">
+42.0
+</td>
+<td style="text-align:right;">
+26.9
+</td>
+<td style="text-align:right;">
+35.0
+</td>
+<td style="text-align:right;">
+38.6
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1985
+</td>
+<td style="text-align:right;">
+43.1
+</td>
+<td style="text-align:right;">
+25.5
+</td>
+<td style="text-align:right;">
+45.5
+</td>
+<td style="text-align:right;">
+42.0
+</td>
+<td style="text-align:right;">
+45.0
+</td>
+<td style="text-align:right;">
+44.4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1986
+</td>
+<td style="text-align:right;">
+32.1
+</td>
+<td style="text-align:right;">
+32.0
+</td>
+<td style="text-align:right;">
+28.5
+</td>
+<td style="text-align:right;">
+37.0
+</td>
+<td style="text-align:right;">
+31.0
+</td>
+<td style="text-align:right;">
+30.9
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1987
+</td>
+<td style="text-align:right;">
+41.4
+</td>
+<td style="text-align:right;">
+29.5
+</td>
+<td style="text-align:right;">
+80.0
+</td>
+<td style="text-align:right;">
+33.5
+</td>
+<td style="text-align:right;">
+50.0
+</td>
+<td style="text-align:right;">
+46.2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1988
+</td>
+<td style="text-align:right;">
+51.1
+</td>
+<td style="text-align:right;">
+57.0
+</td>
+<td style="text-align:right;">
+60.0
+</td>
+<td style="text-align:right;">
+50.5
+</td>
+<td style="text-align:right;">
+35.0
+</td>
+<td style="text-align:right;">
+50.3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1989
+</td>
+<td style="text-align:right;">
+20.2
+</td>
+<td style="text-align:right;">
+17.3
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+<td style="text-align:right;">
+14.0
+</td>
+<td style="text-align:right;">
+41.0
+</td>
+<td style="text-align:right;">
+20.2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1990
+</td>
+<td style="text-align:right;">
+23.3
+</td>
+<td style="text-align:right;">
+19.9
+</td>
+<td style="text-align:right;">
+22.0
+</td>
+<td style="text-align:right;">
+19.5
+</td>
+<td style="text-align:right;">
+24.0
+</td>
+<td style="text-align:right;">
+23.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1991
+</td>
+<td style="text-align:right;">
+77.3
+</td>
+<td style="text-align:right;">
+56.4
+</td>
+<td style="text-align:right;">
+91.0
+</td>
+<td style="text-align:right;">
+65.3
+</td>
+<td style="text-align:right;">
+76.1
+</td>
+<td style="text-align:right;">
+81.2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1992
+</td>
+<td style="text-align:right;">
+42.7
+</td>
+<td style="text-align:right;">
+33.5
+</td>
+<td style="text-align:right;">
+42.7
+</td>
+<td style="text-align:right;">
+42.0
+</td>
+<td style="text-align:right;">
+41.5
+</td>
+<td style="text-align:right;">
+43.8
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1993
+</td>
+<td style="text-align:right;">
+69.4
+</td>
+<td style="text-align:right;">
+52.8
+</td>
+<td style="text-align:right;">
+89.0
+</td>
+<td style="text-align:right;">
+49.5
+</td>
+<td style="text-align:right;">
+67.6
+</td>
+<td style="text-align:right;">
+72.1
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1994
+</td>
+<td style="text-align:right;">
+35.1
+</td>
+<td style="text-align:right;">
+40.0
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+25.0
+</td>
+<td style="text-align:right;">
+35.0
+</td>
+<td style="text-align:right;">
+33.3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1995
+</td>
+<td style="text-align:right;">
+54.5
+</td>
+<td style="text-align:right;">
+57.0
+</td>
+<td style="text-align:right;">
+61.5
+</td>
+<td style="text-align:right;">
+57.5
+</td>
+<td style="text-align:right;">
+71.0
+</td>
+<td style="text-align:right;">
+58.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1996
+</td>
+<td style="text-align:right;">
+33.0
+</td>
+<td style="text-align:right;">
+26.7
+</td>
+<td style="text-align:right;">
+35.3
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+44.0
+</td>
+<td style="text-align:right;">
+34.3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1997
+</td>
+<td style="text-align:right;">
+36.6
+</td>
+<td style="text-align:right;">
+44.6
+</td>
+<td style="text-align:right;">
+15.3
+</td>
+<td style="text-align:right;">
+39.0
+</td>
+<td style="text-align:right;">
+59.0
+</td>
+<td style="text-align:right;">
+34.6
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1998
+</td>
+<td style="text-align:right;">
+62.1
+</td>
+<td style="text-align:right;">
+46.0
+</td>
+<td style="text-align:right;">
+70.2
+</td>
+<td style="text-align:right;">
+62.0
+</td>
+<td style="text-align:right;">
+47.0
+</td>
+<td style="text-align:right;">
+63.2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:right;">
+21.6
+</td>
+<td style="text-align:right;">
+37.9
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+<td style="text-align:right;">
+19.0
+</td>
+<td style="text-align:right;">
+20.4
+</td>
+<td style="text-align:right;">
+21.3
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+<td style="text-align:right;">
+32.8
+</td>
+<td style="text-align:right;">
+24.3
+</td>
+<td style="text-align:right;">
+34.0
+</td>
+<td style="text-align:right;">
+32.0
+</td>
+<td style="text-align:right;">
+27.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2001
+</td>
+<td style="text-align:right;">
+28.0
+</td>
+<td style="text-align:right;">
+29.6
+</td>
+<td style="text-align:right;">
+26.5
+</td>
+<td style="text-align:right;">
+29.0
+</td>
+<td style="text-align:right;">
+24.0
+</td>
+<td style="text-align:right;">
+29.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2002
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+<td style="text-align:right;">
+15.0
+</td>
+<td style="text-align:right;">
+16.5
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+16.0
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2003
+</td>
+<td style="text-align:right;">
+24.5
+</td>
+<td style="text-align:right;">
+31.4
+</td>
+<td style="text-align:right;">
+41.6
+</td>
+<td style="text-align:right;">
+43.0
+</td>
+<td style="text-align:right;">
+38.6
+</td>
+<td style="text-align:right;">
+69.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2004
+</td>
+<td style="text-align:right;">
+125.0
+</td>
+<td style="text-align:right;">
+63.7
+</td>
+<td style="text-align:right;">
+69.1
+</td>
+<td style="text-align:right;">
+70.0
+</td>
+<td style="text-align:right;">
+42.0
+</td>
+<td style="text-align:right;">
+80.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2005
+</td>
+<td style="text-align:right;">
+26.5
+</td>
+<td style="text-align:right;">
+34.2
+</td>
+<td style="text-align:right;">
+29.8
+</td>
+<td style="text-align:right;">
+23.0
+</td>
+<td style="text-align:right;">
+28.4
+</td>
+<td style="text-align:right;">
+36.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2006
+</td>
+<td style="text-align:right;">
+24.0
+</td>
+<td style="text-align:right;">
+25.7
+</td>
+<td style="text-align:right;">
+28.0
+</td>
+<td style="text-align:right;">
+24.0
+</td>
+<td style="text-align:right;">
+23.7
+</td>
+<td style="text-align:right;">
+22.8
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2007
+</td>
+<td style="text-align:right;">
+45.0
+</td>
+<td style="text-align:right;">
+41.0
+</td>
+<td style="text-align:right;">
+54.5
+</td>
+<td style="text-align:right;">
+43.0
+</td>
+<td style="text-align:right;">
+45.0
+</td>
+<td style="text-align:right;">
+23.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2008
+</td>
+<td style="text-align:right;">
+34.0
+</td>
+<td style="text-align:right;">
+27.5
+</td>
+<td style="text-align:right;">
+42.6
+</td>
+<td style="text-align:right;">
+33.0
+</td>
+<td style="text-align:right;">
+45.0
+</td>
+<td style="text-align:right;">
+62.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2009
+</td>
+<td style="text-align:right;">
+53.0
+</td>
+<td style="text-align:right;">
+33.7
+</td>
+<td style="text-align:right;">
+23.5
+</td>
+<td style="text-align:right;">
+17.5
+</td>
+<td style="text-align:right;">
+51.0
+</td>
+<td style="text-align:right;">
+57.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2010
+</td>
+<td style="text-align:right;">
+74.0
+</td>
+<td style="text-align:right;">
+89.2
+</td>
+<td style="text-align:right;">
+75.0
+</td>
+<td style="text-align:right;">
+66.4
+</td>
+<td style="text-align:right;">
+62.0
+</td>
+<td style="text-align:right;">
+60.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+40.0
+</td>
+<td style="text-align:right;">
+59.0
+</td>
+<td style="text-align:right;">
+44.0
+</td>
+<td style="text-align:right;">
+48.3
+</td>
+<td style="text-align:right;">
+82.0
+</td>
+<td style="text-align:right;">
+65.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:right;">
+46.1
+</td>
+<td style="text-align:right;">
+39.4
+</td>
+<td style="text-align:right;">
+45.0
+</td>
+<td style="text-align:right;">
+37.7
+</td>
+<td style="text-align:right;">
+57.0
+</td>
+<td style="text-align:right;">
+46.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2013
+</td>
+<td style="text-align:right;">
+49.0
+</td>
+<td style="text-align:right;">
+40.5
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+46.7
+</td>
+<td style="text-align:right;">
+28.0
+</td>
+<td style="text-align:right;">
+38.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:right;">
+22.0
+</td>
+<td style="text-align:right;">
+33.0
+</td>
+<td style="text-align:right;">
+22.5
+</td>
+<td style="text-align:right;">
+21.4
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+<td style="text-align:right;">
+31.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2015
+</td>
+<td style="text-align:right;">
+28.0
+</td>
+<td style="text-align:right;">
+26.5
+</td>
+<td style="text-align:right;">
+67.0
+</td>
+<td style="text-align:right;">
+20.2
+</td>
+<td style="text-align:right;">
+48.0
+</td>
+<td style="text-align:right;">
+34.5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+53.0
+</td>
+<td style="text-align:right;">
+31.5
+</td>
+<td style="text-align:right;">
+76.5
+</td>
+<td style="text-align:right;">
+33.8
+</td>
+<td style="text-align:right;">
+50.0
+</td>
+<td style="text-align:right;">
+43.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+63.0
+</td>
+<td style="text-align:right;">
+44.2
+</td>
+<td style="text-align:right;">
+58.7
+</td>
+<td style="text-align:right;">
+33.5
+</td>
+<td style="text-align:right;">
+38.0
+</td>
+<td style="text-align:right;">
+70.5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+22.5
+</td>
+<td style="text-align:right;">
+52.0
+</td>
+<td style="text-align:right;">
+32.5
+</td>
+<td style="text-align:right;">
+25.5
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+57.9
+</td>
+<td style="text-align:right;">
+35.8
+</td>
+<td style="text-align:right;">
+57.5
+</td>
+<td style="text-align:right;">
+46.5
+</td>
+<td style="text-align:right;">
+73.0
+</td>
+<td style="text-align:right;">
+42.5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2020
+</td>
+<td style="text-align:right;">
+24.5
+</td>
+<td style="text-align:right;">
+56.5
+</td>
+<td style="text-align:right;">
+33.0
+</td>
+<td style="text-align:right;">
+22.0
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+25.0
+</td>
+</tr>
+</tbody>
+</table>
+<p>Se genera el gráfico <a href="modelo-meteorológico.html#fig:figura-precipesthomogen">3.2</a> para visualizar la distribución temporal de los datos climatológicos de las 6 estaciones homogenizadas.</p>
+<div class="figure"><span style="display:block;" id="fig:figura-precipesthomogen"></span>
+<img src="reportehidrologia_files/figure-html/figura-precipesthomogen-1.png" alt="Distribución de precipitaciones homogenizadas" width="672" />
+<p class="caption">
+Figura 3.2: Distribución de precipitaciones homogenizadas
+</p>
+</div>
+<p>Se ha optado por aplicar la prueba de <span class="math inline">\(X\)</span><sup>2</sup> para la prueba de independencia a los datos climatológicos homogenizados, en donde, para determinar que las muestras son independientes se revisa <em>p&gt;0.05</em>.</p>
+<p>$X2164</p>
+<pre><code>Pearson&#39;s Chi-squared test</code></pre>
+<p>data: contingency_table
+X-squared = 1476, df = 1440, p-value = 0.249</p>
+<p>$X2118</p>
+<pre><code>Pearson&#39;s Chi-squared test</code></pre>
+<p>data: contingency_table
+X-squared = 1599, df = 1560, p-value = 0.2406</p>
+<p>$X2036</p>
+<pre><code>Pearson&#39;s Chi-squared test</code></pre>
+<p>data: contingency_table
+X-squared = 1599, df = 1560, p-value = 0.2406</p>
+<p>$X2001</p>
+<pre><code>Pearson&#39;s Chi-squared test</code></pre>
+<p>data: contingency_table
+X-squared = 1476, df = 1440, p-value = 0.249</p>
+<p>$X2004</p>
+<pre><code>Pearson&#39;s Chi-squared test</code></pre>
+<p>data: contingency_table
+X-squared = 1394, df = 1360, p-value = 0.2548</p>
+<p>$X2077</p>
+<pre><code>Pearson&#39;s Chi-squared test</code></pre>
+<p>data: contingency_table
+X-squared = 1640, df = 1600, p-value = 0.2379</p>
+<p>Conforme a los resultados de las pruebas de independencia se puede decir que las muestras son independientes.</p>
+</div>
+<div id="funciones-de-las-distribuciones-probabilísticas-de-las-estaciones-climatológicas" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Funciones de las distribuciones probabilísticas de las estaciones climatológicas<a href="modelo-meteorológico.html#funciones-de-las-distribuciones-probabilísticas-de-las-estaciones-climatológicas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En el ámbito de la hidrología, existen diversas funciones de distribución de probabilidad que se han empleado con éxito para modelar eventos hidrológicos extremos, como las precipitaciones máximas. Entre las funciones más comúnmente utilizadas se encuentran: Normal, Log-Normal, Exponencial, Gamma, Pearson tipo III (o Gamma de tres parámetros), Log-Pearson tipo III y de valores extremos (VE tipos I, II y III; o respectivamente Gumbel, Frechet y Weibull).</p>
+<p>En este estudio se comparan las funciones Normal, Log-Normal, Gumbel, Pearson 3 parámetros, Log Pearson 3 parámetros y de Valor Extremo Generalizado por 3 parámetros, haciendo uso de las funciones de nsRFA.</p>
+<p>Citando la documentación de nsRFA: “El problema de la selección de modelos se puede formalizar de la siguiente manera: se dispone de una muestra de n datos, <span class="math inline">\(D = (x~1~, ..., x~n~)\)</span>, ordenados de manera ascendente, muestreados de una distribución parental desconocida <em>f(x)</em>; se utilizan N<sub>m</sub> modelos operativos, <span class="math inline">\(M~j~, j = 1, ...\)</span>, N<sub>m</sub>, para representar los datos. Los modelos operativos son en forma de distribuciones de probabilidad, M<sub>j</sub> = g<sub>j</sub>(x, <span class="math inline">\(\hat{\theta}\)</span>), con parámetros <span class="math inline">\(\hat{\theta}\)</span> estimados a partir de la muestra de datos disponible <em>D</em>. El objetivo de la selección de modelos es identificar el modelo M<sub>opt</sub> que mejor se adapta para representar los datos, es decir, el modelo que está más cercano en algún sentido a la distribución parental <em>f(x)</em>. Aquí se consideran tres criterios diferentes de selección de modelos, a saber, el <em>Criterio de Información de Akaike (AIC)</em>, el <em>Criterio de Información Bayesiano (BIC)</em> y el <em>Criterio de Anderson-Darling (ADC)</em>. De los tres métodos, los dos primeros pertenecen a la categoría de enfoques clásicos de la literatura, mientras que el tercero se deriva de una interpretación heurística de los resultados de una prueba estándar de bondad de ajuste.” <span class="citation">(<a href="#ref-nsRFA2023">Viglione et al. 2023</a>)</span></p>
+<p>El algoritmo grafica la función de la distribución empírica de la muestra (<em>posición de trazado de Weibull</em>) en una gráfica de probabilidad log-normal, y grafica las distribuciones candidatas (cuyos parámetros se evalúan con la técnica de <em>máxima verosimilitud</em>).</p>
+<p>Para cada estación se documenta:</p>
+<ul>
+<li>histograma,<br />
+</li>
+<li>los resultados de la función <strong>MSClaio2008</strong> de la librería nsRFA <span class="citation">(<a href="#ref-nsRFA2023">Viglione et al. 2023</a>)</span> y<br />
+</li>
+<li>la tabla con las distribuciones de eventos extremos para diferentes períodos de retorno.</li>
+</ul>
+<p>En este capítulo, se presentará la información completa de una estación climatológica como ejemplo. Para el resto de las estaciones solo se presenta la tabla con la distribución de probabilidad ajustada a los parámetros de la función recomendada por MSClaio2008. La información completa de las 5 estaciones restantes se encuentra en el <a href="apéndice.html#apéndice-del-modelo-meteorológico">Apéndice del Modelo Meteorológico</a>.</p>
+<p>Se presenta la información de la <strong>estación 2118</strong> para comparar las distribuciones probabilísticas <em>Gumbel</em> y <em>Log-Normal</em>. Ya que en algunos reportes puede ser obligatorio calcular las disrtibuciones probabilísticas usando la distribución de Gumbel, sin embargo para este estudio, ocuparemos las distribuciones recomendadas por los resultados que arroja la función <em>MSClaio2008</em>.</p>
+<p><img src="reportehidrologia_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<pre><code>
+------------------------
+Akaike Information Criterion (AIC):
+  NORM      LN  GUMBEL      P3     LP3     GEV  
+ 342.0   334.0   334.1   336.0   336.0   336.0  
+------------------------
+Corrected Akaike Information Criterion (AICc):
+  NORM      LN  GUMBEL      P3     LP3     GEV  
+ 342.3   334.3   334.4   336.7   336.7   336.7  
+------------------------
+Bayesian Information Criterion (BIC):
+  NORM      LN  GUMBEL      P3     LP3     GEV  
+ 345.4   337.4   337.5   341.2   341.2   341.2  
+------------------------
+Anderson-Darling Criterion (ADC):
+   NORM       LN   GUMBEL       P3      LP3      GEV  
+0.59558  0.05712  0.05863  0.08499  0.07964  0.07092  </code></pre>
+<pre><code>
+Tested distributions:
+[1]  NORM    LN      GUMBEL  P3      LP3     GEV   
+------------------------
+Chosen distributions:
+ AIC  AICc   BIC   ADC  
+  LN    LN    LN    LN  
+whose Maximum-Likelihood parameters are:
+NORM parameters of log(x):  3.594576  0.3719667  </code></pre>
+<p><img src="reportehidrologia_files/figure-html/unnamed-chunk-48-2.png" width="672" /></p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-51">Tabla 3.3: </span>Comparación de distribuciones probabilísticas de precipitaciones de la estación 2118 (Log-Nom vs Gumbel)
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Tr
+</th>
+<th style="text-align:right;">
+Precipitación_2118_LN
+</th>
+<th style="text-align:right;">
+Precipitación_2118_Gumbel
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+36.4003
+</td>
+<td style="text-align:right;">
+36.4937
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+49.7809
+</td>
+<td style="text-align:right;">
+49.9898
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+58.6314
+</td>
+<td style="text-align:right;">
+58.9254
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+67.1149
+</td>
+<td style="text-align:right;">
+67.4966
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+69.8097
+</td>
+<td style="text-align:right;">
+70.2155
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+78.1400
+</td>
+<td style="text-align:right;">
+78.5912
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+86.4789
+</td>
+<td style="text-align:right;">
+86.9050
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:right;">
+94.8881
+</td>
+<td style="text-align:right;">
+95.1885
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+500
+</td>
+<td style="text-align:right;">
+106.1822
+</td>
+<td style="text-align:right;">
+106.1170
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+114.8974
+</td>
+<td style="text-align:right;">
+114.3765
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5000
+</td>
+<td style="text-align:right;">
+135.8253
+</td>
+<td style="text-align:right;">
+133.5454
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10000
+</td>
+<td style="text-align:right;">
+145.1730
+</td>
+<td style="text-align:right;">
+141.7995
+</td>
+</tr>
+</tbody>
+</table>
+<p>Realmente las dos distribuciones presentan resultados muy similares. Por lo que no representa problema escoger una sobre la otra.</p>
+<p>Después de procesar las 5 estaciones, se obtiene la tabla final con las distribuciones de las 6 estaciones.</p>
+<table class=" lightable-classic-2" style="font-size: 10px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-estacionesdistribuidas">Tabla 3.4: </span>Distribuciones probabilísticas de precipitaciones de las 6 estaciones
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Tr
+</th>
+<th style="text-align:right;">
+Precipitación_2164_P3
+</th>
+<th style="text-align:right;">
+Precipitación_2077_P3
+</th>
+<th style="text-align:right;">
+Precipitación_2004_LN
+</th>
+<th style="text-align:right;">
+Precipitación_2001_LN
+</th>
+<th style="text-align:right;">
+Precipitación_2036_P3
+</th>
+<th style="text-align:right;">
+Precipitación_2118_LN
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+448.9151
+</td>
+<td style="text-align:right;">
+406.7378
+</td>
+<td style="text-align:right;">
+40.8746
+</td>
+<td style="text-align:right;">
+34.3628
+</td>
+<td style="text-align:right;">
+295.6387
+</td>
+<td style="text-align:right;">
+36.4003
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+538.7503
+</td>
+<td style="text-align:right;">
+488.5166
+</td>
+<td style="text-align:right;">
+58.5914
+</td>
+<td style="text-align:right;">
+51.3484
+</td>
+<td style="text-align:right;">
+364.1850
+</td>
+<td style="text-align:right;">
+49.7809
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+590.0999
+</td>
+<td style="text-align:right;">
+535.2810
+</td>
+<td style="text-align:right;">
+70.7256
+</td>
+<td style="text-align:right;">
+63.3445
+</td>
+<td style="text-align:right;">
+403.8606
+</td>
+<td style="text-align:right;">
+58.6314
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+634.8386
+</td>
+<td style="text-align:right;">
+576.0345
+</td>
+<td style="text-align:right;">
+82.6192
+</td>
+<td style="text-align:right;">
+75.3371
+</td>
+<td style="text-align:right;">
+438.6752
+</td>
+<td style="text-align:right;">
+67.1149
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+648.2736
+</td>
+<td style="text-align:right;">
+588.2745
+</td>
+<td style="text-align:right;">
+86.4461
+</td>
+<td style="text-align:right;">
+79.2399
+</td>
+<td style="text-align:right;">
+449.1710
+</td>
+<td style="text-align:right;">
+69.8097
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+687.7615
+</td>
+<td style="text-align:right;">
+624.2538
+</td>
+<td style="text-align:right;">
+98.4140
+</td>
+<td style="text-align:right;">
+91.5711
+</td>
+<td style="text-align:right;">
+480.1210
+</td>
+<td style="text-align:right;">
+78.1400
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+724.5775
+</td>
+<td style="text-align:right;">
+657.8037
+</td>
+<td style="text-align:right;">
+110.5881
+</td>
+<td style="text-align:right;">
+104.2938
+</td>
+<td style="text-align:right;">
+509.1040
+</td>
+<td style="text-align:right;">
+86.4789
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:right;">
+759.3598
+</td>
+<td style="text-align:right;">
+689.5044
+</td>
+<td style="text-align:right;">
+123.0450
+</td>
+<td style="text-align:right;">
+117.4809
+</td>
+<td style="text-align:right;">
+536.5896
+</td>
+<td style="text-align:right;">
+94.8881
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+500
+</td>
+<td style="text-align:right;">
+802.9189
+</td>
+<td style="text-align:right;">
+729.2095
+</td>
+<td style="text-align:right;">
+140.0360
+</td>
+<td style="text-align:right;">
+135.7157
+</td>
+<td style="text-align:right;">
+571.1421
+</td>
+<td style="text-align:right;">
+106.1822
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+834.4028
+</td>
+<td style="text-align:right;">
+757.9111
+</td>
+<td style="text-align:right;">
+153.3360
+</td>
+<td style="text-align:right;">
+150.1706
+</td>
+<td style="text-align:right;">
+596.2004
+</td>
+<td style="text-align:right;">
+114.8974
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5000
+</td>
+<td style="text-align:right;">
+903.7517
+</td>
+<td style="text-align:right;">
+821.1406
+</td>
+<td style="text-align:right;">
+185.8790
+</td>
+<td style="text-align:right;">
+186.1329
+</td>
+<td style="text-align:right;">
+651.6234
+</td>
+<td style="text-align:right;">
+135.8253
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10000
+</td>
+<td style="text-align:right;">
+932.3136
+</td>
+<td style="text-align:right;">
+847.1855
+</td>
+<td style="text-align:right;">
+200.6677
+</td>
+<td style="text-align:right;">
+202.7260
+</td>
+<td style="text-align:right;">
+674.5340
+</td>
+<td style="text-align:right;">
+145.1730
+</td>
+</tr>
+</tbody>
+</table>
+<p>Ahora, se obtiene la precipitación ponderada de las 6 estaciones. Se presentan dos propuestas para obtener el valor ponderado.</p>
+<p>En la primera propuesta, se asignaron pesos a cada estación tomando como criterio los resultados de la calidad/singularidad de las estaciones del proceso de homogenización.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-esthomogenclimatol">Tabla 3.5: </span>Estaciones homogenizadas
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Tr_años
+</th>
+<th style="text-align:right;">
+lluvia_max_24h
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+142.7981
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+178.8926
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+201.0112
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+221.2652
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+227.5380
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+246.5143
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+264.9702
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:right;">
+283.1283
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+500
+</td>
+<td style="text-align:right;">
+306.9242
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+324.9012
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5000
+</td>
+<td style="text-align:right;">
+366.9936
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10000
+</td>
+<td style="text-align:right;">
+385.4010
+</td>
+</tr>
+</tbody>
+</table>
+<p>En la segunda propuesta se obtiene la precipitación ponderada por polígonos de Voronoi.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-esthogemvoronoi">Tabla 3.6: </span>Estaciones homogenizadas
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Tr
+</th>
+<th style="text-align:right;">
+Precipitacion
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+186.4874
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+230.0740
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+256.1841
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+279.7196
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+286.9394
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+308.5895
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:right;">
+329.3823
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+200
+</td>
+<td style="text-align:right;">
+349.5995
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+500
+</td>
+<td style="text-align:right;">
+375.7551
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:right;">
+395.2753
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5000
+</td>
+<td style="text-align:right;">
+440.2426
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10000
+</td>
+<td style="text-align:right;">
+459.6075
+</td>
+</tr>
+</tbody>
+</table>
+<p>Las precipitaciones ponderadas por polígonos de Voronoi tienen valores más elevados que las precipitaciones ponderadas usando el criterio de la calidad/singularidad de las estaciones. Para los cálculos posteriores se usa la ponderación por polígonos de Voronoi.</p>
+</div>
+<div id="curvas-idtr-y-pdtr" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Curvas IDTR y PDTR<a href="modelo-meteorológico.html#curvas-idtr-y-pdtr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En el análisis hidrológico, las características de las precipitaciones se definen mediante tres variables: magnitud o lámina, duración y frecuencia. La magnitud de lluvia se refiere a la precipitación total ocurrida (en milímetros) durante la duración de la tormenta, mientras que la frecuencia se expresa como el período de retorno, el cual representa el tiempo promedio en años en el que un evento puede ser igualado o excedido, al menos una vez, en promedio <span class="citation">(<a href="#ref-camposaranda1990">Daniel Francisco Campos Aranda 1990</a>)</span>.</p>
+<p>Las curvas Intensidad-Duración-Período de Retorno (IDTR) son herramientas gráficas que permiten definir las características de las tormentas en una región específica, considerando las variables mencionadas.</p>
+<p>Para obtener las curvas IDTR, es necesario transformar los datos de precipitación máxima en 24 horas a precipitaciones de diferentes duraciones y períodos de retorno. Debido a la escasez de registros de lluvia de corta duración, ha surgido la necesidad de utilizar las relaciones promedio entre lluvias encontradas en otros países <span class="citation">(<a href="#ref-camposaranda1990">Daniel Francisco Campos Aranda 1990</a>)</span>. La Secretaría de Comunicaciones y Transportes (SCT) ha documentado estas relaciones en forma de isoyetas, las cuales permiten representar cartográficamente los puntos terrestres que comparten el mismo indicador de pluviosidad media anual.</p>
+<div class="figure"><span style="display:block;" id="fig:isoyetas1060"></span>
+<img src="isoyetas%201060.png" alt="Ejemplo del uso de las isoyetas para calcular las precipitaciones asociadas al Tr" width="1754" />
+<p class="caption">
+Figura 3.3: Ejemplo del uso de las isoyetas para calcular las precipitaciones asociadas al Tr
+</p>
+</div>
+<p>Para el cálculo de las curvas de Intensidad - Duración - Tiempo de Retorno se usa la metodología de <em>Chen modificado</em>.</p>
+<p>Se importan a RStudio las capas vectoriales de la cuenca cortadas por mapas de Isoyetas (las vigentes datan del año 2015). Estos mapas de isoyetas se han georeferenciado para poder usar las herramientas de QGIS y superponer la cuenca para obtener la pluviosidad asociada a la cuenca.</p>
+<p>Se localizan las intensidades con duración de 60 minutos para los periodos de retorno de 10, 25 y 50 años.</p>
+<p>P<sub>1hr</sub><sup>10años</sup>:
+30.28211
+mm/hr</p>
+<p>P<sub>1hr</sub><sup>25años</sup>:
+36.64212
+mm/hr</p>
+<p>P<sub>1hr</sub><sup>50años</sup>:
+43.0048
+mm/hr</p>
+<p>Se corrigen las frecuencias por factor de Weiss y se obtienen los diferentes parámetros que se ocupan para el cálculo de la tabla IDTR.</p>
+<p>Primero se obteniene R<sub>prom</sub>, se debe revisar si cae en rango [0.1-0.6] o [0.2-0.7] para cálculos posteriores.</p>
+<p>R<sub>prom</sub>: 0.1046057</p>
+<p>Dependiendo del rango en el que este R<sub>prom</sub> se usan diferentes ecuaciones para obtener los parámetros a,b,c. </p>
+<p>Parámetro a:
+4.748782</p>
+<p>Parámetro b:
+-2.644634</p>
+<p>Parámetro c:
+0.3202305</p>
+<p>Se obtiene F.</p>
+<p>F: 1.285725</p>
+<p>Con los parámetros calculados se procede a graficar las curvas IDTR.</p>
+<div class="figure"><span style="display:block;" id="fig:figura-IDTR"></span>
+<img src="reportehidrologia_files/figure-html/figura-IDTR-1.png" alt="Gráfico de las curvas Intensidad - Duración -  Tiempo de Retorno" width="672" />
+<p class="caption">
+Figura 3.4: Gráfico de las curvas Intensidad - Duración - Tiempo de Retorno
+</p>
+</div>
+<p>Después se hacen los cálculos necesarios para obtener las curvas PDTR. La memoria de cálculo se encuentra en el <a href="apéndice.html#apéndice-del-modelo-meteorológico">Apéndice del Modelo Meteorológico</a>.</p>
+<div class="figure"><span style="display:block;" id="fig:figura-PDTR"></span>
+<img src="reportehidrologia_files/figure-html/figura-PDTR-1.png" alt="Gráfico de las curvas Precipitación - Duración -  Tiempo de Retorno" width="672" />
+<p class="caption">
+Figura 3.5: Gráfico de las curvas Precipitación - Duración - Tiempo de Retorno
+</p>
+</div>
+</div>
+<div id="hietograma" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Hietograma<a href="modelo-meteorológico.html#hietograma" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cuando no se dispone de registros climáticos e hidrométricos completos, el proceso de conversión de precipitación en escorrentía se aborda mediante la modelación de la tormenta incidente en la cuenca y la fase terrestre del ciclo hidrológico que se desarrolla en ella. En este enfoque, las tormentas de diseño son el punto de partida para las estimaciones hidrológicas de escurrimientos, tanto en cuencas rurales como urbanas, en ausencia de información hidrométrica directa.</p>
+<p>Existen dos tipos fundamentales de tormentas de diseño: históricas y sintéticas o hipotéticas. Las tormentas históricas son eventos severos o extraordinarios que han ocurrido en el pasado y fueron registrados, pudiendo estar bien documentados en relación con los problemas y daños causados a las áreas urbanas y sus sistemas de drenaje. Por otro lado, las tormentas sintéticas o hipotéticas se obtienen a partir del estudio y generalización de un gran número de tormentas severas observadas, con el objetivo de estimar un hietograma que represente las características de las tormentas en la zona de estudio <span class="citation">(<a href="#ref-campos2010">Aranda 2010</a>)</span>.</p>
+<p>En el presente estudio, se obtendrá el hietograma de diseño utilizando la metodología propuesta por el NRCS. El período de retorno seleccionado es de 100 años, ya que el punto de control se encuentra en una carretera federal, donde se requieren niveles de protección más estrictos.</p>
+<div class="figure"><span style="display:block;" id="fig:figura-hietograma"></span>
+<img src="reportehidrologia_files/figure-html/figura-hietograma-1.png" alt="Hietograma para el Periodo de Retorno 100 años" width="672" />
+<p class="caption">
+Figura 3.6: Hietograma para el Periodo de Retorno 100 años
+</p>
+</div>
+
+</div>
+</div>
+<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-campos2010" class="csl-entry">
+Aranda, Daniel Francisco Campos. 2010. <em>Introducción a La Hidrología Urbana</em>. 1st ed. San Luis Potosí, S.L.P., México: Derechos reservados por Daniel Francisco Campos Aranda.
+</div>
+<div id="ref-camposaranda1990" class="csl-entry">
+Campos Aranda, Daniel Francisco. 1990. <em>Procedimiento Para Obtener Curvas IDTR a Partir de Registros Pluviométricos</em>. Edited by Rubén Gómez de Luna. San Luis Potosí, México: Coordinación Regional Noreste, Comisión Nacional del Agua, México; Facultad de Ingeniería, Universidad Autónoma de San Luis Potosí.
+</div>
+<div id="ref-conagua1987" class="csl-entry">
+CONAGUA. 1987. <em>Instructivo de Hidrología Para Determinar La Avenida Máxima Ordinaria</em>. Comisión Nacional del Agua, Subdirección General de Administración del Agua, Gerencia de Aguas Superficiales e Ingeniería de Ríos.
+</div>
+<div id="ref-dominguez2018" class="csl-entry">
+Domínguez, R., E. Carrizosa, G. E. Fuentes, M. L. Arganis, J. Osnaya, and A. E. Galván-Torres. 2018. <span>“Análisis Regional Para Estimar Precipitaciones de Diseño En La República Mexicana.”</span> <em>Tecnología y Ciencias Del Agua</em> 9 (1): 5–29. <a href="https://doi.org/10.24850/j-tyca-2018-01-01">https://doi.org/10.24850/j-tyca-2018-01-01</a>.
+</div>
+<div id="ref-guijarro2024" class="csl-entry">
+Guijarro, Jose A. 2024. <em>Climatol: Climate Tools (Series Homogenization and Derived Products)</em>. <a href="https://climatol.eu">https://climatol.eu</a>.
+</div>
+<div id="ref-nsRFA2023" class="csl-entry">
+Viglione, Alberto, Jonathan R. M. Hosking, Francesco Laio, Alan Miller, Eric Gaume, Olivier Payrastre, Jose Luis Salinas, Chi Cong N’guyen, and Karine Halbert. 2023. <em>nsRFA: Non-Supervised Regional Frequency Analysis</em>. <a href="https://CRAN.R-project.org/package=nsRFA">https://CRAN.R-project.org/package=nsRFA</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="modelo-fisiográfico.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modelo-hidrológico.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/reyesedgar/Hidrologia/edit/main/03-modelo_meteorologico.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/reyesedgar/Hidrologia/blob/main/03-modelo_meteorologico.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

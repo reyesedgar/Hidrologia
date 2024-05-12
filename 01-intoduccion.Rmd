@@ -1,0 +1,39 @@
+# Introducción
+
+La hidrología es la ciencia que estudia el ciclo hidrológico y los procesos que rigen el movimiento y distribución del agua en la Tierra [@campos1998]. El ciclo hidrológico es un proceso continuo donde el agua circula entre la atmósfera, la superficie terrestre y el subsuelo, a través de fenómenos como la precipitación, la escorrentía, la infiltración, la evaporación y la condensación.
+
+Una proporción del agua precipitada se infiltra en el suelo formando acuíferos o capas freáticas, mientras que otra parte escurre superficialmente hasta llegar a ríos, lagos u océanos. Esta distribución depende de factores como la permeabilidad del sustrato, la pendiente y la cobertura vegetal. La falta de cobertura vegetal constituye un problema ambiental crítico, ya que favorece la erosión hídrica del suelo y el aumento de sedimentos y contaminantes en los cuerpos de agua.
+
+En las últimas décadas, el cambio climático ha exacerbado la ocurrencia de eventos climáticos extremos como precipitaciones intensas e inundaciones [@ruiz2024; @bbc2024], así como sequías prolongadas [@foxsports2024]. Ante estos desafíos, la hidrología desempeña un papel fundamental en la prevención y gestión de riesgos asociados a estos fenómenos, brindando herramientas y modelos para el diseño de soluciones de protección territorial.
+
+En este contexto, el presente estudio tiene como objetivo desarrollar un modelo hidrológico confiable para estimar las avenidas máximas en una cuenca hidrográfica costera, con el fin de dimensionar adecuadamente las obras de protección para un puente de una carretera federal. Para ello, se requiere un análisis detallado de la geomorfología de la zona de estudio, que contemple los parámetros que describen las propiedades de la superficie y determinan el movimiento del agua, así como un análisis meteorológico que caracterice los patrones de precipitación en la región.
+ 
+Para la generación del modelo fisiográfico se usa el software GIS de código libre **QGIS**, y dentro del ambiente se usan las  extensiones *GDAL* para gestionar capas vectoriales y rasters, *GRASS* para delimitar el área y red de drenaje, y  *SAGA NEXT GEN* para procesos auxiliares. 
+
+Para la generación del modelo meteorológico, se utiliza el software de código libre **RStudio** que se basa en el lenguaje *R*, un lenguaje de programación computacional estadística. Dentro del ambiente, se hace uso de librerías especializadas para el uso de datos climatológicos y para la selección de modelos probabilísticos para estimar las tormentas de diseño.
+
+De manera particular se revisan metodologías para el cálculo del *Número de Curva* y para el cálculo del *caudal*, considerando que la cuenca no está aforada y se deben hacer ajustes para poder emplear las metodologías propuestas.
+
+
+## Objetivo
+
+Determinar el caudal de diseño para la propuesta de una obra de protección localizada sobre el punto de control PC-008 para el seguro encauzamiento de agua de acuerdo con el periodo de retorno de estudio propuesto.
+
+
+## Normativa aplicada
+
+Para el diseño del modelo hidrológico se ha seguido la normativa establecida en el Manual de Agua Potable, Alcantarillado y Saneamiento [@conagua2019] y el Instructivo de Hidrología para Determinar la Avenida Máxima Ordinaria [@conagua1987]. 
+
+
+## Localización del proyecto
+
+
+El área de estudio comprende una cuenca hidrográfica ubicada en el estado de Baja California, México, abarcando territorios de los municipios de Ensenada, Playas de Rosarito, Tijuana y Tecate. La cuenca presenta características predominantemente rurales, con algunos asentamientos urbanos dispersos en su porción final, como las colonias Francisco Zarco y Ejido El Porvenir.
+
+El punto de control establecido para el análisis hidrológico se encuentra en el puente La Misión, localizado en las coordenadas -116.88258, 32.08942, sobre la carretera federal Tijuana-San Miguel, en el kilómetro 69+338. Este puente cruza el cauce principal de la cuenca y su dimensionamiento adecuado es crucial para garantizar la protección de la infraestructura vial ante eventos de avenidas extraordinarias.
+
+La caracterización detallada de la fisiografía de la cuenca, incluyendo su topografía, red de drenaje, tipos de suelo y cobertura vegetal, así como el análisis de los patrones de precipitación en la región, son elementos clave para el desarrollo del modelo hidrológico y la estimación confiable de los caudales máximos esperados en el punto de control.
+
+```{r, echo=FALSE, figura-contextoterritorial , fig.cap="Contexto territorial de la subcuenca R. Gudalupe"}
+knitr::include_graphics("Mapa contexto territorial.png")
+```

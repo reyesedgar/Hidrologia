@@ -1,0 +1,3649 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 2 Modelo Fisiográfico | reportehidrologia.knit</title>
+  <meta name="description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 2 Modelo Fisiográfico | reportehidrologia.knit" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="/logo.png" />
+  <meta property="og:description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 2 Modelo Fisiográfico | reportehidrologia.knit" />
+  
+  <meta name="twitter:description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <meta name="twitter:image" content="/logo.png" />
+
+<meta name="author" content="" />
+
+
+<meta name="date" content="2024-05-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introducción.html"/>
+<link rel="next" href="modelo-meteorológico.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Estudio Hidrológico</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#objetivo"><i class="fa fa-check"></i><b>1.1</b> Objetivo</a></li>
+<li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#normativa-aplicada"><i class="fa fa-check"></i><b>1.2</b> Normativa aplicada</a></li>
+<li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#localización-del-proyecto"><i class="fa fa-check"></i><b>1.3</b> Localización del proyecto</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html"><i class="fa fa-check"></i><b>2</b> Modelo Fisiográfico</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#topografía-documentada"><i class="fa fa-check"></i><b>2.1</b> Topografía documentada</a></li>
+<li class="chapter" data-level="2.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#delimitación-del-área-de-escurrimiento-y-red-hidrográfica"><i class="fa fa-check"></i><b>2.2</b> Delimitación del área de escurrimiento y red hidrográfica</a></li>
+<li class="chapter" data-level="2.3" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#descripción-del-relieve"><i class="fa fa-check"></i><b>2.3</b> Descripción del Relieve</a></li>
+<li class="chapter" data-level="2.4" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#red-de-drenaje"><i class="fa fa-check"></i><b>2.4</b> Red de drenaje</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#análisis-de-pendiente-del-cauce-principal-de-la-cuenca"><i class="fa fa-check"></i><b>2.4.1</b> Análisis de pendiente del cauce principal de la cuenca</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#breve-introducción-a-la-estimación-del-coeficiente-de-escurrimiento"><i class="fa fa-check"></i><b>2.5</b> Breve introducción a la estimación del coeficiente de escurrimiento</a></li>
+<li class="chapter" data-level="2.6" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-de-tipo-de-suelo"><i class="fa fa-check"></i><b>2.6</b> Identificación de tipo de suelo</a></li>
+<li class="chapter" data-level="2.7" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-del-grupo-hidrológico-del-suelo"><i class="fa fa-check"></i><b>2.7</b> Identificación del grupo hidrológico del suelo</a></li>
+<li class="chapter" data-level="2.8" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-de-uso-de-suelo-y-vegetación"><i class="fa fa-check"></i><b>2.8</b> Identificación de uso de suelo y vegetación</a></li>
+<li class="chapter" data-level="2.9" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#número-de-curva"><i class="fa fa-check"></i><b>2.9</b> Número de Curva</a>
+<ul>
+<li class="chapter" data-level="2.9.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#nc-calculado-por-imta"><i class="fa fa-check"></i><b>2.9.1</b> NC calculado por IMTA</a></li>
+<li class="chapter" data-level="2.9.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#nc-semiautomatizado"><i class="fa fa-check"></i><b>2.9.2</b> NC semiautomatizado</a></li>
+<li class="chapter" data-level="2.9.3" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#discusión-final-sobre-el-cálculo-del-número-de-curva"><i class="fa fa-check"></i><b>2.9.3</b> Discusión final sobre el cálculo del Número de Curva</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempos-de-estudio"><i class="fa fa-check"></i><b>2.10</b> Tiempos de estudio</a>
+<ul>
+<li class="chapter" data-level="2.10.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-kirpich"><i class="fa fa-check"></i><b>2.10.1</b> Tiempo de concentracion por kirpich</a></li>
+<li class="chapter" data-level="2.10.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-rowe"><i class="fa fa-check"></i><b>2.10.2</b> Tiempo de concentracion por Rowe</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html"><i class="fa fa-check"></i><b>3</b> Modelo meteorológico</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#selección-de-estaciones-climatológicas"><i class="fa fa-check"></i><b>3.1</b> Selección de estaciones climatológicas</a></li>
+<li class="chapter" data-level="3.2" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#homogenización-de-datos-climatológicos"><i class="fa fa-check"></i><b>3.2</b> Homogenización de datos climatológicos</a></li>
+<li class="chapter" data-level="3.3" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#funciones-de-las-distribuciones-probabilísticas-de-las-estaciones-climatológicas"><i class="fa fa-check"></i><b>3.3</b> Funciones de las distribuciones probabilísticas de las estaciones climatológicas</a></li>
+<li class="chapter" data-level="3.4" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#curvas-idtr-y-pdtr"><i class="fa fa-check"></i><b>3.4</b> Curvas IDTR y PDTR</a></li>
+<li class="chapter" data-level="3.5" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html#hietograma"><i class="fa fa-check"></i><b>3.5</b> Hietograma</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html"><i class="fa fa-check"></i><b>4</b> Modelo Hidrológico</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#cálculo-de-caudales"><i class="fa fa-check"></i><b>4.1</b> Cálculo de caudales</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#caudal-q-por-hut-hidrograma-uniforme-triangular"><i class="fa fa-check"></i><b>4.1.1</b> Caudal Q por HUT (Hidrograma Uniforme Triangular)</a></li>
+<li class="chapter" data-level="4.1.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-racional"><i class="fa fa-check"></i><b>4.1.2</b> METODO RACIONAL</a></li>
+<li class="chapter" data-level="4.1.3" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-vente-chow"><i class="fa fa-check"></i><b>4.1.3</b> METODO VENTE CHOW</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#hidrograma"><i class="fa fa-check"></i><b>4.2</b> HIDROGRAMA</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>5</b> Conclusiones</a></li>
+<li class="appendix"><span><b>Recursos adicionales</b></span></li>
+<li class="chapter" data-level="A" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>A</b> Apéndice</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="apéndice.html"><a href="apéndice.html#apéndice-del-modelo-fisiográfico"><i class="fa fa-check"></i><b>A.1</b> Apéndice del Modelo Fisiográfico</a></li>
+<li class="chapter" data-level="A.2" data-path="apéndice.html"><a href="apéndice.html#apéndice-del-modelo-meteorológico"><i class="fa fa-check"></i><b>A.2</b> Apéndice del Modelo Meteorológico</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modelo-fisiográfico" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Capítulo 2</span> Modelo Fisiográfico<a href="modelo-fisiográfico.html#modelo-fisiográfico" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>El análisis fisiográfico es fundamental para caracterizar las propiedades físicas de una cuenca hidrográfica, incluyendo su topografía, red de drenaje, tipos de suelo y cobertura vegetal. Estos elementos determinan en gran medida el comportamiento hidrológico de la cuenca y su respuesta ante eventos de precipitación.</p>
+<div id="topografía-documentada" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Topografía documentada<a href="modelo-fisiográfico.html#topografía-documentada" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para el presente estudio, se utilizó la información fue publicada en el geoportal <strong>Continuo de Elevaciones Mexicano 3.0</strong> <span class="citation">(<a href="#ref-CEM3.0">Instituto Nacional de Estadística y Geografía 2013</a>)</span> con una resolución de 15 x 15 metros y datum ITRF92 época 1988. Los datos fueron obtenidos en marzo de 2024 y procesados en el Sistema de Referencia de Coordenadas EPSG:32611 WGS 84 / UTM zona 11N, en unidades métricas.</p>
+</div>
+<div id="delimitación-del-área-de-escurrimiento-y-red-hidrográfica" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Delimitación del área de escurrimiento y red hidrográfica<a href="modelo-fisiográfico.html#delimitación-del-área-de-escurrimiento-y-red-hidrográfica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La cuenca analizada, denominada “Subcuenca R. Guadalupe” (RH01Cc) según la nomenclatura INEGI, pertenece a la Región Hidrográfica Baja California Noroeste (Ensenada) y forma parte de la cuenca exorreica R. Tijuana - A. de Maneadero. Presenta un <strong>área de drenaje</strong> de 2403.79 km<sup>2</sup>, delimitada por un <strong>perímetro</strong> de 485.58 km y una <strong>longitud</strong> de 95.11 km, clasificándose como una cuenca <strong>Intermedia grande</strong> conforme a la tabla <a href="modelo-fisiográfico.html#tab:tabla-tamanocuencas">2.1</a>, de los <em>Apuntes de Hidrología Urbana</em> <span class="citation">(<a href="#ref-conde1995">Rivera and B. 1995</a>)</span>.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-tamanocuencas">Tabla 2.1: </span>Clasificación de las cuencas según su tamaño
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Clasificacion
+</th>
+<th style="text-align:left;">
+Rango_tamaño
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Muy pequeña
+</td>
+<td style="text-align:left;">
+&lt; 25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pequeña
+</td>
+<td style="text-align:left;">
+25-250
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Intermedia pequeña
+</td>
+<td style="text-align:left;">
+250-500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Intermedia grande
+</td>
+<td style="text-align:left;">
+500-2,500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Grande
+</td>
+<td style="text-align:left;">
+2,500-5,000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Muy grande
+</td>
+<td style="text-align:left;">
+&gt; 5,000
+</td>
+</tr>
+</tbody>
+</table>
+<p>La <strong>elevación media de la cuenca</strong>, 891 msnm, y la <strong>pendiente de la cuenca</strong>, 17.48 %, son valores que se obtienen
+consultando las estadísticas de los rasters generados en QGIS.</p>
+<p>El cauce principal, con una <strong>longitud</strong> de 165.91 km, nace cerca de la localidad Agua Amarga y descarga en la localidad de Playas La Misión, específicamente en el puente La Misión, sobre la carretera federal Tijuana - San Miguel, la cual pasa sobre la costa, por lo que podemos decir que el cauce desemboca en el mar.</p>
+<p>Gracias a las cartas topográficas de la región hidrográfica RH01Cc se pueden ubicar elementos orográficos que pertenecen a la zona de estudio, como manantiales y lagos.</p>
+<div class="figure"><span style="display:block;" id="fig:figura-cuencadelim"></span>
+<img src="subcuenca%20R.%20Gudalupe.png" alt="cuenca delimitada con QGIS 3.36" width="1754" />
+<p class="caption">
+Figura 2.1: Delimitación de la subcuenca R. Gudalupe
+</p>
+</div>
+</div>
+<div id="descripción-del-relieve" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Descripción del Relieve<a href="modelo-fisiográfico.html#descripción-del-relieve" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El análisis del relieve es fundamental en hidrología, ya que las formas y características de la superficie terrestre influyen significativamente en los procesos hidrológicos, como el movimiento del agua, la escorrentía y la erosión. Comprender el relieve de una cuenca hidrográfica es esencial para el control de cauces, la restauración de arroyos, la prevención de riesgos de inundación y la gestión sostenible de los recursos hídricos.</p>
+<p>Para describir el relieve, se presenta la <strong>relación de enlongación</strong>, que caracteriza el relieve, cuya fórmula es <span class="math display">\[R_e = 1.128 \frac{\sqrt{\ A}}{L_m}\]</span> y el <strong>coeficiente de compacidad</strong>, que indica la geometría de la cuenca, cuya fórmula es <span class="math display">\[K_c = 0.282\frac{P}{\sqrt{A}}\]</span>.</p>
+<p>El valor de la relación de enlongación, R<sub>e</sub> es 0.6
+, por lo que consideramos que la cuenca tiene un relieve fuerte.</p>
+<p>El valor del coeficiente de compacidad, k<sub>c</sub> es 2.773153
+, por lo que consideramos que la cuenca tiene una forma alargada.</p>
+<p>El relieve influye en la velocidad del escurrimiento, la erosión del suelo y el transporte de sedimentos. Un relieve fuerte y una forma alargada implican una mayor concentración de los flujos de escorrentía en el cauce principal, lo que puede aumentar el riesgo de inundaciones repentinas. Estos factores deben considerarse cuidadosamente en el diseño de medidas de protección y en la gestión integral de la cuenca hidrográfica.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figura-elevclas"></span>
+<img src="elevaciones%20clasificadas.png" alt="Clasificación de las elevaciones de la cuenca" width="1754" />
+<p class="caption">
+Figura 2.2: Clasificación de las elevaciones de la cuenca
+</p>
+</div>
+<p>Los diferentes rangos de elevación dentro de la cuenca influyen en los patrones de precipitación y, por lo tanto, en la disponibilidad de agua en distintas zonas. La <strong>curva hipsométrica</strong>, que representa la distribución de áreas a diferentes altitudes, permite comprender el equilibrio dinámico de la cuenca y las etapas del ciclo erosivo <span class="citation">(<a href="#ref-conde1995">Rivera and B. 1995</a>)</span>.</p>
+<ul>
+<li>La <em>curva A</em> representa una cuenca geológicamente joven, en una etapa de desequilibrio,<br />
+</li>
+<li>la <em>curva B</em> representa una cuenca geológicamente madura, en una etapa de equilibrio (aunque algunos autores mencionan que refleja una actividad media erosiva),<br />
+</li>
+<li>la <em>curva C</em> representa una cuenca erosionada, geológicamente vieja.</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figura-curvahipso"></span>
+<img src="curva%20hipsometrica.png" alt="Clasificación de las curvas hipsométricas" width="300" />
+<p class="caption">
+Figura 2.3: Clasificación de las curvas hipsométricas
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figura-curvahipsometrica"></span>
+<img src="reportehidrologia_files/figure-html/figura-curvahipsometrica-1.png" alt="Curva que determina la longevidad del cauce principal" width="400" />
+<p class="caption">
+Figura 2.4: Curva que determina la longevidad del cauce principal
+</p>
+</div>
+<p>En el presente análisis, la curva hipsométrica obtenida se asemeja a la curva B, lo que sugiere que la cuenca se encuentra en una etapa geológicamente madura, con una actividad erosiva media. Esto implica que los procesos de erosión y sedimentación se encuentran en un estado relativamente equilibrado, aunque con incidencias probables de eventos erosivos significativos.</p>
+<p>Además del análisis hipsométrico, es esencial considerar la pendiente del relieve, ya que influye directamente en la velocidad y el comportamiento de la escorrentía superficial. Pendientes bajas favorecen un movimiento más lento del agua, permitiendo una mayor infiltración y un mejor aprovechamiento de las escorrentías, mientras que pendientes escarpadas aceleran la velocidad del flujo, aumentando el riesgo de erosión del suelo.</p>
+<div class="figure"><span style="display:block;" id="fig:figura-pendreclas"></span>
+<img src="pendiente%20reclasificada.png" alt="Clasificación de pendientes de la zona de estudio" width="1754" />
+<p class="caption">
+Figura 2.5: Clasificación de pendientes de la zona de estudio
+</p>
+</div>
+<p>En el mapa de pendientes generado, se observa que el cauce principal atraviesa zonas llanas y suaves, las cuales podrían ser áreas clave para la implementación de soluciones basadas en la naturaleza (SbN) con el objetivo de controlar y aprovechar las escorrentías de manera sostenible. Estas medidas, como la creación de humedales artificiales o la reforestación de riberas, pueden contribuir a la regulación del ciclo hidrológico y la protección del ecosistema.</p>
+<p>Es importante resaltar que un adecuado manejo de las pendientes y las elevaciones, en conjunto con los otros fisiográficos presentados, puede mejorar la resiliencia de la cuenca ante eventos extremos, como inundaciones o sequías, y promover la conservación de los recursos hídricos y la biodiversidad asociada.</p>
+</div>
+<div id="red-de-drenaje" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Red de drenaje<a href="modelo-fisiográfico.html#red-de-drenaje" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La red de drenaje de una cuenca hidrográfica desempeña un papel crucial en el movimiento y transporte del agua superficial, subsuperficial y subterránea, tanto de manera temporal como permanente <span class="citation">(<a href="#ref-campos1998">Daniel F. Campos Aranda 1998</a>)</span>. Las características de esta red reflejan la eficiencia del sistema de drenaje de la cuenca y su capacidad para evacuar los excedentes de agua durante eventos de precipitación intensa.</p>
+<p>Los patrones de drenaje pueden adoptar diferentes formas, como dendrítica, paralela, radial o rectangular, dependiendo de factores como la energía solar, la gravedad, el clima, la topografía, la cobertura vegetal, los tipos de suelo y los usos del territorio. Estos patrones revelan la interacción compleja entre los componentes bióticos y abióticos de la cuenca.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figura-modelosdrenaje"></span>
+<img src="modelos%20de%20drenaje.png" alt="Modelos de drenaje" width="1000" />
+<p class="caption">
+Figura 2.6: Modelos de drenaje
+</p>
+</div>
+<p>El análisis del mapa <a href="modelo-fisiográfico.html#fig:figura-cuencadelim">2.1</a> indica que la red de drenaje presenta un patrón dendrítico, caracterizado por una distribución similar a las ramas de un árbol, típico de antiguas llanuras costeras.</p>
+<p>La configuración de la red de drenaje tiene implicaciones importantes en la gestión de los recursos hídricos y la protección de los ecosistemas dentro de la cuenca. Un sistema de drenaje eficiente puede reducir el riesgo de inundaciones al evacuar rápidamente los excedentes de agua, pero también puede aumentar la erosión del suelo y el transporte de sedimentos y contaminantes hacia los cuerpos de agua receptores.</p>
+<p>Por lo tanto, es fundamental considerar estrategias de manejo integrado de la cuenca que equilibren la necesidad de drenaje adecuado con la conservación de la calidad del agua y la biodiversidad.</p>
+<div id="análisis-de-pendiente-del-cauce-principal-de-la-cuenca" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Análisis de pendiente del cauce principal de la cuenca<a href="modelo-fisiográfico.html#análisis-de-pendiente-del-cauce-principal-de-la-cuenca" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El análisis del perfil longitudinal del cauce principal proporciona información sobre su pendiente, la cual influye en la velocidad del flujo y la capacidad de transporte de sedimentos.</p>
+<p>La pendiente del cauce principal se ha calculado usando tres diferentes fórmulas, las cuales se encuentran referenciadas en el manual de alcantarillado y saneamiento pluvial <span class="citation">(<a href="#ref-conagua2019">CONAGUA 2019</a>)</span>.</p>
+<ul>
+<li>Pendiente uniforme<br />
+</li>
+<li>Pendiente por elevaciones constantes de Taylor - Shwarz<br />
+</li>
+<li>Pendiente por longitudes constantes de Taylor - Shwarz</li>
+</ul>
+<p>Se hicieron corridas del modelo hidrológico con las pendientes de Taylor - Shwarz y uniforme, y se decidió usar la pendiente uniforme, debido a que genera resultados más conservadores.</p>
+<p>Las memorias de cálculo que generan las pendientes Taylor - Shwarz se encuentran en el Ápendice.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figura-cauceperfil"></span>
+<img src="perfil%20del%20cauce.png" alt="Perfil del cauce principal" width="600" />
+<p class="caption">
+Figura 2.7: Perfil del cauce principal
+</p>
+</div>
+<div id="pendiente-uniforme" class="section level4 hasAnchor" number="2.4.1.1">
+<h4><span class="header-section-number">2.4.1.1</span> Pendiente uniforme<a href="modelo-fisiográfico.html#pendiente-uniforme" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Esta pendiente se calcula a partir de la longitud total del cauce y la diferencia de elevación entre su punto inicial y final. La fórmula es
+<span class="math display">\[ S_c = \frac{\Delta H}{L_{tc}} \label{eq:pendieteuniforme} \]</span></p>
+<p>La pendiente media del cauce principal calculada con la fórmula de pendiente uniforme es: 0.01029595 m/m</p>
+</div>
+<div id="pendiente-taylor-schwarz---elevaciones-constantes" class="section level4 hasAnchor" number="2.4.1.2">
+<h4><span class="header-section-number">2.4.1.2</span> Pendiente Taylor Schwarz - Elevaciones constantes<a href="modelo-fisiográfico.html#pendiente-taylor-schwarz---elevaciones-constantes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Esta fórmula considera que el río está formado de canales con pendientes uniformes, por lo que se segmenta en tramos equivalentes para poder calcular la pendiente media.
+<span class="math display">\[S_{ec} = \left[\frac{l_t}{\sum_{i=1}^n\frac{l_i}{\sqrt{s_i}}} \right]^{2} \label{eq:pendietetaylorelev} \]</span></p>
+<p>La pendiente media del cauce principal calculada con la fórmula de Taylor Schwarz por elevaciones constantes es: 0.006137011 m/m</p>
+</div>
+<div id="pendiente-taylor-schwarz---longitudes-constantes" class="section level4 hasAnchor" number="2.4.1.3">
+<h4><span class="header-section-number">2.4.1.3</span> Pendiente Taylor Schwarz - Longitudes constantes<a href="modelo-fisiográfico.html#pendiente-taylor-schwarz---longitudes-constantes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Esta fórmula considera que el río está formado de canales con pendientes uniformes, por lo que se segmenta en tramos equivalentes para poder calcular la pendiente media.
+<span class="math display">\[S_{lc} = \left[  \frac{n}{\sum_{i=1}^n\frac{1}{\sqrt{s_i}}} \right]^{2} \label{eq:pendietetaylorlong} \]</span></p>
+<p>La pendiente media del cauce principal calculada con la fórmula de Taylor Schwarz por longitudes constantes es: 0.006142406 m/m</p>
+</div>
+</div>
+</div>
+<div id="breve-introducción-a-la-estimación-del-coeficiente-de-escurrimiento" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Breve introducción a la estimación del coeficiente de escurrimiento<a href="modelo-fisiográfico.html#breve-introducción-a-la-estimación-del-coeficiente-de-escurrimiento" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La estimación del coeficiente de escurrimiento es un aspecto fundamental en la modelación hidrológica, ya que determina la proporción de agua de precipitación que se convierte en escorrentía superficial. Las diferentes metodologías existentes para estimar este coeficiente resaltan la importancia de comprender la estructura y propiedades del suelo, así como la calidad de la cobertura vegetal.</p>
+<p>En hidrología, es bien conocido que un suelo cubierto de vegetación tiene una mejor respuesta al ciclo hidrológico, lo que significa una mayor capacidad de infiltración y retención de agua. Por el contrario, las zonas descubiertas o con suelos compactados son propensas a generar mayores escurrimientos y erosión. Asimismo, las áreas urbanizadas, con superficies impermeables, tienen una capacidad limitada para retener e infiltrar el agua, a menos que se implementen soluciones basadas en la naturaleza, como jardines de lluvia, que permitan al suelo cumplir su función en el ciclo hidrológico.</p>
+<p>En el presente estudio, se revisarán tres metodologías para el cálculo del coeficiente de escurrimiento.</p>
+<p>Dadas las características de la cuenca en estudio, con un área de 2403.79 km<sup>2</sup> y una naturaleza predominantemente rural, se descarta el uso del método racional, el cual es más adecuado para cuencas pequeñas y zonas urbanas.Por lo que en el estudio solo se presentará el cálculo del <strong>Número de Curva</strong>, un coeficiente ampliamente utilizado en las metodologías de estimación de escurrimiento para cuencas de mayor tamaño.</p>
+</div>
+<div id="identificación-de-tipo-de-suelo" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Identificación de tipo de suelo<a href="modelo-fisiográfico.html#identificación-de-tipo-de-suelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El análisis de los tipos de suelo presentes en una cuenca hidrográfica es fundamental para comprender su capacidad para responder al ciclo del agua. Las características fisicoquímicas del suelo, como la textura, la porosidad, la densidad y el contenido de materia orgánica, determinan su fertilidad, retención de agua, aireación y drenaje.</p>
+<div class="figure"><span style="display:block;" id="fig:figura-tiposuelo"></span>
+<img src="tipo%20de%20suelo.png" alt="Uso de suelo, tomado de INEGI serie II" width="1754" />
+<p class="caption">
+Figura 2.8: Uso de suelo, tomado de INEGI serie II
+</p>
+</div>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-tiposuelo">Tabla 2.2: </span>Tipo de suelo relacionado a la cuenca
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Tipo de suelo
+</th>
+<th style="text-align:right;">
+Area (km^2)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Arenosol
+</td>
+<td style="text-align:right;">
+2.0538
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Agua
+</td>
+<td style="text-align:right;">
+2.7650
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cambisol
+</td>
+<td style="text-align:right;">
+5.2077
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vertisol
+</td>
+<td style="text-align:right;">
+6.6852
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zona Urbana
+</td>
+<td style="text-align:right;">
+8.1716
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fluvisol
+</td>
+<td style="text-align:right;">
+20.4939
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Planosol
+</td>
+<td style="text-align:right;">
+205.5152
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Phaeozem
+</td>
+<td style="text-align:right;">
+230.8081
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Regosol
+</td>
+<td style="text-align:right;">
+391.8733
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Leptosol
+</td>
+<td style="text-align:right;">
+1530.2202
+</td>
+</tr>
+</tbody>
+</table>
+<p>La cuenca se compone principalmente de Leptosol, y en menor grado de Regosol (asociado al Leptosol) y Phaeozem.</p>
+<p>Los Leptosoles son suelos poco desarrollados y de escasa profundidad efectiva, generalmente menor a 25 cm, lo que limita significativamente su capacidad de retención de agua y los hace susceptibles a la sequía. Su estrecha relación con el material parental poco alterado, como rocas calcáreas, gravas o arenas gruesas, les confiere una textura gruesa que favorece el drenaje excesivo, implicando un riesgo elevado de erosión por escorrentía y una baja retención de nutrientes.</p>
+<p>Dadas estas características, la INEGI <span class="citation">(<a href="#ref-inegi2014">INEGI 2014</a>)</span> y la FAO <span class="citation">(<a href="#ref-FAO2008">Naciones Unidas para la Agricultura y la Alimentación 2008</a>)</span> recomiendan el uso de los Leptosoles como agostaderos (praderas de pastoreo) y como tierras forestales. Esto plantea la interrogante de si un cambio en el uso del suelo de agricultura de riego permanente a pastizales rotativos combinados con masas forestales podría contribuir a la regeneración del territorio y a un manejo más sostenible de los recursos edáficos e hídricos en estas zonas.</p>
+<p>Por otro lado, los Phaeozems son suelos fértiles, ricos en humus, de color pardo a negro, desarrollados en climas semiáridos y subhúmedos. Su relieve generalmente plano o ligeramente ondulado los convierte en suelos óptimos para la agricultura en México.</p>
+<p>La comprensión de las características y distribución de los diferentes tipos de suelo en la cuenca es crucial para el diseño de estrategias de manejo integrado del territorio, con el objetivo de promover la conservación del suelo, la regulación del ciclo hidrológico y la protección de los ecosistemas asociados.</p>
+</div>
+<div id="identificación-del-grupo-hidrológico-del-suelo" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Identificación del grupo hidrológico del suelo<a href="modelo-fisiográfico.html#identificación-del-grupo-hidrológico-del-suelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La clasificación de los suelos en grupos hidrológicos es una herramienta fundamental para comprender su comportamiento ante eventos de precipitación y su potencial de generar escorrentía superficial. Esta información es fundamental para el diseño de medidas de protección contra inundaciones y la gestión de recursos hídricos.</p>
+<p>Según el Servicio de Conservación de Recursos Naturales (NRCS) de Estados Unidos <span class="citation">(<a href="#ref-nrcs2009">NRCS 2009</a>)</span>, existen cuatro grupos hidrológicos de suelos:</p>
+<p>Grupo A - Los suelos de este grupo tienen un potencial de escorrentía bajo cuando están completamente saturados. El agua se transmite libremente a través del suelo. Los suelos del grupo A típicamente tienen menos del 10 por ciento de arcilla y más del 90 por ciento de arena o grava, y tienen texturas de grava o arena.</p>
+<p>Grupo B - Los suelos de este grupo tienen un potencial de escorrentía moderadamente bajo cuando están completamente saturados. La transmisión de agua a través del suelo no está impedida. Los suelos del grupo B típicamente tienen entre el 10 y el 20 por ciento de arcilla y entre el 50 y el 90 por ciento de arena, y tienen texturas de arena franca o franco arenoso.</p>
+<p>Grupo C - Los suelos de este grupo tienen un potencial de escorrentía moderadamente alto cuando están completamente saturados. La transmisión de agua a través del suelo está algo restringida. Los suelos del grupo C típicamente tienen entre el 20 y el 40 por ciento de arcilla y menos del 50 por ciento de arena, y tienen texturas de franco, franco limoso, franco arcilloso arenoso, franco arcilloso y franco arcillo limoso.</p>
+<p>Grupo D - Los suelos de este grupo tienen un alto potencial de escorrentía cuando están completamente saturados. El movimiento del agua a través del suelo está restringido o muy restringido. Los suelos del grupo D típicamente tienen más del 40 por ciento de arcilla, menos del 50 por ciento de arena y tienen texturas arcillosas. En algunas áreas, también tienen un alto potencial de hinchamiento y contracción. Todos los suelos con una profundidad hasta una capa impermeable al agua menor de 50 centímetros y todos los suelos con un nivel freático a menos de 60 centímetros de la superficie pertenecen a este grupo, aunque algunos pueden tener una clasificación dual, si pueden drenarse adecuadamente.</p>
+<p>La figura <a href="modelo-fisiográfico.html#fig:figura-tablagrupohidro">2.9</a> resume el texto anterior, enriqueciendo la información con los rangos de la tasa de infiltración por grupo hidrológico.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figura-tablagrupohidro"></span>
+<img src="tabla%20grupo%20hidrologico.png" alt="Tabla de los grupos hidrológicos, según las definiciones del NCRS" width="450" />
+<p class="caption">
+Figura 2.9: Tabla de los grupos hidrológicos, según las definiciones del NCRS
+</p>
+</div>
+<div class="figure"><span style="display:block;" id="fig:figura-grupohidro"></span>
+<img src="grupo%20hidrologico.png" alt="Grupo hidrológico, tomado de INEGI serie II" width="1754" />
+<p class="caption">
+Figura 2.10: Grupo hidrológico, tomado de INEGI serie II
+</p>
+</div>
+<p>La clasificación del grupo hidrológico se hizo con base al instructivo de Hidrología de CONAGUA <span class="citation">(<a href="#ref-conagua1987">CONAGUA 1987</a>)</span>.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-grupohidro">Tabla 2.3: </span>Tabla del grupo hidrológico relacionado a la subcuenca
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Grupo hidrológico
+</th>
+<th style="text-align:right;">
+Area (km^2)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+A
+</td>
+<td style="text-align:right;">
+83.1823
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B
+</td>
+<td style="text-align:right;">
+562.0469
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+C
+</td>
+<td style="text-align:right;">
+852.4086
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+906.1563
+</td>
+</tr>
+</tbody>
+</table>
+<p>El mapa indica que la cuenca tiene una baja capacidad de retención de agua debido a la predominancia de Leptosoles, suelos poco profundos y de textura gruesa que favorecen el drenaje excesivo de la escorrentía. Esta situación, aunada a la configuración de la red de drenaje, contribuye a la generación de caudales elevados durante eventos de precipitación.</p>
+<p>Esta condición representa un desafío ya que una evacuación rápida del agua puede tener impactos negativos en la disponibilidad de agua. La construcción de terrazas, presas de gavión, zanjas de infiltración y barreras vivas pueden contribuir a reducir la velocidad de la escorrentía y aumentar la infiltración en el suelo.</p>
+</div>
+<div id="identificación-de-uso-de-suelo-y-vegetación" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Identificación de uso de suelo y vegetación<a href="modelo-fisiográfico.html#identificación-de-uso-de-suelo-y-vegetación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El análisis del uso de suelo y la cobertura vegetal es fundamental para comprender la dinámica hidrológica de la cuenca y su capacidad para retener e infiltrar la escorrentía superficial. Las prácticas humanas en el territorio determinan la cobertura del suelo, la cual juega un papel clave en la regulación del ciclo hidrológico.</p>
+<p>La evaluación del Índice de Vegetación de Diferencia Normalizada (NDVI) a través de vuelos fotogramétricos puede proporcionar información valiosa sobre la dinámica estacional y anual de la cobertura vegetal, complementando la cartografía disponible. Los estudios que correlacionan el NDVI con factores hidroclimáticos <span class="citation">(<a href="#ref-wang2014">Wang et al. 2014</a>)</span> buscan desarrollar metodologías para restaurar la cobertura vegetal, esencial para que el territorio tenga una mejor respuesta al ciclo del agua.</p>
+<div class="figure"><span style="display:block;" id="fig:figura-usosuelo"></span>
+<img src="uso%20de%20suelo.png" alt="Uso de suelo, tomado de INEGI serie VII" width="1754" />
+<p class="caption">
+Figura 2.11: Uso de suelo, tomado de INEGI serie VII
+</p>
+</div>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-usosuelo">Tabla 2.4: </span>Tabla del uso de suelo relacionado a la subcuenca
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Uso de suelo
+</th>
+<th style="text-align:right;">
+Área (km^2)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+VEGETACION SECUNDARIA ARBUSTIVA DE BOSQUE DE PINO
+</td>
+<td style="text-align:right;">
+0.17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MATORRAL ROSETOFILO COSTERO
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGRICULTURA DE TEMPORAL ANUAL Y PERMANENTE
+</td>
+<td style="text-align:right;">
+1.39
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VEGETACION SECUNDARIA ARBOREA DE BOSQUE DE PINO
+</td>
+<td style="text-align:right;">
+1.59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CUERPO DE AGUA
+</td>
+<td style="text-align:right;">
+5.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGRICULTURA DE RIEGO ANUAL Y SEMIPERMANENTE
+</td>
+<td style="text-align:right;">
+7.34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGRICULTURA DE RIEGO ANUAL
+</td>
+<td style="text-align:right;">
+10.84
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BOSQUE DE ENCINO
+</td>
+<td style="text-align:right;">
+16.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHAPARRAL
+</td>
+<td style="text-align:right;">
+17.24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VEGETACION DE GALERIA
+</td>
+<td style="text-align:right;">
+23.56
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VEGETACION SECUNDARIA ARBUSTIVA DE MATORRAL ROSETOFILO COSTERO
+</td>
+<td style="text-align:right;">
+24.06
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BOSQUE DE PINO
+</td>
+<td style="text-align:right;">
+48.90
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGRICULTURA DE TEMPORAL ANUAL
+</td>
+<td style="text-align:right;">
+133.53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VEGETACION SECUNDARIA ARBUSTIVA DE CHAPARRAL
+</td>
+<td style="text-align:right;">
+137.19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PASTIZAL INDUCIDO
+</td>
+<td style="text-align:right;">
+180.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGRICULTURA DE RIEGO ANUAL Y PERMANENTE
+</td>
+<td style="text-align:right;">
+233.70
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ASENTAMIENTOS HUMANOS
+</td>
+<td style="text-align:right;">
+584.69
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGRICULTURA DE RIEGO PERMANENTE
+</td>
+<td style="text-align:right;">
+977.53
+</td>
+</tr>
+</tbody>
+</table>
+<p>En el caso de la cuenca en estudio, se observa que la principal actividad es la agricultura de riego permanente. Esta situación representa un desafío, ya que la demanda constante de agua para riego puede ejercer una presión significativa sobre los recursos hídricos de la cuenca. Sin embargo, también brinda una oportunidad para trabajar de manera colaborativa con los agricultores y promover prácticas agrícolas sostenibles que permitan la cosecha y aprovechamiento eficiente del agua de lluvia, al tiempo que se fomenta la regeneración del ecosistema.</p>
+</div>
+<div id="número-de-curva" class="section level2 hasAnchor" number="2.9">
+<h2><span class="header-section-number">2.9</span> Número de Curva<a href="modelo-fisiográfico.html#número-de-curva" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En el contexto de la hidrología, la determinación precisa del coeficiente de escurrimiento es crucial para comprender y modelar adecuadamente el comportamiento hidrológico de una cuenca. En México, la mayoría de las cuencas no están aforadas, lo que dificulta la obtención directa de datos de escurrimiento. Por lo tanto, es necesario recurrir a métodos que permitan estimar la infiltración y, por consiguiente, la precipitación efectiva a partir de las características fisiográficas de la cuenca y la lluvia total.</p>
+<p>Una de las metodologías ampliamente utilizadas para abordar este desafío es el método del Número de Curva (N), propuesto por el Servicio de Conservación de Suelos de los Estados Unidos. Este método integra diversos factores que influyen en la generación de escorrentía, como el tipo de suelo, la cobertura vegetal, el uso del suelo, la pendiente del terreno y el contenido de humedad en la cuenca <span class="citation">(<a href="#ref-imta2016">IMTA 2016</a>)</span>.</p>
+<p>Las condiciones hidrológicas, determinadas por el tipo de cobertura vegetal y el tratamiento del suelo, desempeñan un papel fundamental en los procesos de infiltración y escorrentía. Una buena condición hidrológica se traduce en un bajo potencial de escorrentía para un grupo hidrológico de suelo específico, tipo de cobertura y tratamiento. Algunos factores a considerar son la densidad de la vegetación, la cantidad de cobertura durante todo el año, la presencia de pastos y leguminosas, el porcentaje de cobertura de residuos y el grado de rugosidad superficial.</p>
+<p>Las metodologías para calcular el coeficiente de escurrimiento que analizan la cobertura vegetal, utilizan clasificaciones como:</p>
+<ul>
+<li>CR: Cobertura de residuos vegetales que ocupe al menos el 5% de la superficie del suelo durante todo el año,<br />
+</li>
+<li>R: Labores de la tierra (labrar, gradear, sembrar, etc.) realizadas en línea recta, sin considerar la pendiente del terreno,<br />
+</li>
+<li>C: Cultivo realizado siguiendo las curvas de nivel,<br />
+</li>
+<li>T: Terrenos aterrazados (terrazas abiertas con desagüe para la conservación de suelos).</li>
+</ul>
+<p>La integración adecuada de estos parámetros permite determinar el Número de Curva y, posteriormente, el coeficiente de escurrimiento para la cuenca en estudio.</p>
+<div id="nc-calculado-por-imta" class="section level3 hasAnchor" number="2.9.1">
+<h3><span class="header-section-number">2.9.1</span> NC calculado por IMTA<a href="modelo-fisiográfico.html#nc-calculado-por-imta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La principal aplicación del método propuesto por la <em>NRSCS</em> es la estimación de la cantidad del escurrimiento. Determinando la ecuación del escurrimiento de curva númerica como:
+<span class="math display">\[ CN = \frac{25400}{254 + S} \]</span></p>
+<p>en donde <em>S</em> es el máximo potencial de retención después de que el escurrimiento comienza.</p>
+<p>Números de curva altos implican escorrentías elevadas (infiltraciones bajas, laderas degradadas). En cambio, números de curva bajos aseguran altas tasas de infiltración, baja escorrentía superficial y escasa erosión hídrica.</p>
+<p>Los valores de NC que calcula el IMTA, son</p>
+<ul>
+<li>N_condN: condiciones medias de humedad (AMC II)<br />
+</li>
+<li>N_CorrA: condiciones secas (AMC I)<br />
+</li>
+<li>N_CorrB: condiciones húmedas (AMC III)<br />
+</li>
+<li>N_corrSO: pendientes muy bajas cercanas a 0<br />
+</li>
+<li>N_corrS: pendientes mayores a 5%</li>
+</ul>
+<p>El valor del número de curva ponderado de la cuenca calculado por el IMTA, identificado por el atributo <em>N_condN</em> es 66.077. Sin embargo, como la pendiente de la cuenca es 17.48 %, el IMTA nos recomendaría usar el valor de NC corregido por la ecuación de la pendiente</p>
+<p><span class="math display">\[ CN_{2S} = \frac{1}{3}(CN_3 - CN_2)(1 - 2e^{-13.86S}) + CN_2    \]</span></p>
+<p>En la capa se identifica con el atributo <em>N_corrS</em> y tiene el valor de 71.469.</p>
+<p>El IMTA menciona que el uso de los SIG ha permitido el desarrollo de modelos hidrológicos espacialmente distribuidos que consideran la variación espacial en los parámetros y variables que tienen que ver con el balance de agua en una cuenca. Los SIG permiten analizar las tendencias de cambio del uso del suelo e implementar el modelo del número de curva para estimar los volúmenes de escurrimiento en la cuenca. SIG constuituye una herramienta de gran utilidad ya que, a partir de la integración de información escasa permite estimar y monitoriear de manera eficiente los cambios en los patrones de escurrimiento en regiones con dfierentes características ambientales y niveles de perturbación.</p>
+<p>Segín el IMTA, mediante la aplicación de modelos hidrológicos espacialmente distribuidos, apoyados en los SIG, es posible evaluar con mayor precisión el impacto de los cambios en el uso del suelo, la cobertura vegetal y otros factores ambientales sobre el comportamiento hidrológico de la cuenca. Esta información es fundamental para la toma de decisiones informadas en materia de planificación territorial, conservación de suelos y agua, y mitigación de riesgos asociados a eventos extremos, como inundaciones o sequías.</p>
+<div class="figure"><span style="display:block;" id="fig:figura-cnimta"></span>
+<img src="cn%20imta.png" alt="CN obtenido por IMTA 2016" width="1754" />
+<p class="caption">
+Figura 2.12: CN obtenido por IMTA 2016
+</p>
+</div>
+</div>
+<div id="nc-semiautomatizado" class="section level3 hasAnchor" number="2.9.2">
+<h3><span class="header-section-number">2.9.2</span> NC semiautomatizado<a href="modelo-fisiográfico.html#nc-semiautomatizado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se propone la aplicación de una metodología, introducida por la Universidad Politécnica de Valencia y el Centro de Estudios Hidrográficos CEDEX, para calcular en Número de Curva de manera semiautomatizada, con los insumos revisados anteriormente.</p>
+<p>Esta propuesta se basa en una metodología que clasifica el uso de suelo y la calidad de su cobertura vegetal, la pendiente y el grupo hidrológico del suelo a través de números primos y realiza un algebra de mapas para identificar el Número de Curva.</p>
+<p>Esta propuesta es interesante, ya que integra la pendiente, la cual aporta valor al contexto de la capacidad del suelo de retener el agua o escurrirla.</p>
+<p>Para ello se utilizan las tablas de referencia proporcionadas en <span class="citation">(<a href="#ref-prieto2014">Villarroya, Farias, and Amarilla 2014</a>)</span>.</p>
+<p>Estas tablas de referencia, permiten buscar los productos, resultado de multiplicar el mapa de pendientes por el mapa de uso de suelo por el mapa del grupo hidrológico del suelo.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-cnproducto">Tabla 2.5: </span>Valores tabulados de los productos posibles del algebra de mapas
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+uso_suelo
+</th>
+<th style="text-align:left;">
+pendiente
+</th>
+<th style="text-align:right;">
+A
+</th>
+<th style="text-align:right;">
+B
+</th>
+<th style="text-align:right;">
+C
+</th>
+<th style="text-align:right;">
+D
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+130
+</td>
+<td style="text-align:right;">
+182
+</td>
+<td style="text-align:right;">
+286
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Barbecho N
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+582
+</td>
+<td style="text-align:right;">
+970
+</td>
+<td style="text-align:right;">
+1358
+</td>
+<td style="text-align:right;">
+2134
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+65
+</td>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:right;">
+143
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Barbecho N
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+291
+</td>
+<td style="text-align:right;">
+485
+</td>
+<td style="text-align:right;">
+679
+</td>
+<td style="text-align:right;">
+1067
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cultivos en hilera R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+102
+</td>
+<td style="text-align:right;">
+170
+</td>
+<td style="text-align:right;">
+238
+</td>
+<td style="text-align:right;">
+374
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cultivos en hilera N
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+606
+</td>
+<td style="text-align:right;">
+1010
+</td>
+<td style="text-align:right;">
+1414
+</td>
+<td style="text-align:right;">
+2222
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cultivos en hilera R
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+119
+</td>
+<td style="text-align:right;">
+187
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cultivos en hilera N
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+303
+</td>
+<td style="text-align:right;">
+505
+</td>
+<td style="text-align:right;">
+707
+</td>
+<td style="text-align:right;">
+1111
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cereales de invierno R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+114
+</td>
+<td style="text-align:right;">
+190
+</td>
+<td style="text-align:right;">
+266
+</td>
+<td style="text-align:right;">
+418
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cereales de invierno N
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+618
+</td>
+<td style="text-align:right;">
+1030
+</td>
+<td style="text-align:right;">
+1442
+</td>
+<td style="text-align:right;">
+2266
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cereales de invierno R
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+57
+</td>
+<td style="text-align:right;">
+95
+</td>
+<td style="text-align:right;">
+133
+</td>
+<td style="text-align:right;">
+209
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cereales de invierno N
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+309
+</td>
+<td style="text-align:right;">
+515
+</td>
+<td style="text-align:right;">
+721
+</td>
+<td style="text-align:right;">
+1133
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos pobres R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+138
+</td>
+<td style="text-align:right;">
+230
+</td>
+<td style="text-align:right;">
+322
+</td>
+<td style="text-align:right;">
+506
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos pobres N
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+642
+</td>
+<td style="text-align:right;">
+1070
+</td>
+<td style="text-align:right;">
+1498
+</td>
+<td style="text-align:right;">
+2354
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos pobres R
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+115
+</td>
+<td style="text-align:right;">
+161
+</td>
+<td style="text-align:right;">
+253
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos pobres N
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+321
+</td>
+<td style="text-align:right;">
+535
+</td>
+<td style="text-align:right;">
+749
+</td>
+<td style="text-align:right;">
+1177
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos densos R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+174
+</td>
+<td style="text-align:right;">
+290
+</td>
+<td style="text-align:right;">
+406
+</td>
+<td style="text-align:right;">
+638
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos densos N
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+654
+</td>
+<td style="text-align:right;">
+1090
+</td>
+<td style="text-align:right;">
+1526
+</td>
+<td style="text-align:right;">
+2398
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos densos R
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+145
+</td>
+<td style="text-align:right;">
+203
+</td>
+<td style="text-align:right;">
+319
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos densos N
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+327
+</td>
+<td style="text-align:right;">
+545
+</td>
+<td style="text-align:right;">
+763
+</td>
+<td style="text-align:right;">
+1199
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera pobre
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+186
+</td>
+<td style="text-align:right;">
+310
+</td>
+<td style="text-align:right;">
+434
+</td>
+<td style="text-align:right;">
+682
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera media
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+222
+</td>
+<td style="text-align:right;">
+370
+</td>
+<td style="text-align:right;">
+518
+</td>
+<td style="text-align:right;">
+814
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera buena
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+246
+</td>
+<td style="text-align:right;">
+410
+</td>
+<td style="text-align:right;">
+574
+</td>
+<td style="text-align:right;">
+902
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera muy buena
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+258
+</td>
+<td style="text-align:right;">
+430
+</td>
+<td style="text-align:right;">
+602
+</td>
+<td style="text-align:right;">
+946
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera pobre
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:right;">
+155
+</td>
+<td style="text-align:right;">
+217
+</td>
+<td style="text-align:right;">
+341
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera media
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+111
+</td>
+<td style="text-align:right;">
+185
+</td>
+<td style="text-align:right;">
+259
+</td>
+<td style="text-align:right;">
+407
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera buena
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+123
+</td>
+<td style="text-align:right;">
+205
+</td>
+<td style="text-align:right;">
+287
+</td>
+<td style="text-align:right;">
+451
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera muy buena
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+129
+</td>
+<td style="text-align:right;">
+215
+</td>
+<td style="text-align:right;">
+301
+</td>
+<td style="text-align:right;">
+473
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal pobre
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+282
+</td>
+<td style="text-align:right;">
+470
+</td>
+<td style="text-align:right;">
+658
+</td>
+<td style="text-align:right;">
+1034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal media
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+318
+</td>
+<td style="text-align:right;">
+530
+</td>
+<td style="text-align:right;">
+742
+</td>
+<td style="text-align:right;">
+1166
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal buena
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+354
+</td>
+<td style="text-align:right;">
+590
+</td>
+<td style="text-align:right;">
+826
+</td>
+<td style="text-align:right;">
+1298
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal pobre
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+141
+</td>
+<td style="text-align:right;">
+235
+</td>
+<td style="text-align:right;">
+329
+</td>
+<td style="text-align:right;">
+517
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal media
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+159
+</td>
+<td style="text-align:right;">
+265
+</td>
+<td style="text-align:right;">
+371
+</td>
+<td style="text-align:right;">
+583
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal buena
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+177
+</td>
+<td style="text-align:right;">
+295
+</td>
+<td style="text-align:right;">
+413
+</td>
+<td style="text-align:right;">
+649
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) muy clara
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+183
+</td>
+<td style="text-align:right;">
+305
+</td>
+<td style="text-align:right;">
+427
+</td>
+<td style="text-align:right;">
+671
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) clara
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+201
+</td>
+<td style="text-align:right;">
+335
+</td>
+<td style="text-align:right;">
+469
+</td>
+<td style="text-align:right;">
+737
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) media
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+213
+</td>
+<td style="text-align:right;">
+355
+</td>
+<td style="text-align:right;">
+497
+</td>
+<td style="text-align:right;">
+781
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) espesa
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+219
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+511
+</td>
+<td style="text-align:right;">
+803
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) muy espesa
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+237
+</td>
+<td style="text-align:right;">
+395
+</td>
+<td style="text-align:right;">
+553
+</td>
+<td style="text-align:right;">
+869
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) muy clara
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+610
+</td>
+<td style="text-align:right;">
+854
+</td>
+<td style="text-align:right;">
+1342
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) clara
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+402
+</td>
+<td style="text-align:right;">
+670
+</td>
+<td style="text-align:right;">
+938
+</td>
+<td style="text-align:right;">
+1474
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) media
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+426
+</td>
+<td style="text-align:right;">
+710
+</td>
+<td style="text-align:right;">
+994
+</td>
+<td style="text-align:right;">
+1562
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) espesa
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+438
+</td>
+<td style="text-align:right;">
+730
+</td>
+<td style="text-align:right;">
+1022
+</td>
+<td style="text-align:right;">
+1606
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) muy espesa
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+474
+</td>
+<td style="text-align:right;">
+790
+</td>
+<td style="text-align:right;">
+1106
+</td>
+<td style="text-align:right;">
+1738
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocas permeables
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+498
+</td>
+<td style="text-align:right;">
+830
+</td>
+<td style="text-align:right;">
+1162
+</td>
+<td style="text-align:right;">
+1826
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocas permeables
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+249
+</td>
+<td style="text-align:right;">
+415
+</td>
+<td style="text-align:right;">
+581
+</td>
+<td style="text-align:right;">
+913
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocas impermeables
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+534
+</td>
+<td style="text-align:right;">
+890
+</td>
+<td style="text-align:right;">
+1246
+</td>
+<td style="text-align:right;">
+1958
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocas impermeables
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+267
+</td>
+<td style="text-align:right;">
+445
+</td>
+<td style="text-align:right;">
+623
+</td>
+<td style="text-align:right;">
+979
+</td>
+</tr>
+</tbody>
+</table>
+<p>Y con esos valores producto, se busca en la tabla de referencia el Número de Cruva asociado.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-cnvalores">Tabla 2.6: </span>Valores tabulados del valor CN
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+uso_suelo
+</th>
+<th style="text-align:left;">
+pendiente
+</th>
+<th style="text-align:right;">
+A
+</th>
+<th style="text-align:right;">
+B
+</th>
+<th style="text-align:right;">
+C
+</th>
+<th style="text-align:right;">
+D
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+77
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+89
+</td>
+<td style="text-align:right;">
+93
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Barbecho N
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:right;">
+89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Barbecho N
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cultivos en hilera R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+79
+</td>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:right;">
+89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cultivos en hilera N
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cultivos en hilera R
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+92
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cultivos en hilera N
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+82
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cereales de invierno R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+83
+</td>
+<td style="text-align:right;">
+86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cereales de invierno N
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+61
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+81
+</td>
+<td style="text-align:right;">
+83
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cereales de invierno R
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+81
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cereales de invierno N
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+61
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos pobres R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:right;">
+77
+</td>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos pobres N
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+64
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+82
+</td>
+<td style="text-align:right;">
+86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos pobres R
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+79
+</td>
+<td style="text-align:right;">
+83
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos pobres N
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+63
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+79
+</td>
+<td style="text-align:right;">
+83
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos densos R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+58
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+81
+</td>
+<td style="text-align:right;">
+85
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos densos N
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+89
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+82
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos densos R
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+79
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos densos N
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+76
+</td>
+<td style="text-align:right;">
+79
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera pobre
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+88
+</td>
+<td style="text-align:right;">
+89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera media
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+49
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+85
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera buena
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+42
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+74
+</td>
+<td style="text-align:right;">
+79
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera muy buena
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+77
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera pobre
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+61
+</td>
+<td style="text-align:right;">
+88
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera media
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+59
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+83
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera buena
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+48
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+78
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera muy buena
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+87
+</td>
+<td style="text-align:right;">
+76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal pobre
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+45
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:right;">
+77
+</td>
+<td style="text-align:right;">
+63
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal media
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+39
+</td>
+<td style="text-align:right;">
+80
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+78
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal buena
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+77
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal pobre
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+73
+</td>
+<td style="text-align:right;">
+78
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal media
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+77
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal buena
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) muy clara
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:right;">
+91
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) clara
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+83
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) media
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) espesa
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:right;">
+68
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) muy espesa
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) muy clara
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+75
+</td>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:right;">
+91
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) clara
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:right;">
+68
+</td>
+<td style="text-align:right;">
+78
+</td>
+<td style="text-align:right;">
+83
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) media
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+40
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:right;">
+69
+</td>
+<td style="text-align:right;">
+76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) espesa
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+52
+</td>
+<td style="text-align:right;">
+62
+</td>
+<td style="text-align:right;">
+68
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) muy espesa
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+44
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:right;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocas permeables
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+94
+</td>
+<td style="text-align:right;">
+94
+</td>
+<td style="text-align:right;">
+94
+</td>
+<td style="text-align:right;">
+94
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocas permeables
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:right;">
+91
+</td>
+<td style="text-align:right;">
+81
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocas impermeables
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:right;">
+96
+</td>
+<td style="text-align:right;">
+96
+</td>
+<td style="text-align:right;">
+96
+</td>
+<td style="text-align:right;">
+96
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocas impermeables
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:right;">
+93
+</td>
+</tr>
+</tbody>
+</table>
+<p>La metodología utiliza su propia nomenclatura para el uso de suelo. Por lo que se tiene que transcribir la nomenclatura de uso de suelo propuesta por INEGI, a la propuesta por CEDEX. La tabla <a href="modelo-fisiográfico.html#tab:tabla-usosuelo">2.4</a> muestra la nomenclatura usada por la INEGI.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-cnprimos">Tabla 2.7: </span>Valores tabulados de los números primos
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+uso_suelo
+</th>
+<th style="text-align:right;">
+suelo_primo
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:right;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Barbecho N
+</td>
+<td style="text-align:right;">
+97
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:right;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Barbecho N
+</td>
+<td style="text-align:right;">
+97
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cultivos en hilera R
+</td>
+<td style="text-align:right;">
+17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cultivos en hilera N
+</td>
+<td style="text-align:right;">
+101
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cultivos en hilera R
+</td>
+<td style="text-align:right;">
+17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cultivos en hilera N
+</td>
+<td style="text-align:right;">
+101
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cereales de invierno R
+</td>
+<td style="text-align:right;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cereales de invierno N
+</td>
+<td style="text-align:right;">
+103
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cereales de invierno R
+</td>
+<td style="text-align:right;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cereales de invierno N
+</td>
+<td style="text-align:right;">
+103
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos pobres R
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos pobres N
+</td>
+<td style="text-align:right;">
+107
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos pobres R
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos pobres N
+</td>
+<td style="text-align:right;">
+107
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos densos R
+</td>
+<td style="text-align:right;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos densos N
+</td>
+<td style="text-align:right;">
+109
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos densos R
+</td>
+<td style="text-align:right;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rotación de cultivos densos N
+</td>
+<td style="text-align:right;">
+109
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera pobre
+</td>
+<td style="text-align:right;">
+31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera media
+</td>
+<td style="text-align:right;">
+37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera buena
+</td>
+<td style="text-align:right;">
+41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera muy buena
+</td>
+<td style="text-align:right;">
+43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera pobre
+</td>
+<td style="text-align:right;">
+31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera media
+</td>
+<td style="text-align:right;">
+37
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera buena
+</td>
+<td style="text-align:right;">
+41
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pradera muy buena
+</td>
+<td style="text-align:right;">
+43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal pobre
+</td>
+<td style="text-align:right;">
+47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal media
+</td>
+<td style="text-align:right;">
+53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal buena
+</td>
+<td style="text-align:right;">
+59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal pobre
+</td>
+<td style="text-align:right;">
+47
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal media
+</td>
+<td style="text-align:right;">
+53
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Plantaciones regulares de aprovechamiento forestal buena
+</td>
+<td style="text-align:right;">
+59
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) muy clara
+</td>
+<td style="text-align:right;">
+61
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) clara
+</td>
+<td style="text-align:right;">
+67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) media
+</td>
+<td style="text-align:right;">
+71
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) espesa
+</td>
+<td style="text-align:right;">
+73
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) muy espesa
+</td>
+<td style="text-align:right;">
+79
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) muy clara
+</td>
+<td style="text-align:right;">
+61
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) clara
+</td>
+<td style="text-align:right;">
+67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) media
+</td>
+<td style="text-align:right;">
+71
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) espesa
+</td>
+<td style="text-align:right;">
+73
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Masa forestal (bosques, monte bajo,…) muy espesa
+</td>
+<td style="text-align:right;">
+79
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocas permeables
+</td>
+<td style="text-align:right;">
+83
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocas permeables
+</td>
+<td style="text-align:right;">
+83
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocas impermeables
+</td>
+<td style="text-align:right;">
+89
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocas impermeables
+</td>
+<td style="text-align:right;">
+89
+</td>
+</tr>
+</tbody>
+</table>
+<p>Para ello se importa a RStudio la capa vectorial que contiene el uso de suelo de la serie VII de INEGI para adecuar el uso de suelo a la tabla de referencia de CEDEX <a href="modelo-fisiográfico.html#tab:tabla-cnprimos">2.7</a></p>
+<p>Una vez que se ha adecuado la nomenclatura del uso de suelo, se unen los tres mapas, para obtener un mapa final que contenga los valores necesarios para hacer la última operación del algebra de mapas y obtener el CN para cada combinación.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figura-algebramapas"></span>
+<img src="uso%20de%20suelo.png" alt="Algebra de mapas para obtener NC" width="200" /><img src="pendiente%20CN.png" alt="Algebra de mapas para obtener NC" width="200" /><img src="grupo%20hidrologico.png" alt="Algebra de mapas para obtener NC" width="200" />
+<p class="caption">
+Figura 2.13: Algebra de mapas para obtener NC
+</p>
+</div>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-capafinal">Tabla 2.8: </span>Uso de suelo, tomado de INEGI serie VII
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+DESCRIPC_1
+</th>
+<th style="text-align:left;">
+GrupoNOMBR
+</th>
+<th style="text-align:left;">
+CLASE_TEXT
+</th>
+<th style="text-align:left;">
+uso_suelo
+</th>
+<th style="text-align:left;">
+pendiente
+</th>
+<th style="text-align:left;">
+GPO_HIDRO
+</th>
+<th style="text-align:right;">
+CN_product
+</th>
+<th style="text-align:right;">
+CN_valor
+</th>
+<th style="text-align:left;">
+geometry
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+CUERPO DE AGUA
+</td>
+<td style="text-align:left;">
+Planosol
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+286
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:left;">
+POLYGON ((576129.4 3531203,…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CUERPO DE AGUA
+</td>
+<td style="text-align:left;">
+Zona Urbana
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+286
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:left;">
+POLYGON ((576039.4 3531060,…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CUERPO DE AGUA
+</td>
+<td style="text-align:left;">
+Planosol
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+286
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:left;">
+POLYGON ((575727 3531526, 5…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CUERPO DE AGUA
+</td>
+<td style="text-align:left;">
+Zona Urbana
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+286
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:left;">
+POLYGON ((575769.4 3531330,…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CUERPO DE AGUA
+</td>
+<td style="text-align:left;">
+Planosol
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+286
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:left;">
+POLYGON ((574779.4 3531614,…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CUERPO DE AGUA
+</td>
+<td style="text-align:left;">
+Planosol
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+286
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:left;">
+POLYGON ((574901.5 3531665,…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CUERPO DE AGUA
+</td>
+<td style="text-align:left;">
+Planosol
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+286
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:left;">
+POLYGON ((575139.4 3531588,…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CUERPO DE AGUA
+</td>
+<td style="text-align:left;">
+Zona Urbana
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+286
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:left;">
+POLYGON ((575049.4 3531600,…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CUERPO DE AGUA
+</td>
+<td style="text-align:left;">
+Zona Urbana
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&gt;= 3
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+286
+</td>
+<td style="text-align:right;">
+93
+</td>
+<td style="text-align:left;">
+POLYGON ((575139.4 3531510,…
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CUERPO DE AGUA
+</td>
+<td style="text-align:left;">
+Planosol
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Barbecho R
+</td>
+<td style="text-align:left;">
+&lt; 3
+</td>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:right;">
+143
+</td>
+<td style="text-align:right;">
+86
+</td>
+<td style="text-align:left;">
+POLYGON ((574779.4 3531614,…
+</td>
+</tr>
+</tbody>
+</table>
+<p>Una vez realizada la asignación del número de curva a todos los polígonos se calcula el número de curva ponderado para el área de estudio.</p>
+<p>El valor medio ponderado del CN para toda el área de estudio es: 86.84</p>
+<div class="figure"><span style="display:block;" id="fig:figura-cncedex"></span>
+<img src="cn%20cedex.png" alt="CN calculado con metodología propuesta por CEDEX" width="1754" />
+<p class="caption">
+Figura 2.14: CN calculado con metodología propuesta por CEDEX
+</p>
+</div>
+</div>
+<div id="discusión-final-sobre-el-cálculo-del-número-de-curva" class="section level3 hasAnchor" number="2.9.3">
+<h3><span class="header-section-number">2.9.3</span> Discusión final sobre el cálculo del Número de Curva<a href="modelo-fisiográfico.html#discusión-final-sobre-el-cálculo-del-número-de-curva" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La metodología propuesta por CEDEX parece parece otorgar una influencia significativa al factor de pendiente. El rango de pendientes de 0% a 3% utilizado en los cálculos podría ser demasiado acotado y, dependiendo del contexto específico, podría ser necesario ajustar este rango para obtener valores de CN más representativos de las condiciones reales de la cuenca.</p>
+<p>Aunque siendo crítico, se puede decir que no es descabellado un valor alto de CN, ya que se sabe que la cuenca presenta una actividad erosiva media, con suelos poco profundos y de textura gruesa, lo que dificulta la retención de agua. Además, las imágenes satelitales revelan una cobertura vegetal pobre, y la pendiente media de 17.48 % caracteriza al relieve como fuertemente accidentado.</p>
+<p>Es importante destacar que la cobertura vegetal desempeña un papel crucial en la retención e infiltración del agua en el subsuelo. Sin embargo, el análisis de la cobertura vegetal puede verse afectado por la utilización de información desactualizada, como la propuesta por el IMTA. En un contexto de cambio climático, el uso de datos de décadas anteriores podría no reflejar adecuadamente el comportamiento hidrológico actual de la cuenca.</p>
+<p>Aunque el IMTA proporciona un Número de Curva corregido por el factor de pendiente, carece de una consideración temporal que capture los cambios dinámicos en la cobertura vegetal y otras variables ambientales. Esta limitación podría conducir a resultados poco sólidos y no representativos de las condiciones presentes en la cuenca.</p>
+<p>En última instancia, la selección de una metodología específica para el cálculo del Número de Curva dependerá de los objetivos y requerimientos particulares del proyecto en cuestión. En el caso del presente estudio, se ha optado por utilizar el valor conservador propuesto por el IMTA, reconociendo sus limitaciones y la necesidad de seguir explorando enfoques más dinámicos y adaptados a las condiciones cambiantes de la cuenca.</p>
+</div>
+</div>
+<div id="tiempos-de-estudio" class="section level2 hasAnchor" number="2.10">
+<h2><span class="header-section-number">2.10</span> Tiempos de estudio<a href="modelo-fisiográfico.html#tiempos-de-estudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El análisis de los tiempos de respuesta hidrológica de una cuenca es fundamental para comprender su comportamiento ante eventos de precipitación y dimensionar adecuadamente las obras de control y encauzamiento. Dos parámetros clave en este análisis son el tiempo de concentración y el tiempo de retraso.</p>
+<p>En el presente estudio, se han revisado y comparado diferentes fórmulas empíricas propuestas por diversos autores para el cálculo de T<sub>c</sub>. Si bien la fórmula de Kirpich es ampliamente aceptada a nivel internacional, es importante evaluar y comparar los resultados obtenidos con otros enfoques para garantizar la robustez y confiabilidad de los análisis.</p>
+<p>La selección de las fórmulas más adecuadas dependerá de las características fisiográficas específicas de la cuenca.</p>
+<div id="tiempo-de-concentracion-por-kirpich" class="section level3 hasAnchor" number="2.10.1">
+<h3><span class="header-section-number">2.10.1</span> Tiempo de concentracion por kirpich<a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-kirpich" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La fórmula para calcular el tiempo por el autor Kirpich es la más usada a nivel global, su fórmula es
+<span class="math display">\[ t_{c} = 0.0003245 \left(\frac{l_t}{\sqrt{S_{tc}}}\right)^{0.77} \]</span>.</p>
+<p>El valor del tiempo de concentración calculado por Kirpich para toda el área de estudio es: 19.78 horas o 1187 minutos .</p>
+</div>
+<div id="tiempo-de-concentracion-por-rowe" class="section level3 hasAnchor" number="2.10.2">
+<h3><span class="header-section-number">2.10.2</span> Tiempo de concentracion por Rowe<a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-rowe" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La fórmula para calcular el tiempo por el autor Rowe se define en <span class="citation">(<a href="#ref-conagua2019">CONAGUA 2019</a>, pág. 41)</span> con la siguiente expresión
+<span class="math display">\[ t_{c} =  \left(\frac{0.86l_t^{2}}{\sqrt{S_{lcm}}}\right)^{0.385} \]</span>.</p>
+<p>El valor del tiempo de concentración calculado por Rowe para toda el área de estudio es: 19.69 horas .</p>
+
+</div>
+</div>
+</div>
+<h3>Referencias<a href="referencias.html#referencias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-campos1998" class="csl-entry">
+Campos Aranda, Daniel F. 1998. <em>Procesos Del Ciclo Hidrológico</em>. 3rd ed. San Luis Potosí, México: Universidad Autónoma de San Luis Potosí.
+</div>
+<div id="ref-conagua1987" class="csl-entry">
+CONAGUA. 1987. <em>Instructivo de Hidrología Para Determinar La Avenida Máxima Ordinaria</em>. Comisión Nacional del Agua, Subdirección General de Administración del Agua, Gerencia de Aguas Superficiales e Ingeniería de Ríos.
+</div>
+<div id="ref-conagua2019" class="csl-entry">
+———. 2019. <em>Manual de Agua Potable, Alcantarillado y Saneamiento. Drenaje Pluvial Urbano</em>. México, D.F.: Secretaría de Medio Ambiente y Recursos Naturales. <a href="https://www.conagua.gob.mx">https://www.conagua.gob.mx</a>.
+</div>
+<div id="ref-imta2016" class="csl-entry">
+IMTA. 2016. <span>“Proyecto TH-1614.1. Mapa Nacional de Números de Escurrimiento.”</span> México: Instituto Mexicano de Tecnología del Agua. <a href="https://www.imta.gob.mx">www.imta.gob.mx</a>.
+</div>
+<div id="ref-inegi2014" class="csl-entry">
+INEGI. 2014. <em>Guía Para La Interpretación de Cartografía: Edafología</em>. Escala 1:250 000. México: Instituto Nacional de Estadística y Geografía.
+</div>
+<div id="ref-CEM3.0" class="csl-entry">
+Instituto Nacional de Estadística y Geografía. 2013. <span>“Continuo de Elevaciones Mexicano 3.0 (CEM 3.0).”</span> Conjunto de datos geográficos. <a href="https://www.inegi.org.mx/app/geo2/elevacionesmex/">https://www.inegi.org.mx/app/geo2/elevacionesmex/</a>.
+</div>
+<div id="ref-FAO2008" class="csl-entry">
+Naciones Unidas para la Agricultura y la Alimentación, Organización de las. 2008. <em>Base Referencial Mundial Del Recurso Suelo: Un Marco Conceptual Para Clasificación, Correlación y Comunicación Internacional</em>. Roma: FAO.
+</div>
+<div id="ref-nrcs2009" class="csl-entry">
+NRCS. 2009. <em>Part 630 Hydrology National Engineering Handbook, Chapter 7 - Hydrologic Soils Groups</em>. United States Department of Agriculture, Natural Resources Conservation Service.
+</div>
+<div id="ref-conde1995" class="csl-entry">
+Rivera, Raúl Conde, and Juan Francisco Palacios B. 1995. <em>Apuntes de Hidrología Urbana</em>. México: Universidad Autónoma de Nuevo León, Facultad de Ingeniería Civil.
+</div>
+<div id="ref-prieto2014" class="csl-entry">
+Villarroya, Jorge Prieto, Hector Daniel Farias, and Mabel Elisabeth Amarilla. 2014. <span>“Estimación Del Parámetro Hidrológico Del Número de Curva NC: Automatización Del Cálculo Mediante s.i.g. Y Nuevas Fuentes de Información Cartográfica. Caso Del Área Urbana de Pozo Hondo.”</span> <em>Estudio Delta – Phi Ingeniería</em>.
+</div>
+<div id="ref-wang2014" class="csl-entry">
+Wang, Fei, Xuecao Wang, Yuansheng Zhao, et al. 2014. <span>“Temporal Variations of NDVI and Correlations Between NDVI and Hydro-Climatological Variables at Lake Baiyangdian, China.”</span> <em>International Journal of Biometeorology</em> 58 (8): 1531–43. <a href="https://doi.org/10.1007/s00484-013-0758-4">https://doi.org/10.1007/s00484-013-0758-4</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introducción.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modelo-meteorológico.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/reyesedgar/Hidrologia/edit/main/02-modelo_fisiografico.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/reyesedgar/Hidrologia/blob/main/02-modelo_fisiografico.Rmd",
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
