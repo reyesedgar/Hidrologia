@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2024-05-11" />
+<meta name="date" content="2024-05-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -98,7 +98,6 @@ div.csl-indent {
 
 <ul class="summary">
 <li><a href="./">Estudio Hidrológico</a></li>
-
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
 <ul>
@@ -144,8 +143,8 @@ div.csl-indent {
 <li class="chapter" data-level="4.1" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#cálculo-de-caudales"><i class="fa fa-check"></i><b>4.1</b> Cálculo de caudales</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#caudal-q-por-hut-hidrograma-uniforme-triangular"><i class="fa fa-check"></i><b>4.1.1</b> Caudal Q por HUT (Hidrograma Uniforme Triangular)</a></li>
-<li class="chapter" data-level="4.1.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-racional"><i class="fa fa-check"></i><b>4.1.2</b> METODO RACIONAL</a></li>
-<li class="chapter" data-level="4.1.3" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-vente-chow"><i class="fa fa-check"></i><b>4.1.3</b> METODO VENTE CHOW</a></li>
+<li class="chapter" data-level="4.1.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#método-racional"><i class="fa fa-check"></i><b>4.1.2</b> MÉTODO RACIONAL</a></li>
+<li class="chapter" data-level="4.1.3" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-ven-te-chow"><i class="fa fa-check"></i><b>4.1.3</b> METODO VEN TE CHOW</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#hidrograma"><i class="fa fa-check"></i><b>4.2</b> HIDROGRAMA</a></li>
 </ul></li>
@@ -157,8 +156,6 @@ div.csl-indent {
 <li class="chapter" data-level="A.2" data-path="apéndice.html"><a href="apéndice.html#apéndice-del-modelo-meteorológico"><i class="fa fa-check"></i><b>A.2</b> Apéndice del Modelo Meteorológico</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
 
       </nav>
@@ -672,7 +669,7 @@ NA
 <pre><code>
 HOMOGEN() APPLICATION OUTPUT  (From R&#39;s contributed package &#39;climatol&#39; 4.1.0)
 
-=========== Homogenization of precipitacion, 1980-2020. (Sat May 11 17:47:37 2024)
+=========== Homogenization of precipitacion, 1980-2020. (Mon May 20 16:45:13 2024)
 
  Parameters: varcli=precipitacion, anyi=1980, anyf=2020, test=snht, nref=10 10 4, std=NA, swa=NA, ndec=1, niqd=4 1, dz.max=0.01, dz.min=-0.01, cumc=NA, wd=0 0 100, inht=25, sts=5, maxdif=0.05, maxite=999, force=FALSE, wz=0.001, mindat=NA, onlyQC=FALSE, annual=mean, ini=NA, na.strings=NA, vmin=NA, vmax=NA, hc.method=ward.D2, nclust=300, cutlev=NA, grdcol=#666666, mapcol=#666666, expl=FALSE, metad=FALSE, sufbrk=m, tinc=NA, tz=utc, rlemin=NA, rlemax=NA, cex=1.1, uni=NA, raway=TRUE, graphics=TRUE, verb=TRUE, logf=TRUE, snht1=NA, snht2=NA, gp=NA
 
@@ -731,7 +728,7 @@ Prescribed convergence reached
 
 Last series readjustment (please, be patient...) 
 
-======== End of the homogenization process, after 0.93 secs 
+======== End of the homogenization process, after 1.17 secs 
 
 ----------- Final calculations :
 
@@ -1808,7 +1805,7 @@ X-squared = 1640, df = 1600, p-value = 0.2379</p>
 </ul>
 <p>En este capítulo, se presentará la información completa de una estación climatológica como ejemplo. Para el resto de las estaciones solo se presenta la tabla con la distribución de probabilidad ajustada a los parámetros de la función recomendada por MSClaio2008. La información completa de las 5 estaciones restantes se encuentra en el <a href="apéndice.html#apéndice-del-modelo-meteorológico">Apéndice del Modelo Meteorológico</a>.</p>
 <p>Se presenta la información de la <strong>estación 2118</strong> para comparar las distribuciones probabilísticas <em>Gumbel</em> y <em>Log-Normal</em>. Ya que en algunos reportes puede ser obligatorio calcular las disrtibuciones probabilísticas usando la distribución de Gumbel, sin embargo para este estudio, ocuparemos las distribuciones recomendadas por los resultados que arroja la función <em>MSClaio2008</em>.</p>
-<p><img src="reportehidrologia_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p><img src="reportehidrologia_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 <pre><code>
 ------------------------
 Akaike Information Criterion (AIC):
@@ -1835,10 +1832,10 @@ Chosen distributions:
   LN    LN    LN    LN  
 whose Maximum-Likelihood parameters are:
 NORM parameters of log(x):  3.594576  0.3719667  </code></pre>
-<p><img src="reportehidrologia_files/figure-html/unnamed-chunk-48-2.png" width="672" /></p>
+<p><img src="reportehidrologia_files/figure-html/unnamed-chunk-56-2.png" width="672" /></p>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-51">Tabla 3.3: </span>Comparación de distribuciones probabilísticas de precipitaciones de la estación 2118 (Log-Nom vs Gumbel)
+<span id="tab:unnamed-chunk-59">Tabla 3.3: </span>Comparación de distribuciones probabilísticas de precipitaciones de la estación 2118 (Log-Nom vs Gumbel)
 </caption>
 <thead>
 <tr>
@@ -2025,10 +2022,10 @@ Precipitación_2118_LN
 2
 </td>
 <td style="text-align:right;">
-448.9151
+37.6310
 </td>
 <td style="text-align:right;">
-406.7378
+40.6909
 </td>
 <td style="text-align:right;">
 40.8746
@@ -2037,7 +2034,7 @@ Precipitación_2118_LN
 34.3628
 </td>
 <td style="text-align:right;">
-295.6387
+42.5610
 </td>
 <td style="text-align:right;">
 36.4003
@@ -2048,10 +2045,10 @@ Precipitación_2118_LN
 5
 </td>
 <td style="text-align:right;">
-538.7503
+59.2662
 </td>
 <td style="text-align:right;">
-488.5166
+60.3957
 </td>
 <td style="text-align:right;">
 58.5914
@@ -2060,7 +2057,7 @@ Precipitación_2118_LN
 51.3484
 </td>
 <td style="text-align:right;">
-364.1850
+65.1366
 </td>
 <td style="text-align:right;">
 49.7809
@@ -2071,10 +2068,10 @@ Precipitación_2118_LN
 10
 </td>
 <td style="text-align:right;">
-590.0999
+75.0462
 </td>
 <td style="text-align:right;">
-535.2810
+73.5634
 </td>
 <td style="text-align:right;">
 70.7256
@@ -2083,7 +2080,7 @@ Precipitación_2118_LN
 63.3445
 </td>
 <td style="text-align:right;">
-403.8606
+79.6166
 </td>
 <td style="text-align:right;">
 58.6314
@@ -2094,10 +2091,10 @@ Precipitación_2118_LN
 20
 </td>
 <td style="text-align:right;">
-634.8386
+90.5811
 </td>
 <td style="text-align:right;">
-576.0345
+86.0168
 </td>
 <td style="text-align:right;">
 82.6192
@@ -2106,7 +2103,7 @@ Precipitación_2118_LN
 75.3371
 </td>
 <td style="text-align:right;">
-438.6752
+93.0375
 </td>
 <td style="text-align:right;">
 67.1149
@@ -2117,10 +2114,10 @@ Precipitación_2118_LN
 25
 </td>
 <td style="text-align:right;">
-648.2736
+95.5461
 </td>
 <td style="text-align:right;">
-588.2745
+89.9207
 </td>
 <td style="text-align:right;">
 86.4461
@@ -2129,7 +2126,7 @@ Precipitación_2118_LN
 79.2399
 </td>
 <td style="text-align:right;">
-449.1710
+97.2023
 </td>
 <td style="text-align:right;">
 69.8097
@@ -2140,10 +2137,10 @@ Precipitación_2118_LN
 50
 </td>
 <td style="text-align:right;">
-687.7615
+110.8850
 </td>
 <td style="text-align:right;">
-624.2538
+101.8033
 </td>
 <td style="text-align:right;">
 98.4140
@@ -2152,7 +2149,7 @@ Precipitación_2118_LN
 91.5711
 </td>
 <td style="text-align:right;">
-480.1210
+109.7774
 </td>
 <td style="text-align:right;">
 78.1400
@@ -2163,10 +2160,10 @@ Precipitación_2118_LN
 100
 </td>
 <td style="text-align:right;">
-724.5775
+126.1249
 </td>
 <td style="text-align:right;">
-657.8037
+113.3960
 </td>
 <td style="text-align:right;">
 110.5881
@@ -2175,7 +2172,7 @@ Precipitación_2118_LN
 104.2938
 </td>
 <td style="text-align:right;">
-509.1040
+121.9224
 </td>
 <td style="text-align:right;">
 86.4789
@@ -2186,10 +2183,10 @@ Precipitación_2118_LN
 200
 </td>
 <td style="text-align:right;">
-759.3598
+141.2902
 </td>
 <td style="text-align:right;">
-689.5044
+124.7692
 </td>
 <td style="text-align:right;">
 123.0450
@@ -2198,7 +2195,7 @@ Precipitación_2118_LN
 117.4809
 </td>
 <td style="text-align:right;">
-536.5896
+133.7409
 </td>
 <td style="text-align:right;">
 94.8881
@@ -2209,10 +2206,10 @@ Precipitación_2118_LN
 500
 </td>
 <td style="text-align:right;">
-802.9189
+161.2503
 </td>
 <td style="text-align:right;">
-729.2095
+139.5448
 </td>
 <td style="text-align:right;">
 140.0360
@@ -2221,7 +2218,7 @@ Precipitación_2118_LN
 135.7157
 </td>
 <td style="text-align:right;">
-571.1421
+148.9777
 </td>
 <td style="text-align:right;">
 106.1822
@@ -2232,10 +2229,10 @@ Precipitación_2118_LN
 1000
 </td>
 <td style="text-align:right;">
-834.4028
+176.2973
 </td>
 <td style="text-align:right;">
-757.9111
+150.5663
 </td>
 <td style="text-align:right;">
 153.3360
@@ -2244,7 +2241,7 @@ Precipitación_2118_LN
 150.1706
 </td>
 <td style="text-align:right;">
-596.2004
+160.2709
 </td>
 <td style="text-align:right;">
 114.8974
@@ -2255,10 +2252,10 @@ Precipitación_2118_LN
 5000
 </td>
 <td style="text-align:right;">
-903.7517
+211.1048
 </td>
 <td style="text-align:right;">
-821.1406
+175.7644
 </td>
 <td style="text-align:right;">
 185.8790
@@ -2267,7 +2264,7 @@ Precipitación_2118_LN
 186.1329
 </td>
 <td style="text-align:right;">
-651.6234
+185.9024
 </td>
 <td style="text-align:right;">
 135.8253
@@ -2278,10 +2275,10 @@ Precipitación_2118_LN
 10000
 </td>
 <td style="text-align:right;">
-932.3136
+226.0510
 </td>
 <td style="text-align:right;">
-847.1855
+186.4817
 </td>
 <td style="text-align:right;">
 200.6677
@@ -2290,7 +2287,7 @@ Precipitación_2118_LN
 202.7260
 </td>
 <td style="text-align:right;">
-674.5340
+196.7378
 </td>
 <td style="text-align:right;">
 145.1730
@@ -2320,7 +2317,7 @@ lluvia_max_24h
 2
 </td>
 <td style="text-align:right;">
-142.7981
+37.4954
 </td>
 </tr>
 <tr>
@@ -2328,7 +2325,7 @@ lluvia_max_24h
 5
 </td>
 <td style="text-align:right;">
-178.8926
+55.6591
 </td>
 </tr>
 <tr>
@@ -2336,7 +2333,7 @@ lluvia_max_24h
 10
 </td>
 <td style="text-align:right;">
-201.0112
+68.2428
 </td>
 </tr>
 <tr>
@@ -2344,7 +2341,7 @@ lluvia_max_24h
 20
 </td>
 <td style="text-align:right;">
-221.2652
+80.5619
 </td>
 </tr>
 <tr>
@@ -2352,7 +2349,7 @@ lluvia_max_24h
 25
 </td>
 <td style="text-align:right;">
-227.5380
+84.5143
 </td>
 </tr>
 <tr>
@@ -2360,7 +2357,7 @@ lluvia_max_24h
 50
 </td>
 <td style="text-align:right;">
-246.5143
+96.8259
 </td>
 </tr>
 <tr>
@@ -2368,7 +2365,7 @@ lluvia_max_24h
 100
 </td>
 <td style="text-align:right;">
-264.9702
+109.2638
 </td>
 </tr>
 <tr>
@@ -2376,7 +2373,7 @@ lluvia_max_24h
 200
 </td>
 <td style="text-align:right;">
-283.1283
+121.8963
 </td>
 </tr>
 <tr>
@@ -2384,7 +2381,7 @@ lluvia_max_24h
 500
 </td>
 <td style="text-align:right;">
-306.9242
+138.9742
 </td>
 </tr>
 <tr>
@@ -2392,7 +2389,7 @@ lluvia_max_24h
 1000
 </td>
 <td style="text-align:right;">
-324.9012
+152.2252
 </td>
 </tr>
 <tr>
@@ -2400,7 +2397,7 @@ lluvia_max_24h
 5000
 </td>
 <td style="text-align:right;">
-366.9936
+184.2557
 </td>
 </tr>
 <tr>
@@ -2408,7 +2405,7 @@ lluvia_max_24h
 10000
 </td>
 <td style="text-align:right;">
-385.4010
+198.6468
 </td>
 </tr>
 </tbody>
@@ -2434,7 +2431,7 @@ Precipitacion
 2
 </td>
 <td style="text-align:right;">
-186.4874
+38.2270
 </td>
 </tr>
 <tr>
@@ -2442,7 +2439,7 @@ Precipitacion
 5
 </td>
 <td style="text-align:right;">
-230.0740
+56.5309
 </td>
 </tr>
 <tr>
@@ -2450,7 +2447,7 @@ Precipitacion
 10
 </td>
 <td style="text-align:right;">
-256.1841
+69.0658
 </td>
 </tr>
 <tr>
@@ -2458,7 +2455,7 @@ Precipitacion
 20
 </td>
 <td style="text-align:right;">
-279.7196
+81.2284
 </td>
 </tr>
 <tr>
@@ -2466,7 +2463,7 @@ Precipitacion
 25
 </td>
 <td style="text-align:right;">
-286.9394
+85.1091
 </td>
 </tr>
 <tr>
@@ -2474,7 +2471,7 @@ Precipitacion
 50
 </td>
 <td style="text-align:right;">
-308.5895
+97.1346
 </td>
 </tr>
 <tr>
@@ -2482,7 +2479,7 @@ Precipitacion
 100
 </td>
 <td style="text-align:right;">
-329.3823
+109.1925
 </td>
 </tr>
 <tr>
@@ -2490,7 +2487,7 @@ Precipitacion
 200
 </td>
 <td style="text-align:right;">
-349.5995
+121.3527
 </td>
 </tr>
 <tr>
@@ -2498,7 +2495,7 @@ Precipitacion
 500
 </td>
 <td style="text-align:right;">
-375.7551
+137.6649
 </td>
 </tr>
 <tr>
@@ -2506,7 +2503,7 @@ Precipitacion
 1000
 </td>
 <td style="text-align:right;">
-395.2753
+150.2289
 </td>
 </tr>
 <tr>
@@ -2514,7 +2511,7 @@ Precipitacion
 5000
 </td>
 <td style="text-align:right;">
-440.2426
+180.2995
 </td>
 </tr>
 <tr>
@@ -2522,7 +2519,7 @@ Precipitacion
 10000
 </td>
 <td style="text-align:right;">
-459.6075
+193.6857
 </td>
 </tr>
 </tbody>
@@ -2554,16 +2551,16 @@ mm/hr</p>
 mm/hr</p>
 <p>Se corrigen las frecuencias por factor de Weiss y se obtienen los diferentes parámetros que se ocupan para el cálculo de la tabla IDTR.</p>
 <p>Primero se obteniene R<sub>prom</sub>, se debe revisar si cae en rango [0.1-0.6] o [0.2-0.7] para cálculos posteriores.</p>
-<p>R<sub>prom</sub>: 0.1046057</p>
+<p>R<sub>prom</sub>: 0.3880115</p>
 <p>Dependiendo del rango en el que este R<sub>prom</sub> se usan diferentes ecuaciones para obtener los parámetros a,b,c. </p>
 <p>Parámetro a:
-4.748782</p>
+21.46084</p>
 <p>Parámetro b:
--2.644634</p>
+7.070807</p>
 <p>Parámetro c:
-0.3202305</p>
+0.7258312</p>
 <p>Se obtiene F.</p>
-<p>F: 1.285725</p>
+<p>F: 1.580993</p>
 <p>Con los parámetros calculados se procede a graficar las curvas IDTR.</p>
 <div class="figure"><span style="display:block;" id="fig:figura-IDTR"></span>
 <img src="reportehidrologia_files/figure-html/figura-IDTR-1.png" alt="Gráfico de las curvas Intensidad - Duración -  Tiempo de Retorno" width="672" />
@@ -2583,7 +2580,7 @@ Figura 3.5: Gráfico de las curvas Precipitación - Duración - Tiempo de Retorn
 <h2><span class="header-section-number">3.5</span> Hietograma<a href="modelo-meteorológico.html#hietograma" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Cuando no se dispone de registros climáticos e hidrométricos completos, el proceso de conversión de precipitación en escorrentía se aborda mediante la modelación de la tormenta incidente en la cuenca y la fase terrestre del ciclo hidrológico que se desarrolla en ella. En este enfoque, las tormentas de diseño son el punto de partida para las estimaciones hidrológicas de escurrimientos, tanto en cuencas rurales como urbanas, en ausencia de información hidrométrica directa.</p>
 <p>Existen dos tipos fundamentales de tormentas de diseño: históricas y sintéticas o hipotéticas. Las tormentas históricas son eventos severos o extraordinarios que han ocurrido en el pasado y fueron registrados, pudiendo estar bien documentados en relación con los problemas y daños causados a las áreas urbanas y sus sistemas de drenaje. Por otro lado, las tormentas sintéticas o hipotéticas se obtienen a partir del estudio y generalización de un gran número de tormentas severas observadas, con el objetivo de estimar un hietograma que represente las características de las tormentas en la zona de estudio <span class="citation">(<a href="#ref-campos2010">Aranda 2010</a>)</span>.</p>
-<p>En el presente estudio, se obtendrá el hietograma de diseño utilizando la metodología propuesta por el NRCS. El período de retorno seleccionado es de 100 años, ya que el punto de control se encuentra en una carretera federal, donde se requieren niveles de protección más estrictos.</p>
+<p>En el presente estudio, se obtendrá el hietograma de diseño utilizando la metodología propuesta por el NRCS. El período de retorno se selecciona con base en en la tabla del Anexo 1 del memorando de CONAGUA de 2017 <span class="citation">(<a href="#ref-conagua2017">CONAGUA 2017</a>)</span>. El período de retorno que marca el memorando para el punto de control de la zona de estudio es de 50 a 100 años para puentes carreteros en caminos regionales. Para los cálculos de este estudio se usará un período de retorno de 100 años.</p>
 <div class="figure"><span style="display:block;" id="fig:figura-hietograma"></span>
 <img src="reportehidrologia_files/figure-html/figura-hietograma-1.png" alt="Hietograma para el Periodo de Retorno 100 años" width="672" />
 <p class="caption">
@@ -2603,6 +2600,9 @@ Campos Aranda, Daniel Francisco. 1990. <em>Procedimiento Para Obtener Curvas IDT
 </div>
 <div id="ref-conagua1987" class="csl-entry">
 CONAGUA. 1987. <em>Instructivo de Hidrología Para Determinar La Avenida Máxima Ordinaria</em>. Comisión Nacional del Agua, Subdirección General de Administración del Agua, Gerencia de Aguas Superficiales e Ingeniería de Ríos.
+</div>
+<div id="ref-conagua2017" class="csl-entry">
+———. 2017. <em>Subdireccion General Técnica. Memorandum No. B00.7-416</em>. México: Comisión Nacional del Agua.
 </div>
 <div id="ref-dominguez2018" class="csl-entry">
 Domínguez, R., E. Carrizosa, G. E. Fuentes, M. L. Arganis, J. Osnaya, and A. E. Galván-Torres. 2018. <span>“Análisis Regional Para Estimar Precipitaciones de Diseño En La República Mexicana.”</span> <em>Tecnología y Ciencias Del Agua</em> 9 (1): 5–29. <a href="https://doi.org/10.24850/j-tyca-2018-01-01">https://doi.org/10.24850/j-tyca-2018-01-01</a>.

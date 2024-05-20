@@ -23,7 +23,7 @@
 <meta name="author" content="" />
 
 
-<meta name="date" content="2024-05-11" />
+<meta name="date" content="2024-05-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -98,7 +98,6 @@ div.csl-indent {
 
 <ul class="summary">
 <li><a href="./">Estudio Hidrológico</a></li>
-
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
 <ul>
@@ -144,8 +143,8 @@ div.csl-indent {
 <li class="chapter" data-level="4.1" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#cálculo-de-caudales"><i class="fa fa-check"></i><b>4.1</b> Cálculo de caudales</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#caudal-q-por-hut-hidrograma-uniforme-triangular"><i class="fa fa-check"></i><b>4.1.1</b> Caudal Q por HUT (Hidrograma Uniforme Triangular)</a></li>
-<li class="chapter" data-level="4.1.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-racional"><i class="fa fa-check"></i><b>4.1.2</b> METODO RACIONAL</a></li>
-<li class="chapter" data-level="4.1.3" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-vente-chow"><i class="fa fa-check"></i><b>4.1.3</b> METODO VENTE CHOW</a></li>
+<li class="chapter" data-level="4.1.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#método-racional"><i class="fa fa-check"></i><b>4.1.2</b> MÉTODO RACIONAL</a></li>
+<li class="chapter" data-level="4.1.3" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#metodo-ven-te-chow"><i class="fa fa-check"></i><b>4.1.3</b> METODO VEN TE CHOW</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="modelo-hidrológico.html"><a href="modelo-hidrológico.html#hidrograma"><i class="fa fa-check"></i><b>4.2</b> HIDROGRAMA</a></li>
 </ul></li>
@@ -157,8 +156,6 @@ div.csl-indent {
 <li class="chapter" data-level="A.2" data-path="apéndice.html"><a href="apéndice.html#apéndice-del-modelo-meteorológico"><i class="fa fa-check"></i><b>A.2</b> Apéndice del Modelo Meteorológico</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
 
       </nav>
@@ -185,7 +182,7 @@ div.csl-indent {
 </div>
 <div id="delimitación-del-área-de-escurrimiento-y-red-hidrográfica" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Delimitación del área de escurrimiento y red hidrográfica<a href="modelo-fisiográfico.html#delimitación-del-área-de-escurrimiento-y-red-hidrográfica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La cuenca analizada, denominada “Subcuenca R. Guadalupe” (RH01Cc) según la nomenclatura INEGI, pertenece a la Región Hidrográfica Baja California Noroeste (Ensenada) y forma parte de la cuenca exorreica R. Tijuana - A. de Maneadero. Presenta un <strong>área de drenaje</strong> de 2403.79 km<sup>2</sup>, delimitada por un <strong>perímetro</strong> de 485.58 km y una <strong>longitud</strong> de 95.11 km, clasificándose como una cuenca <strong>Intermedia grande</strong> conforme a la tabla <a href="modelo-fisiográfico.html#tab:tabla-tamanocuencas">2.1</a>, de los <em>Apuntes de Hidrología Urbana</em> <span class="citation">(<a href="#ref-conde1995">Rivera and B. 1995</a>)</span>.</p>
+<p>La cuenca analizada, denominada “Subcuenca Río Guadalupe” (RH01Cc) según la nomenclatura INEGI, pertenece a la Región Hidrográfica Baja California Noroeste (Ensenada) y forma parte de la cuenca exorreica Río Tijuana - Arroyo de Maneadero. Presenta un <strong>área de drenaje</strong> de 2403.79 km<sup>2</sup>, delimitada por un <strong>perímetro</strong> de 485.58 km y una <strong>longitud</strong> de 95.11 km, clasificándose como una cuenca <strong>Intermedia grande</strong> conforme a la tabla <a href="modelo-fisiográfico.html#tab:tabla-tamanocuencas">2.1</a>, de los <em>Apuntes de Hidrología Urbana</em> <span class="citation">(<a href="#ref-conde1995">Rivera and B. 1995</a>)</span>.</p>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:tabla-tamanocuencas">Tabla 2.1: </span>Clasificación de las cuencas según su tamaño
@@ -196,7 +193,7 @@ div.csl-indent {
 Clasificacion
 </th>
 <th style="text-align:left;">
-Rango_tamaño
+Rango_tamaño_km2
 </th>
 </tr>
 </thead>
@@ -214,7 +211,7 @@ Muy pequeña
 Pequeña
 </td>
 <td style="text-align:left;">
-25-250
+25 - 250
 </td>
 </tr>
 <tr>
@@ -222,7 +219,7 @@ Pequeña
 Intermedia pequeña
 </td>
 <td style="text-align:left;">
-250-500
+250 - 500
 </td>
 </tr>
 <tr>
@@ -230,7 +227,7 @@ Intermedia pequeña
 Intermedia grande
 </td>
 <td style="text-align:left;">
-500-2,500
+500 - 2,500
 </td>
 </tr>
 <tr>
@@ -238,7 +235,7 @@ Intermedia grande
 Grande
 </td>
 <td style="text-align:left;">
-2,500-5,000
+2,500 - 5,000
 </td>
 </tr>
 <tr>
@@ -324,6 +321,12 @@ Figura 2.6: Modelos de drenaje
 <div id="análisis-de-pendiente-del-cauce-principal-de-la-cuenca" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Análisis de pendiente del cauce principal de la cuenca<a href="modelo-fisiográfico.html#análisis-de-pendiente-del-cauce-principal-de-la-cuenca" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El análisis del perfil longitudinal del cauce principal proporciona información sobre su pendiente, la cual influye en la velocidad del flujo y la capacidad de transporte de sedimentos.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figura-cauceperfil"></span>
+<img src="perfil%20del%20cauce.png" alt="Perfil del cauce principal" width="600" />
+<p class="caption">
+Figura 2.7: Perfil del cauce principal
+</p>
+</div>
 <p>La pendiente del cauce principal se ha calculado usando tres diferentes fórmulas, las cuales se encuentran referenciadas en el manual de alcantarillado y saneamiento pluvial <span class="citation">(<a href="#ref-conagua2019">CONAGUA 2019</a>)</span>.</p>
 <ul>
 <li>Pendiente uniforme<br />
@@ -332,14 +335,6 @@ Figura 2.6: Modelos de drenaje
 </li>
 <li>Pendiente por longitudes constantes de Taylor - Shwarz</li>
 </ul>
-<p>Se hicieron corridas del modelo hidrológico con las pendientes de Taylor - Shwarz y uniforme, y se decidió usar la pendiente uniforme, debido a que genera resultados más conservadores.</p>
-<p>Las memorias de cálculo que generan las pendientes Taylor - Shwarz se encuentran en el Ápendice.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:figura-cauceperfil"></span>
-<img src="perfil%20del%20cauce.png" alt="Perfil del cauce principal" width="600" />
-<p class="caption">
-Figura 2.7: Perfil del cauce principal
-</p>
-</div>
 <div id="pendiente-uniforme" class="section level4 hasAnchor" number="2.4.1.1">
 <h4><span class="header-section-number">2.4.1.1</span> Pendiente uniforme<a href="modelo-fisiográfico.html#pendiente-uniforme" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Esta pendiente se calcula a partir de la longitud total del cauce y la diferencia de elevación entre su punto inicial y final. La fórmula es
@@ -357,6 +352,114 @@ Figura 2.7: Perfil del cauce principal
 <p>Esta fórmula considera que el río está formado de canales con pendientes uniformes, por lo que se segmenta en tramos equivalentes para poder calcular la pendiente media.
 <span class="math display">\[S_{lc} = \left[  \frac{n}{\sum_{i=1}^n\frac{1}{\sqrt{s_i}}} \right]^{2} \label{eq:pendietetaylorlong} \]</span></p>
 <p>La pendiente media del cauce principal calculada con la fórmula de Taylor Schwarz por longitudes constantes es: 0.006142406 m/m</p>
+<p>Se hicieron corridas del modelo hidrológico con las pendientes de Taylor - Shwarz y uniforme, y se decidió usar la pendiente uniforme, debido a que genera resultados más conservadores.</p>
+<p>Las memorias de cálculo que generan las pendientes Taylor - Shwarz se encuentran en el Ápéndice.</p>
+<p>Los parámetros fisiográficos y geomorfológicos calculados se muestran en la siguiente tabla.</p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption style="font-size: initial !important;">
+<span id="tab:tabla-resumenparametrosfisio">Tabla 2.2: </span>Características de la cuenca y el cauce principal
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Variable
+</th>
+<th style="text-align:right;">
+Valor
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Área de la cuenca (km^2)
+</td>
+<td style="text-align:right;">
+2403.7940
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Perímetro de la cuenca (km)
+</td>
+<td style="text-align:right;">
+485.5840
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Longitud de la cuenca (km)
+</td>
+<td style="text-align:right;">
+95.1050
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pendiente media de la cuenca (%)
+</td>
+<td style="text-align:right;">
+17.4800
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Elevación media de la cuenca (msnm)
+</td>
+<td style="text-align:right;">
+891.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Relación de elongación
+</td>
+<td style="text-align:right;">
+0.6000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Coeficiente de compacidad
+</td>
+<td style="text-align:right;">
+2.7732
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Elevación inicial del cauce (msnm)
+</td>
+<td style="text-align:right;">
+1713.1569
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Elevación final del cauce (msnm)
+</td>
+<td style="text-align:right;">
+5.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Longitud total del cauce (km)
+</td>
+<td style="text-align:right;">
+165.9057
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pendiente uniforme del cauce (%)
+</td>
+<td style="text-align:right;">
+1.0296
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -378,7 +481,7 @@ Figura 2.8: Uso de suelo, tomado de INEGI serie II
 </div>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tabla-tiposuelo">Tabla 2.2: </span>Tipo de suelo relacionado a la cuenca
+<span id="tab:tabla-tiposuelo">Tabla 2.3: </span>Tipo de suelo relacionado a la cuenca
 </caption>
 <thead>
 <tr>
@@ -503,7 +606,7 @@ Figura 2.10: Grupo hidrológico, tomado de INEGI serie II
 <p>La clasificación del grupo hidrológico se hizo con base al instructivo de Hidrología de CONAGUA <span class="citation">(<a href="#ref-conagua1987">CONAGUA 1987</a>)</span>.</p>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tabla-grupohidro">Tabla 2.3: </span>Tabla del grupo hidrológico relacionado a la subcuenca
+<span id="tab:tabla-grupohidro">Tabla 2.4: </span>Tabla del grupo hidrológico relacionado a la subcuenca
 </caption>
 <thead>
 <tr>
@@ -565,7 +668,7 @@ Figura 2.11: Uso de suelo, tomado de INEGI serie VII
 </div>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tabla-usosuelo">Tabla 2.4: </span>Tabla del uso de suelo relacionado a la subcuenca
+<span id="tab:tabla-usosuelo">Tabla 2.5: </span>Tabla del uso de suelo relacionado a la subcuenca
 </caption>
 <thead>
 <tr>
@@ -781,7 +884,7 @@ Figura 2.12: CN obtenido por IMTA 2016
 <p>Estas tablas de referencia, permiten buscar los productos, resultado de multiplicar el mapa de pendientes por el mapa de uso de suelo por el mapa del grupo hidrológico del suelo.</p>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tabla-cnproducto">Tabla 2.5: </span>Valores tabulados de los productos posibles del algebra de mapas
+<span id="tab:tabla-cnproducto">Tabla 2.6: </span>Valores tabulados de los productos posibles del algebra de mapas
 </caption>
 <thead>
 <tr>
@@ -1771,7 +1874,7 @@ Rocas impermeables
 <p>Y con esos valores producto, se busca en la tabla de referencia el Número de Cruva asociado.</p>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tabla-cnvalores">Tabla 2.6: </span>Valores tabulados del valor CN
+<span id="tab:tabla-cnvalores">Tabla 2.7: </span>Valores tabulados del valor CN
 </caption>
 <thead>
 <tr>
@@ -2758,10 +2861,10 @@ Rocas impermeables
 </tr>
 </tbody>
 </table>
-<p>La metodología utiliza su propia nomenclatura para el uso de suelo. Por lo que se tiene que transcribir la nomenclatura de uso de suelo propuesta por INEGI, a la propuesta por CEDEX. La tabla <a href="modelo-fisiográfico.html#tab:tabla-usosuelo">2.4</a> muestra la nomenclatura usada por la INEGI.</p>
+<p>La metodología utiliza su propia nomenclatura para el uso de suelo. Por lo que se tiene que transcribir la nomenclatura de uso de suelo propuesta por INEGI, a la propuesta por CEDEX. La tabla <a href="modelo-fisiográfico.html#tab:tabla-usosuelo">2.5</a> muestra la nomenclatura usada por la INEGI.</p>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tabla-cnprimos">Tabla 2.7: </span>Valores tabulados de los números primos
+<span id="tab:tabla-cnprimos">Tabla 2.8: </span>Valores tabulados de los números primos
 </caption>
 <thead>
 <tr>
@@ -3160,7 +3263,7 @@ Rocas impermeables
 </tr>
 </tbody>
 </table>
-<p>Para ello se importa a RStudio la capa vectorial que contiene el uso de suelo de la serie VII de INEGI para adecuar el uso de suelo a la tabla de referencia de CEDEX <a href="modelo-fisiográfico.html#tab:tabla-cnprimos">2.7</a></p>
+<p>Para ello se importa a RStudio la capa vectorial que contiene el uso de suelo de la serie VII de INEGI para adecuar el uso de suelo a la tabla de referencia de CEDEX <a href="modelo-fisiográfico.html#tab:tabla-cnprimos">2.8</a></p>
 <p>Una vez que se ha adecuado la nomenclatura del uso de suelo, se unen los tres mapas, para obtener un mapa final que contenga los valores necesarios para hacer la última operación del algebra de mapas y obtener el CN para cada combinación.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:figura-algebramapas"></span>
 <img src="uso%20de%20suelo.png" alt="Algebra de mapas para obtener NC" width="200" /><img src="pendiente%20CN.png" alt="Algebra de mapas para obtener NC" width="200" /><img src="grupo%20hidrologico.png" alt="Algebra de mapas para obtener NC" width="200" />
@@ -3170,7 +3273,7 @@ Figura 2.13: Algebra de mapas para obtener NC
 </div>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tabla-capafinal">Tabla 2.8: </span>Uso de suelo, tomado de INEGI serie VII
+<span id="tab:tabla-capafinal">Tabla 2.9: </span>Uso de suelo, tomado de INEGI serie VII
 </caption>
 <thead>
 <tr>
