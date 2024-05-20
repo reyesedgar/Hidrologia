@@ -583,31 +583,47 @@ est2118_cuantiles_gumbel <- invF.gumb(probabilidad_Tr$Probabilidad_Inversa, est2
 ```
 
 
-
 ```{r,  echo=FALSE, warning=FALSE, comment = ""}
-est2164_P3 <- ML_estimation(estaciones_lluviamax24h$X2164, dist="P3")
+# Calcular los L-momentos de la muestra
+lmom <- Lmoments(estaciones_lluviamax24h$X2164)
 
-# Parámetros de ajuste (puedes modificarlos según tu conocimiento del dominio)
-shape <- est2164_P3[1]  # Parámetro de forma
-scale <- est2164_P3[2]  # Parámetro de escala
-thres <- est2164_P3[3]  # Parámetro de umbral
+# Extraer los L-momentos necesarios
+lambda1 <- lmom[1]
+lambda2 <- lmom[2]
+tau3 <- lmom[4]
 
-# Calcular la densidad de probabilidad para cada valor en el vector lluvia
-est2164_P3_cuantiles <- qgamma3(probabilidad_Tr$Probabilidad_Inversa, shape = shape, scale = scale, thres = thres)
+# Estimar los parámetros de la distribución de Pearson III utilizando L-momentos
+parametros <- par.gamma(lambda1, lambda2, tau3)
 
+# Extraer los parámetros estimados
+xi <- parametros$xi
+beta <- parametros$beta
+alfa <- parametros$alfa
+
+# Calcular los cuantiles correspondientes a las probabilidades dadas
+est2164_P3_cuantiles <- invF.gamma(probabilidad_Tr$Probabilidad_Inversa, xi, beta, alfa)
 ```
 
-
 ```{r, echo=FALSE, warning=FALSE, comment = ""}
-est2036_P3 <- ML_estimation(estaciones_lluviamax24h$X2036, dist="P3")
 
-# Parámetros de ajuste (puedes modificarlos según tu conocimiento del dominio)
-shape <- est2036_P3[1]  # Parámetro de forma
-scale <- est2036_P3[2]  # Parámetro de escala
-thres <- est2036_P3[3]  # Parámetro de umbral
+# Calcular los L-momentos de la muestra
+lmom <- Lmoments(estaciones_lluviamax24h$X2036)
 
-# Calcular la densidad de probabilidad para cada valor en el vector lluvia
-est2036_P3_cuantiles <- qgamma3(probabilidad_Tr$Probabilidad_Inversa, shape = shape, scale = scale, thres = thres)
+# Extraer los L-momentos necesarios
+lambda1 <- lmom[1]
+lambda2 <- lmom[2]
+tau3 <- lmom[4]
+
+# Estimar los parámetros de la distribución de Pearson III utilizando L-momentos
+parametros <- par.gamma(lambda1, lambda2, tau3)
+
+# Extraer los parámetros estimados
+xi <- parametros$xi
+beta <- parametros$beta
+alfa <- parametros$alfa
+
+# Calcular los cuantiles correspondientes a las probabilidades dadas
+est2036_P3_cuantiles <- invF.gamma(probabilidad_Tr$Probabilidad_Inversa, xi, beta, alfa)
 ```
 
 ```{r,  echo=FALSE, warning=FALSE, comment = ""}
@@ -632,17 +648,25 @@ est2004_LN_cuantiles <- qlnorm(probabilidad_Tr$Probabilidad_Inversa, meanlog = m
 ```
 
 ```{r, echo=FALSE, warning=FALSE, comment = ""}
-est2077_P3 <- ML_estimation(estaciones_lluviamax24h$X2077, dist="P3")
 
-# Parámetros de ajuste (puedes modificarlos según tu conocimiento del dominio)
-shape <- est2077_P3[1]  # Parámetro de forma
-scale <- est2077_P3[2]  # Parámetro de escala
-thres <- est2077_P3[3]  # Parámetro de umbral
+# Calcular los L-momentos de la muestra
+lmom <- Lmoments(estaciones_lluviamax24h$X2077)
 
-# Calcular la densidad de probabilidad para cada valor en el vector lluvia
-est2077_P3_cuantiles <- qgamma3(probabilidad_Tr$Probabilidad_Inversa, shape = shape, scale = scale, thres = thres)
+# Extraer los L-momentos necesarios
+lambda1 <- lmom[1]
+lambda2 <- lmom[2]
+tau3 <- lmom[4]
 
+# Estimar los parámetros de la distribución de Pearson III utilizando L-momentos
+parametros <- par.gamma(lambda1, lambda2, tau3)
 
+# Extraer los parámetros estimados
+xi <- parametros$xi
+beta <- parametros$beta
+alfa <- parametros$alfa
+
+# Calcular los cuantiles correspondientes a las probabilidades dadas
+est2077_P3_cuantiles <- invF.gamma(probabilidad_Tr$Probabilidad_Inversa, xi, beta, alfa)
 ```
 
 Realmente las dos distribuciones presentan resultados muy similares. Por lo que no representa problema escoger una sobre la otra.
@@ -942,7 +966,7 @@ Cuando no se dispone de registros climáticos e hidrométricos completos, el pro
 
 Existen dos tipos fundamentales de tormentas de diseño: históricas y sintéticas o hipotéticas. Las tormentas históricas son eventos severos o extraordinarios que han ocurrido en el pasado y fueron registrados, pudiendo estar bien documentados en relación con los problemas y daños causados a las áreas urbanas y sus sistemas de drenaje. Por otro lado, las tormentas sintéticas o hipotéticas se obtienen a partir del estudio y generalización de un gran número de tormentas severas observadas, con el objetivo de estimar un hietograma que represente las características de las tormentas en la zona de estudio [@campos2010].
 
-En el presente estudio, se obtendrá el hietograma de diseño utilizando la metodología propuesta por el NRCS. El período de retorno seleccionado es de 100 años, ya que el punto de control se encuentra en una carretera federal, donde se requieren niveles de protección más estrictos.
+En el presente estudio, se obtendrá el hietograma de diseño utilizando la metodología propuesta por el NRCS. El período de retorno se selecciona con base en en la tabla del Anexo 1 del memorando de CONAGUA de 2017 [@conagua2017]. El período de retorno que marca el memorando para el punto de control de la zona de estudio es de 50 a 100 años para puentes carreteros en caminos regionales. Para los cálculos de este estudio se usará un período de retorno de 100 años.
 
 ```{r, include=FALSE}
 distribuciones_NRCS <- read_excel("D:\\CIRSS\\hidrologia\\T5_ModeloMeteorologico\\tabla_hietograma1.xlsx")

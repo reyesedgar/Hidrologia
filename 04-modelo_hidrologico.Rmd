@@ -63,6 +63,15 @@ cat("El tiempo base es:", round(tb, 2), "horas", "\n\n")
 cat("El coeficiente FRA es:", round(FRA, 2), "\n")
 ```
 
+El FRA se calcula con la ecuación $$ FRA = 1.0 - 0.091293 \cdot \left(1.0 - e^{-0.005794 \cdot A}\right) $$  
+
+El tiempo de retraso se calcula con la ecuación $$ T~r~ = 0.6 \cdot \ T~c~ $$
+
+La duración efectiva se calcula con la ecuación $$ de = 2 \cdot \sqrt{T~c~} $$
+
+El tiempo pico se calcula con la ecuación $$ T~p~ = \frac{de}{2} + T~r~ $$
+
+El tiempo base se calcula con la ecuación $$ T~b~ = 2.67 \cdot T~p~ $$
 
 ### Caudal Q por HUT (Hidrograma Uniforme Triangular)
 
@@ -165,7 +174,7 @@ knitr::kable(Q_hut,
                   position = "center") 
 ```
 
-### METODO RACIONAL
+### MÉTODO RACIONAL
 
 La concepción fundamental del método Racional establece que la intensidad de lluvia i comienza instantáneamente y continúa indefinidamente, la cantidad de escurrImiento se va incrementando hasta alcanzar el tiempo de concentración (T~c~), cuando toda la cuenca está contribuyendo al flujo en su salida. Por lo anterior, la intensidad i tiene una duración igual al T~c~ y corresponde al periodo de retomo de la creciente o gasto máximo que se estima. El cociente entre el producto de la intensidad de lluvia i por el área de cuenca A y el gasto máximo Q, que ocurre al llegar al T~c~, se denomina coeficiente de escurrimiento C y lógicamente varía de cero a uno.
 
@@ -200,11 +209,11 @@ knitr::kable(Q_racional,
                   position = "center") 
 ```
 
-### METODO VENTE CHOW
+### METODO VEN TE CHOW
 
 Este método es aplicable a cuencas menores de 24.3 km^2^, está basado en la teoría del hidrograma unitario y de la curva S la cual permite obtener otros hidrogramas unitarios con duraciones diferentes. El caudal se expresa mediante la ecuación $$ Q = A * X * Y * Z $$.
 
-La formula sugerida en la hoja de cálculo para calcular T~r~ por Chow esta indicada para cuencas pequeñas en el instructivo de CONAGUA, mismo libro que dice que para cuencas grandes, se debe usar $$ t_r = 0.6\times t_c $$.
+La formula sugerida en la hoja de cálculo para calcular T~r~ por Ven Te Chow esta indicada para cuencas pequeñas en el instructivo de CONAGUA, mismo libro que dice que para cuencas grandes, se debe usar $$ t_r = 0.6\times t_c $$.
 
 
 ```{r, eval=FALSE, include=FALSE}

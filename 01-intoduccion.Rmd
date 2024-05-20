@@ -30,7 +30,7 @@ Para el diseño del modelo hidrológico se ha seguido la normativa establecida e
 
 El área de estudio comprende una cuenca hidrográfica ubicada en el estado de Baja California, México, abarcando territorios de los municipios de Ensenada, Playas de Rosarito, Tijuana y Tecate. La cuenca presenta características predominantemente rurales, con algunos asentamientos urbanos dispersos en su porción final, como las colonias Francisco Zarco y Ejido El Porvenir.
 
-El punto de control establecido para el análisis hidrológico se encuentra en el puente La Misión, localizado en las coordenadas -116.88258, 32.08942, sobre la carretera federal Tijuana-San Miguel, en el kilómetro 69+338. Este puente cruza el cauce principal de la cuenca y su dimensionamiento adecuado es crucial para garantizar la protección de la infraestructura vial ante eventos de avenidas extraordinarias.
+El punto de control establecido para el análisis hidrológico se encuentra en el puente La Misión, localizado en las coordenadas geográficas -116.88258°, 32.08942°, con SRC EPSG:4326 - WGS 84 en unidades angulares. El puente pasa sobre la carretera federal Transpeninsular de Baja California, en el kilómetro 69+338. Este puente cruza el cauce principal de la cuenca y su dimensionamiento adecuado es crucial para garantizar la protección de la infraestructura vial ante eventos de avenidas extraordinarias.
 
 La caracterización detallada de la fisiografía de la cuenca, incluyendo su topografía, red de drenaje, tipos de suelo y cobertura vegetal, así como el análisis de los patrones de precipitación en la región, son elementos clave para el desarrollo del modelo hidrológico y la estimación confiable de los caudales máximos esperados en el punto de control.
 

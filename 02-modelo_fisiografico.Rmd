@@ -45,7 +45,7 @@ cuenca <- readOGR(dsn = cuenca_shp, layer = "cem_cuenca_geomcorreg", verbose = F
 ```{r, include=FALSE}
 tabla_tamano_cuencas <- data.frame(
   Clasificacion = c("Muy pequeña", "Pequeña", "Intermedia pequeña", "Intermedia grande", "Grande", "Muy grande"),
-  Rango_tamaño = c("< 25", "25-250", "250-500", "500-2,500", "2,500-5,000", "> 5,000"))
+  Rango_tamaño_km2 = c("< 25", "25 - 250", "250 - 500", "500 - 2,500", "2,500 - 5,000", "> 5,000"))
 ```
 
 ```{r include=FALSE}
@@ -87,7 +87,7 @@ Para el presente estudio, se utilizó la información fue publicada en el geopor
 
 ## Delimitación del área de escurrimiento y red hidrográfica
 
-La cuenca analizada, denominada "Subcuenca R. Guadalupe" (RH01Cc) según la nomenclatura INEGI, pertenece a la Región Hidrográfica Baja California Noroeste (Ensenada) y forma parte de la cuenca exorreica R. Tijuana - A. de Maneadero. Presenta un **área de drenaje** de `r round(cuenca$area_km2, 2)` km^2^, delimitada por un **perímetro** de `r round(cuenca$perim_km, 2)` km y una **longitud** de `r round(cuenca$long_cu_km, 2)` km, clasificándose como una cuenca **`r clasificacion_cuenca`** conforme a la tabla \@ref(tab:tabla-tamanocuencas), de los *Apuntes de Hidrología Urbana* [@conde1995].
+La cuenca analizada, denominada "Subcuenca Río Guadalupe" (RH01Cc) según la nomenclatura INEGI, pertenece a la Región Hidrográfica Baja California Noroeste (Ensenada) y forma parte de la cuenca exorreica Río Tijuana - Arroyo de Maneadero. Presenta un **área de drenaje** de `r round(cuenca$area_km2, 2)` km^2^, delimitada por un **perímetro** de `r round(cuenca$perim_km, 2)` km y una **longitud** de `r round(cuenca$long_cu_km, 2)` km, clasificándose como una cuenca **`r clasificacion_cuenca`** conforme a la tabla \@ref(tab:tabla-tamanocuencas), de los *Apuntes de Hidrología Urbana* [@conde1995].
 
 ```{r, echo=FALSE, tabla-tamanocuencas}
 
@@ -234,21 +234,29 @@ print((cauce_principal$cadenamiento[nrow(cauce_principal)] - cauce_principal$cad
 
 ### Análisis de pendiente del cauce principal de la cuenca
 
+```{r, include=FALSE}
+elev_inicial_cauce <- cauce_principal %>% 
+  dplyr::select(elevacion) %>% 
+  slice(1) %>% 
+  pull()
+
+elev_final_cauce <- cauce_principal %>% 
+  dplyr::select(elevacion) %>% 
+  slice(n()) %>% 
+  pull()
+```
+
 El análisis del perfil longitudinal del cauce principal proporciona información sobre su pendiente, la cual influye en la velocidad del flujo y la capacidad de transporte de sedimentos. 
+
+```{r, echo=FALSE, figura-cauceperfil, out.width=600, fig.align='center', fig.cap="Perfil del cauce principal"}
+knitr::include_graphics("perfil del cauce.png")
+```
 
 La pendiente del cauce principal se ha calculado usando tres diferentes fórmulas, las cuales se encuentran referenciadas en el manual de alcantarillado y saneamiento pluvial [@conagua2019].
 
 -   Pendiente uniforme  
 -   Pendiente por elevaciones constantes de Taylor - Shwarz  
 -   Pendiente por longitudes constantes de Taylor - Shwarz  
-
-Se hicieron corridas del modelo hidrológico con las pendientes de Taylor - Shwarz y uniforme, y se decidió usar la pendiente uniforme, debido a que genera resultados más conservadores. 
-
-Las memorias de cálculo que generan las pendientes Taylor - Shwarz se encuentran en el Ápendice.
-
-```{r, echo=FALSE, figura-cauceperfil, out.width=600, fig.align='center', fig.cap="Perfil del cauce principal"}
-knitr::include_graphics("perfil del cauce.png")
-```
 
 #### Pendiente uniforme
 
@@ -546,6 +554,36 @@ pendiente_taylor_long <- (pendiente_taylor_lc_numerador / pendiente_taylor_lc_de
 ```{r results='asis', echo=FALSE, warning=FALSE}
 pendiente_ts_lc(cauce_principal, paso_cadenamiento = 5000)
 ```
+
+Se hicieron corridas del modelo hidrológico con las pendientes de Taylor - Shwarz y uniforme, y se decidió usar la pendiente uniforme, debido a que genera resultados más conservadores. 
+
+Las memorias de cálculo que generan las pendientes Taylor - Shwarz se encuentran en el Ápéndice.
+
+Los parámetros fisiográficos y geomorfológicos calculados se muestran en la siguiente tabla.
+
+```{r, echo=FALSE, tabla-resumenparametrosfisio}
+# Crear un dataframe con los datos
+resumen_paramatros_fisiogeom <- data.frame(
+  Variable = c("Área de la cuenca (km^2)", "Perímetro de la cuenca (km)", "Longitud de la cuenca (km)",
+               "Pendiente media de la cuenca (%)", "Elevación media de la cuenca (msnm)", "Relación de elongación",
+               "Coeficiente de compacidad", "Elevación inicial del cauce (msnm)", "Elevación final del cauce (msnm)",
+               "Longitud total del cauce (km)", "Pendiente uniforme del cauce (%)"),
+  Valor = c(cuenca$area_km2, cuenca$perim_km, cuenca$long_cu_km, cuenca$pend_med_p, 891, Re, kc,
+            elev_inicial_cauce, elev_final_cauce, pendiente_uniforme_longitud_total/1000, pendiente_uniforme*100)
+)
+
+# Mostrar la tabla
+knitr::kable(resumen_paramatros_fisiogeom,
+                      digits = 4,
+                      booktabs = TRUE,
+                      caption = "Características de la cuenca y el cauce principal",
+                      label = NA) %>%
+  kable_classic_2(bootstrap_options = "condensed",
+                  full_width = F,
+                  font_size = 12,
+                  position = "center")
+```
+
 
 ## Breve introducción a la estimación del coeficiente de escurrimiento
 
