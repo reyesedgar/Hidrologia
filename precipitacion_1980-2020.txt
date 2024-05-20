@@ -1,7 +1,7 @@
 
 HOMOGEN() APPLICATION OUTPUT  (From R's contributed package 'climatol' 4.1.0)
 
-=========== Homogenization of precipitacion, 1980-2020. (Mon May 20 16:45:13 2024)
+=========== Homogenization of precipitacion, 1980-2020. (Mon May 20 16:59:21 2024)
 
  Parameters: varcli=precipitacion, anyi=1980, anyf=2020, test=snht, nref=10 10 4, std=NA, swa=NA, ndec=1, niqd=4 1, dz.max=0.01, dz.min=-0.01, cumc=NA, wd=0 0 100, inht=25, sts=5, maxdif=0.05, maxite=999, force=FALSE, wz=0.001, mindat=NA, onlyQC=FALSE, annual=mean, ini=NA, na.strings=NA, vmin=NA, vmax=NA, hc.method=ward.D2, nclust=300, cutlev=NA, grdcol=#666666, mapcol=#666666, expl=FALSE, metad=FALSE, sufbrk=m, tinc=NA, tz=utc, rlemin=NA, rlemax=NA, cex=1.1, uni=NA, raway=TRUE, graphics=TRUE, verb=TRUE, logf=TRUE, snht1=NA, snht2=NA, gp=NA
 
@@ -64,7 +64,7 @@ Prescribed convergence reached
 
 Last series readjustment (please, be patient...) 
 
-======== End of the homogenization process, after 1.17 secs 
+======== End of the homogenization process, after 0.94 secs 
 
 ----------- Final calculations :
 
