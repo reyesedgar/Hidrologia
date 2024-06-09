@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 3 Modelo meteorológico | reportehidrologia.knit</title>
-  <meta name="description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <title>Capítulo 3 Modelo meteorológico | ReporteGranjaTilapia.knit</title>
+  <meta name="description" content="Este es un estudio hidrológico de la Granja Tilapia" />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 3 Modelo meteorológico | reportehidrologia.knit" />
+  <meta property="og:title" content="Capítulo 3 Modelo meteorológico | ReporteGranjaTilapia.knit" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/logo.png" />
-  <meta property="og:description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <meta property="og:description" content="Este es un estudio hidrológico de la Granja Tilapia" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 3 Modelo meteorológico | reportehidrologia.knit" />
+  <meta name="twitter:title" content="Capítulo 3 Modelo meteorológico | ReporteGranjaTilapia.knit" />
   
-  <meta name="twitter:description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <meta name="twitter:description" content="Este es un estudio hidrológico de la Granja Tilapia" />
   <meta name="twitter:image" content="/logo.png" />
 
 <meta name="author" content="" />
 
 
-<meta name="date" content="2024-05-20" />
+<meta name="date" content="2024-06-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -104,6 +104,7 @@ div.csl-indent {
 <li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#objetivo"><i class="fa fa-check"></i><b>1.1</b> Objetivo</a></li>
 <li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#normativa-aplicada"><i class="fa fa-check"></i><b>1.2</b> Normativa aplicada</a></li>
 <li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#localización-del-proyecto"><i class="fa fa-check"></i><b>1.3</b> Localización del proyecto</a></li>
+<li class="chapter" data-level="1.4" data-path="introducción.html"><a href="introducción.html#english-abstract"><i class="fa fa-check"></i><b>1.4</b> English abstract</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html"><i class="fa fa-check"></i><b>2</b> Modelo Fisiográfico</a>
 <ul>
@@ -114,21 +115,13 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#análisis-de-pendiente-del-cauce-principal-de-la-cuenca"><i class="fa fa-check"></i><b>2.4.1</b> Análisis de pendiente del cauce principal de la cuenca</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#breve-introducción-a-la-estimación-del-coeficiente-de-escurrimiento"><i class="fa fa-check"></i><b>2.5</b> Breve introducción a la estimación del coeficiente de escurrimiento</a></li>
-<li class="chapter" data-level="2.6" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-de-tipo-de-suelo"><i class="fa fa-check"></i><b>2.6</b> Identificación de tipo de suelo</a></li>
-<li class="chapter" data-level="2.7" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-del-grupo-hidrológico-del-suelo"><i class="fa fa-check"></i><b>2.7</b> Identificación del grupo hidrológico del suelo</a></li>
-<li class="chapter" data-level="2.8" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-de-uso-de-suelo-y-vegetación"><i class="fa fa-check"></i><b>2.8</b> Identificación de uso de suelo y vegetación</a></li>
-<li class="chapter" data-level="2.9" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#número-de-curva"><i class="fa fa-check"></i><b>2.9</b> Número de Curva</a>
+<li class="chapter" data-level="2.5" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#estimación-del-coeficiente-de-escurrimiento"><i class="fa fa-check"></i><b>2.5</b> Estimación del coeficiente de escurrimiento</a></li>
+<li class="chapter" data-level="2.6" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempos-de-estudio"><i class="fa fa-check"></i><b>2.6</b> Tiempos de estudio</a>
 <ul>
-<li class="chapter" data-level="2.9.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#nc-calculado-por-imta"><i class="fa fa-check"></i><b>2.9.1</b> NC calculado por IMTA</a></li>
-<li class="chapter" data-level="2.9.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#nc-semiautomatizado"><i class="fa fa-check"></i><b>2.9.2</b> NC semiautomatizado</a></li>
-<li class="chapter" data-level="2.9.3" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#discusión-final-sobre-el-cálculo-del-número-de-curva"><i class="fa fa-check"></i><b>2.9.3</b> Discusión final sobre el cálculo del Número de Curva</a></li>
+<li class="chapter" data-level="2.6.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-kirpich"><i class="fa fa-check"></i><b>2.6.1</b> Tiempo de concentracion por kirpich</a></li>
+<li class="chapter" data-level="2.6.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-rowe"><i class="fa fa-check"></i><b>2.6.2</b> Tiempo de concentracion por Rowe</a></li>
 </ul></li>
-<li class="chapter" data-level="2.10" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempos-de-estudio"><i class="fa fa-check"></i><b>2.10</b> Tiempos de estudio</a>
-<ul>
-<li class="chapter" data-level="2.10.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-kirpich"><i class="fa fa-check"></i><b>2.10.1</b> Tiempo de concentracion por kirpich</a></li>
-<li class="chapter" data-level="2.10.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-rowe"><i class="fa fa-check"></i><b>2.10.2</b> Tiempo de concentracion por Rowe</a></li>
-</ul></li>
+<li class="chapter" data-level="2.7" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#granja-familia-tilapia"><i class="fa fa-check"></i><b>2.7</b> Granja Familia Tilapia</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html"><i class="fa fa-check"></i><b>3</b> Modelo meteorológico</a>
 <ul>
@@ -183,19 +176,20 @@ div.csl-indent {
 <div id="selección-de-estaciones-climatológicas" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Selección de estaciones climatológicas<a href="modelo-meteorológico.html#selección-de-estaciones-climatológicas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>En el proceso de modelación hidrológica, la selección adecuada de estaciones climatológicas es crucial para garantizar la calidad y representatividad de los datos de precipitación utilizados. En el presente estudio, el criterio para determinar la cantidad de estaciones a considerar se fundamenta en las recomendaciones de la librería climatol, la cual sugiere el uso de al menos seis estaciones para obtener mejores resultados en la homogeneización de los datos climatológicos.</p>
-<p>Afortunadamente, la cuenca en estudio cuenta con un número suficiente de estaciones climatológicas para cumplir con este criterio. Las tablas con los datos climatológicos de las seis estaciones seleccionadas fueron descargadas del portal de CONAGUA e importadas en RStudio para ser tratadas mediante las funciones de la librería climatol.</p>
+<p>Afortunadamente, la zona de estudio cuenta con un número suficiente de estaciones climatológicas para cumplir con este criterio. Las tablas con los datos climatológicos de las seis estaciones seleccionadas fueron descargadas del portal de CONAGUA e importadas en RStudio para ser tratadas mediante las funciones de la librería climatol.</p>
 <p>La selección de estaciones climatológicas representativas es un paso crucial en el análisis hidrológico, ya que los datos de precipitación obtenidos servirán como entrada en el modelo hidrológico para simular el ciclo hidrológico y predecir el suministro de agua en la región. Una adecuada cobertura espacial de las estaciones garantiza que se capturen las variaciones locales en los patrones de precipitación, lo cual es esencial para obtener estimaciones precisas de los caudales y volúmenes de escorrentía.</p>
 <p>Además de la cantidad de estaciones, es importante considerar otros factores como la distribución espacial, la longitud y calidad de los registros históricos, y la presencia de posibles fuentes de error o inconsistencias en los datos. La aplicación de técnicas de homogeneización, como las proporcionadas por la librería climatol, permiten identificar y tratar valores atípicos o faltantes, mejorando la confiabilidad de los datos utilizados en el modelo hidrológico.</p>
+<p>Se usan los polígonos de Voronoi para determinar que estación es la que se va a usar después de que se haya homogenizado, haciendo uso de 5 estaciones adicionales para homogenizar los datos de la estación Santa Teresa, que es la que según los polígonos de Voronoi tiene influencia sobre el predio.</p>
 <div class="figure"><span style="display:block;" id="fig:figura-voronoi"></span>
-<img src="voronoi.png" alt="Polígonos de Voronoi para analizar la influencia de las estaciones en la subcuenca R. Guadalupe" width="1754" />
+<img src="voronoi.png" alt="Polígonos de Voronoi para seleccionar la estación de influencia en la zona de estudio" width="1754" />
 <p class="caption">
-Figura 3.1: Polígonos de Voronoi para analizar la influencia de las estaciones en la subcuenca R. Guadalupe
+Figura 3.1: Polígonos de Voronoi para seleccionar la estación de influencia en la zona de estudio
 </p>
 </div>
-<p>Se muestra una extracción de la tabla <a href="modelo-meteorológico.html#tab:tabla-pre2001">3.1</a> con las precipitaciones extremas de la estación 2001 . Las 6 tablas originales se encuentran en el <a href="apéndice.html#apéndice-del-modelo-meteorológico">Apéndice del Modelo Meteorológico</a>.</p>
+<p>Se muestra una extracción de la tabla <a href="modelo-meteorológico.html#tab:tabla-pre2001">3.1</a> con las precipitaciones extremas de la estación de Santa Teresa . Las 6 tablas originales se encuentran en el <a href="apéndice.html#apéndice-del-modelo-meteorológico">Apéndice del Modelo Meteorológico</a>.</p>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tabla-pre2001">Tabla 3.1: </span>Previsualización de los registros mensuales de Pmax<sub>24h</sub> de la estación 2001
+<span id="tab:tabla-pre2001">Tabla 3.1: </span>Previsualización de los registros mensuales de Pmax<sub>24h</sub> de la estación Santa Teresa
 </caption>
 <thead>
 <tr>
@@ -243,412 +237,412 @@ DIC
 <tbody>
 <tr>
 <td style="text-align:right;">
-1969
+1982
 </td>
 <td style="text-align:right;">
-19.5
+0
 </td>
 <td style="text-align:right;">
-30.0
+1
 </td>
 <td style="text-align:right;">
-15.0
+0
 </td>
 <td style="text-align:right;">
-2.5
+7
 </td>
 <td style="text-align:right;">
-5.5
+20.0
 </td>
 <td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-6.5
-</td>
-<td style="text-align:right;">
-9.5
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1970
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-30.0
-</td>
-<td style="text-align:right;">
-29.0
-</td>
-<td style="text-align:right;">
-3.8
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-2.5
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-1.5
-</td>
-<td style="text-align:right;">
-21.0
-</td>
-<td style="text-align:right;">
-24.0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1971
-</td>
-<td style="text-align:right;">
-9.0
-</td>
-<td style="text-align:right;">
-14.1
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-12.5
-</td>
-<td style="text-align:right;">
-9.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-4.0
-</td>
-<td style="text-align:right;">
-4.5
-</td>
-<td style="text-align:right;">
-13.5
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-9.5
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1972
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:right;">
-3.0
-</td>
-<td style="text-align:right;">
-37.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-1.5
-</td>
-<td style="text-align:right;">
-26.0
-</td>
-<td style="text-align:right;">
-21.0
-</td>
-<td style="text-align:right;">
-17.5
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1973
-</td>
-<td style="text-align:right;">
-11.5
+8.0
 </td>
 <td style="text-align:right;">
 17.0
 </td>
 <td style="text-align:right;">
-23.5
+28.0
 </td>
 <td style="text-align:right;">
-2.0
+8.0
 </td>
 <td style="text-align:right;">
-0.5
+14
 </td>
 <td style="text-align:right;">
-0.0
+0
 </td>
 <td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-12.0
-</td>
-<td style="text-align:right;">
-2.0
+6
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-1974
+1983
 </td>
 <td style="text-align:right;">
-39.0
+7
 </td>
 <td style="text-align:right;">
-4.0
+0
 </td>
 <td style="text-align:right;">
-19.6
+20
 </td>
 <td style="text-align:right;">
-3.0
+0
 </td>
 <td style="text-align:right;">
-0.0
+13.0
 </td>
 <td style="text-align:right;">
-0.0
+71.0
 </td>
 <td style="text-align:right;">
-22.8
+24.0
 </td>
 <td style="text-align:right;">
-0.0
+65.0
 </td>
 <td style="text-align:right;">
-NA
+6.5
 </td>
 <td style="text-align:right;">
-18.0
+16
 </td>
 <td style="text-align:right;">
-3.5
+24
 </td>
 <td style="text-align:right;">
-9.5
+0
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-1975
+1984
 </td>
 <td style="text-align:right;">
-10.5
+0
 </td>
 <td style="text-align:right;">
-13.5
+5
 </td>
 <td style="text-align:right;">
-19.5
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+17.0
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+<td style="text-align:right;">
+45.1
 </td>
 <td style="text-align:right;">
 19.0
 </td>
 <td style="text-align:right;">
-0.0
+NA
 </td>
 <td style="text-align:right;">
-1.0
+8
 </td>
 <td style="text-align:right;">
-1.5
+0
 </td>
 <td style="text-align:right;">
-2.0
-</td>
-<td style="text-align:right;">
-0.4
-</td>
-<td style="text-align:right;">
-1.0
-</td>
-<td style="text-align:right;">
-17.5
-</td>
-<td style="text-align:right;">
-6.0
+0
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-1976
+1985
 </td>
 <td style="text-align:right;">
-0.0
+0
 </td>
 <td style="text-align:right;">
-37.0
+0
 </td>
 <td style="text-align:right;">
-14.5
+0
 </td>
 <td style="text-align:right;">
-6.7
+18
 </td>
 <td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-1.5
-</td>
-<td style="text-align:right;">
-0.4
-</td>
-<td style="text-align:right;">
-34.5
-</td>
-<td style="text-align:right;">
-2.1
-</td>
-<td style="text-align:right;">
-40.0
-</td>
-<td style="text-align:right;">
-23.0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1977
-</td>
-<td style="text-align:right;">
-10.0
-</td>
-<td style="text-align:right;">
-11.0
-</td>
-<td style="text-align:right;">
-12.0
-</td>
-<td style="text-align:right;">
-3.2
-</td>
-<td style="text-align:right;">
-17.0
-</td>
-<td style="text-align:right;">
-2.8
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-70.0
-</td>
-<td style="text-align:right;">
-0.0
-</td>
-<td style="text-align:right;">
-12.5
-</td>
-<td style="text-align:right;">
-6.5
-</td>
-<td style="text-align:right;">
-49.5
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1978
-</td>
-<td style="text-align:right;">
-38.5
+36.0
 </td>
 <td style="text-align:right;">
 33.0
 </td>
 <td style="text-align:right;">
-35.5
+94.0
 </td>
 <td style="text-align:right;">
-9.5
+40.0
+</td>
+<td style="text-align:right;">
+7.0
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1986
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+7.0
+</td>
+<td style="text-align:right;">
+47.0
+</td>
+<td style="text-align:right;">
+33.0
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+47.0
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1987
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+4.4
+</td>
+<td style="text-align:right;">
+42.0
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1988
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+2
 </td>
 <td style="text-align:right;">
 0.0
 </td>
 <td style="text-align:right;">
-0.0
+36.0
+</td>
+<td style="text-align:right;">
+39.0
+</td>
+<td style="text-align:right;">
+58.0
+</td>
+<td style="text-align:right;">
+19.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1989
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+28.0
+</td>
+<td style="text-align:right;">
+31.0
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+31.0
+</td>
+<td style="text-align:right;">
+18.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1990
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+NA
 </td>
 <td style="text-align:right;">
 0.0
 </td>
 <td style="text-align:right;">
-0.0
+23.0
 </td>
 <td style="text-align:right;">
-8.5
+34.0
 </td>
 <td style="text-align:right;">
-0.0
+17.0
 </td>
 <td style="text-align:right;">
-38.0
+18
 </td>
 <td style="text-align:right;">
-28.5
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1991
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+5.7
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+<td style="text-align:right;">
+90.0
+</td>
+<td style="text-align:right;">
+33.5
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+4
 </td>
 </tr>
 </tbody>
@@ -665,24 +659,27 @@ NA
 <p><span class="math display">\[ \begin{array}{l l} z_1 = \frac{1}{k} \sum_{i=1}^k \frac{x_i - \bar{x}}{\sigma} &amp; z_2 = \frac{1}{n-k} \sum_{i=k+1}^n \frac{x_i - \bar{x}}{\sigma}. \\ \end{array} \]</span></p>
 <p>El valor crítico es:</p>
 <p><span class="math display">\[T = \max T_k\]</span></p>
-<p>El algoritmo realiza una serie de pasos y presenta parámetros estadigráficos de la prueba, el error cuadrático medio del valor estimado, el porcentaje de los datos originales, las anomalías presentes en los diferentes intervalos de confianza y el rango derecho del intervalo de confianza para la prueba estadística. El algoritmo también genera archivos que se pueden usar para cálculos posteriores, así como un reporte de los diferentes resultados que genera el proceso de homogenización de datos como el control de calidad de las series, el resumen de los datos disponibles, gráficos de detección y corrección de anomalías, etc.</p>
+<p>El algoritmo realiza una serie de pasos y presenta parámetros estadigráficos de la prueba, el error cuadrático medio del valor estimado, el porcentaje de los datos originales, las anomalías presentes en los diferentes intervalos de confianza y el rango derecho del intervalo de confianza para la prueba estadística.
+El algoritmo también genera archivos que se pueden usar para cálculos posteriores, así como un reporte de los diferentes resultados que genera el proceso de homogenización de datos como el control de calidad de las series, el resumen de los datos disponibles, gráficos de detección y corrección de anomalías, etc.</p>
+<p>De las estaciones climatológicas se usan los años de 1983 a 2019, pues en casi todas las estaciones incluyen este rango de años.</p>
 <pre><code>
 HOMOGEN() APPLICATION OUTPUT  (From R&#39;s contributed package &#39;climatol&#39; 4.1.0)
 
-=========== Homogenization of precipitacion, 1980-2020. (Mon May 20 16:59:21 2024)
+=========== Homogenization of precipitacion, 1983-2019. (Sat Jun  8 21:24:50 2024)
 
- Parameters: varcli=precipitacion, anyi=1980, anyf=2020, test=snht, nref=10 10 4, std=NA, swa=NA, ndec=1, niqd=4 1, dz.max=0.01, dz.min=-0.01, cumc=NA, wd=0 0 100, inht=25, sts=5, maxdif=0.05, maxite=999, force=FALSE, wz=0.001, mindat=NA, onlyQC=FALSE, annual=mean, ini=NA, na.strings=NA, vmin=NA, vmax=NA, hc.method=ward.D2, nclust=300, cutlev=NA, grdcol=#666666, mapcol=#666666, expl=FALSE, metad=FALSE, sufbrk=m, tinc=NA, tz=utc, rlemin=NA, rlemax=NA, cex=1.1, uni=NA, raway=TRUE, graphics=TRUE, verb=TRUE, logf=TRUE, snht1=NA, snht2=NA, gp=NA
+ Parameters: varcli=precipitacion, anyi=1983, anyf=2019, test=snht, nref=10 10 4, std=NA, swa=NA, ndec=1, niqd=4 1, dz.max=0.01, dz.min=-0.01, cumc=NA, wd=0 0 100, inht=25, sts=5, maxdif=0.05, maxite=999, force=FALSE, wz=0.001, mindat=NA, onlyQC=FALSE, annual=mean, ini=NA, na.strings=NA, vmin=NA, vmax=NA, hc.method=ward.D2, nclust=300, cutlev=NA, grdcol=#666666, mapcol=#666666, expl=FALSE, metad=FALSE, sufbrk=m, tinc=NA, tz=utc, rlemin=NA, rlemax=NA, cex=1.1, uni=NA, raway=TRUE, graphics=TRUE, verb=TRUE, logf=TRUE, snht1=NA, snht2=NA, gp=NA
 
-Data matrix: 492 data x 6 stations 
+Data matrix: 444 data x 6 stations 
+Warning: excessive run lengths diagnostic skiped because IQR=0 
 
 -------------------------------------------
 Stations in the 2 clusters :
 
 $`1`
-[1] 1 4 5 6
+[1] 1 2 3 4 5
 
 $`2`
-[1] 2 3
+[1] 6
 
 ---------------------------------------------
 Computing inter-station distances ...  1  2  3  4  5
@@ -693,8 +690,8 @@ Computing inter-station distances ...  1  2  3  4  5
  Calculation of missing data with outlier removal 
 (Suggested data replacements are provisional) 
   Station(rank) Date: Observed -&gt; Suggested (Anomaly, in std. devs.) 
-2001(4) 1991-02-01: 42 -&gt; 80.7 (-6.5)
-2004(5) 1991-02-01: 132 -&gt; 67.3 (7.35)
+22004(5) 2009-09-01: 33.4 -&gt; 120.2 (-5.44)
+22046(6) 2017-02-01: 145.6 -&gt; 3.1 (9.39)
 
  Performing shift analysis on the 6 series... 
 
@@ -708,6 +705,18 @@ Computing inter-station distances ...  1  2  3  4  5
 
  Performing shift analysis on the 6 series... 
 
+ 22067(2) breaks at 2017-05-01 (27.4)
+
+
+ Update number of series: 6 + 1 = 7 
+
+ Calculation of missing data with outlier removal 
+(Suggested data replacements are provisional) 
+  Station(rank) Date: Observed -&gt; Suggested (Anomaly, in std. devs.) 
+(No detected outliers) 
+
+ Performing shift analysis on the 7 series... 
+
 
 ========== STAGE 3 (Final calculation of all missing data) ==========
 
@@ -719,65 +728,79 @@ Computing inter-station weights... (done)
  The following lines will have one of these formats: 
   Station(rank) Date: Observed -&gt; Suggested (Anomaly, in std. devs.) 
   Iteration Max_data_difference (Station_code) 
-2 0.413 (2077)
-3 0.235 (2077)
-4 0.133 (2077)
-5 0.075 (2077)
-6 0.042 (2077)
+2 0.573 (22067-2)
+3 0.275 (22067-2)
+4 0.14 (22067)
+5 0.127 (22067)
+6 0.116 (22067)
+7 0.107 (22067)
+8 0.099 (22067)
+9 0.092 (22067)
+10 0.086 (22067-2)
+11 0.082 (22067-2)
+12 0.077 (22067-2)
+13 0.072 (22067-2)
+14 0.068 (22067-2)
+15 0.064 (22067-2)
+16 0.06 (22067-2)
+17 0.056 (22067-2)
+18 0.052 (22067-2)
+19 0.049 (22067-2)
 Prescribed convergence reached 
 
 Last series readjustment (please, be patient...) 
 
-======== End of the homogenization process, after 0.94 secs 
+======== End of the homogenization process, after 1.91 secs 
 
 ----------- Final calculations :
 
  SNHT: Standard normal homogeneity test (on anomaly series) 
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  2.900   6.175   9.250   9.183   9.625  18.800 
+  5.600   6.400   8.200   8.643   9.650  14.600 
 
  RMSE: Root mean squared error of the estimated data 
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  5.689   8.255   8.598   8.269   8.797   9.724 
+  3.674  12.597  13.944  12.549  14.724  15.585 
 
  POD: Percentage of original data 
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-  45.00   57.25   81.00   75.00   91.25   99.00 
+   7.00   55.00   66.00   60.43   70.50   99.00 
 
-  SNHT RMSE POD Code Name                  
-1  5.2 8.6  45  2164 EJIDO_EL_PORVENIR     
-2 18.8 8.6  93  2118 VALLE_DE_SAN_RAFAEL   
-3  9.4 9.7  76  2036 OLIVARES_MEXICANOS    
-4  9.7 5.7  99  2001 AGUACALIENTE          
-5  9.1 8.2  86  2004 IGNACIO_ZARAGOZA_BELEN
-6  2.9 8.9  51  2077 LA_MISION             
+  SNHT RMSE POD Code    Name           
+1  7.2 13.9 75  22058   Santa Teresa   
+2  8.2  3.7  7  22067   La Venta       
+3 14.6 14.1 66  22063   Queretaro (DGE)
+4  5.6 15.3 56  22070   Plantel 7      
+5  5.6 15.6 99  22004   El Batan       
+6  9.5 12.6 66  22046   Nogales        
+7  9.8 12.6 54  22067-2 La Venta-2     
 
 Frequency distribution tails of residual anomalies and SNHT 
 
 Left tail of standardized anomalies: 
 0.1% 0.2% 0.5%   1%   2%   5%  10% 
--5.5 -5.1 -3.4 -2.9 -2.3 -1.5 -0.8 
+-4.1 -3.5 -3.0 -2.6 -2.2 -1.5 -1.1 
 Right tail of standardized anomalies: 
   90%   95%   98%   99% 99.5% 99.8% 99.9% 
-  0.9   1.5   2.7   3.6   4.2   5.0   6.1 
+  1.0   1.7   2.7   3.4   3.9   4.5   5.3 
 Right tail of SNHT on windows of 120 terms with up to 4 references:
   90%   95%   98%   99% 99.5% 99.8% 99.9% 
- 13.2  13.8  14.1  14.2  14.3  14.3  14.3 
+ 21.9  24.1  25.4  25.9  26.1  26.2  26.3 
 Right tail of SNHT with up to 4 references:
   90%   95%   98%   99% 99.5% 99.8% 99.9% 
- 14.2  16.5  17.9  18.3  18.6  18.7  18.8 
+ 11.7  13.2  14.0  14.3  14.5  14.5  14.6 
 
 ----------- Generated output files: -------------------------
 
-precipitacion_1980-2020.txt : Text output of the whole process
-precipitacion_1980-2020_out.csv : List of corrected outliers
-precipitacion_1980-2020_brk.csv : List of corrected breaks
-precipitacion_1980-2020.pdf : Diagnostic graphics
-precipitacion_1980-2020.rda : Homogenization results. Postprocess with (examples):
-   dahstat(&#39;precipitacion&#39;,1980,2020) # averages 
-   dahstat(&#39;precipitacion&#39;,1980,2020,stat=&#39;tnd&#39;) #OLS trends and p-values
-   dahstat(&#39;precipitacion&#39;,1980,2020,stat=&#39;series&#39;) #homogenized series
-   dahgrid(&#39;precipitacion&#39;,1980,2020,grid=YOURGRID) #homogenized grids
+precipitacion_1983-2019.txt : Text output of the whole process
+precipitacion_1983-2019_out.csv : List of corrected outliers
+precipitacion_1983-2019_brk.csv : List of corrected breaks
+precipitacion_1983-2019.pdf : Diagnostic graphics
+precipitacion_1983-2019.rda : Homogenization results. Postprocess with (examples):
+   dahstat(&#39;precipitacion&#39;,1983,2019) # averages 
+   dahstat(&#39;precipitacion&#39;,1983,2019,stat=&#39;tnd&#39;) #OLS trends and p-values
+   dahstat(&#39;precipitacion&#39;,1983,2019,stat=&#39;series&#39;) #homogenized series
+   dahgrid(&#39;precipitacion&#39;,1983,2019,grid=YOURGRID) #homogenized grids
    ... (See other options in the package documentation)</code></pre>
 <p>Se extrae uno de los archivos generados por la función para poder construir la tabla de estaciones con los datos climatológicos homogenizados <a href="modelo-meteorológico.html#tab:tabla-esthomog">3.2</a>.</p>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
@@ -790,116 +813,53 @@ precipitacion_1980-2020.rda : Homogenization results. Postprocess with (examples
 Year
 </th>
 <th style="text-align:right;">
-X2164
+X22058
 </th>
 <th style="text-align:right;">
-X2118
+X22067
 </th>
 <th style="text-align:right;">
-X2036
+X22063
 </th>
 <th style="text-align:right;">
-X2001
+X22070
 </th>
 <th style="text-align:right;">
-X2004
+X22004
 </th>
 <th style="text-align:right;">
-X2077
+X22046
+</th>
+<th style="text-align:right;">
+X22067.2
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:right;">
-1980
-</td>
-<td style="text-align:right;">
-112.8
-</td>
-<td style="text-align:right;">
-66.3
-</td>
-<td style="text-align:right;">
-107.0
-</td>
-<td style="text-align:right;">
-112.0
-</td>
-<td style="text-align:right;">
-125.5
-</td>
-<td style="text-align:right;">
-115.3
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1981
-</td>
-<td style="text-align:right;">
-28.2
-</td>
-<td style="text-align:right;">
-25.0
-</td>
-<td style="text-align:right;">
-25.5
-</td>
-<td style="text-align:right;">
-27.5
-</td>
-<td style="text-align:right;">
-30.0
-</td>
-<td style="text-align:right;">
-27.3
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1982
-</td>
-<td style="text-align:right;">
-41.1
-</td>
-<td style="text-align:right;">
-35.0
-</td>
-<td style="text-align:right;">
-41.5
-</td>
-<td style="text-align:right;">
-29.0
-</td>
-<td style="text-align:right;">
-44.2
-</td>
-<td style="text-align:right;">
-41.2
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
 1983
 </td>
 <td style="text-align:right;">
-59.5
+71.0
 </td>
 <td style="text-align:right;">
-48.0
+11.1
 </td>
 <td style="text-align:right;">
-80.0
+61.9
 </td>
 <td style="text-align:right;">
-63.5
+55.2
 </td>
 <td style="text-align:right;">
-61.0
+55.8
 </td>
 <td style="text-align:right;">
-62.1
+56.3
+</td>
+<td style="text-align:right;">
+49.7
 </td>
 </tr>
 <tr>
@@ -907,22 +867,25 @@ X2077
 1984
 </td>
 <td style="text-align:right;">
-38.6
+45.1
 </td>
 <td style="text-align:right;">
-36.0
+4.7
 </td>
 <td style="text-align:right;">
-42.0
+60.3
 </td>
 <td style="text-align:right;">
-26.9
+48.8
 </td>
 <td style="text-align:right;">
-35.0
+70.5
 </td>
 <td style="text-align:right;">
-38.6
+46.5
+</td>
+<td style="text-align:right;">
+21.0
 </td>
 </tr>
 <tr>
@@ -930,22 +893,25 @@ X2077
 1985
 </td>
 <td style="text-align:right;">
-43.1
+94.0
 </td>
 <td style="text-align:right;">
-25.5
+10.6
 </td>
 <td style="text-align:right;">
-45.5
+88.9
 </td>
 <td style="text-align:right;">
-42.0
+52.8
 </td>
 <td style="text-align:right;">
-45.0
+60.8
 </td>
 <td style="text-align:right;">
-44.4
+51.8
+</td>
+<td style="text-align:right;">
+47.1
 </td>
 </tr>
 <tr>
@@ -953,22 +919,25 @@ X2077
 1986
 </td>
 <td style="text-align:right;">
-32.1
+50.0
 </td>
 <td style="text-align:right;">
-32.0
+11.4
 </td>
 <td style="text-align:right;">
-28.5
+67.0
 </td>
 <td style="text-align:right;">
-37.0
+59.9
 </td>
 <td style="text-align:right;">
-31.0
+64.8
 </td>
 <td style="text-align:right;">
-30.9
+54.4
+</td>
+<td style="text-align:right;">
+51.0
 </td>
 </tr>
 <tr>
@@ -976,22 +945,25 @@ X2077
 1987
 </td>
 <td style="text-align:right;">
-41.4
+42.0
 </td>
 <td style="text-align:right;">
-29.5
+9.4
 </td>
 <td style="text-align:right;">
-80.0
+47.8
 </td>
 <td style="text-align:right;">
-33.5
-</td>
-<td style="text-align:right;">
-50.0
+42.7
 </td>
 <td style="text-align:right;">
 46.2
+</td>
+<td style="text-align:right;">
+37.7
+</td>
+<td style="text-align:right;">
+41.8
 </td>
 </tr>
 <tr>
@@ -999,22 +971,25 @@ X2077
 1988
 </td>
 <td style="text-align:right;">
-51.1
+58.0
 </td>
 <td style="text-align:right;">
-57.0
+10.3
 </td>
 <td style="text-align:right;">
-60.0
+43.7
 </td>
 <td style="text-align:right;">
-50.5
+43.8
 </td>
 <td style="text-align:right;">
-35.0
+46.5
 </td>
 <td style="text-align:right;">
-50.3
+30.6
+</td>
+<td style="text-align:right;">
+46.0
 </td>
 </tr>
 <tr>
@@ -1022,22 +997,25 @@ X2077
 1989
 </td>
 <td style="text-align:right;">
-20.2
+31.0
 </td>
 <td style="text-align:right;">
-17.3
+18.1
 </td>
 <td style="text-align:right;">
-20.0
+46.2
 </td>
 <td style="text-align:right;">
-14.0
+49.9
 </td>
 <td style="text-align:right;">
-41.0
+90.6
 </td>
 <td style="text-align:right;">
-20.2
+32.5
+</td>
+<td style="text-align:right;">
+81.0
 </td>
 </tr>
 <tr>
@@ -1045,22 +1023,25 @@ X2077
 1990
 </td>
 <td style="text-align:right;">
-23.3
+34.0
 </td>
 <td style="text-align:right;">
-19.9
+7.8
 </td>
 <td style="text-align:right;">
-22.0
+34.6
 </td>
 <td style="text-align:right;">
-19.5
+38.8
 </td>
 <td style="text-align:right;">
-24.0
+54.5
 </td>
 <td style="text-align:right;">
-23.1
+36.9
+</td>
+<td style="text-align:right;">
+34.9
 </td>
 </tr>
 <tr>
@@ -1068,22 +1049,25 @@ X2077
 1991
 </td>
 <td style="text-align:right;">
-77.3
+90.0
 </td>
 <td style="text-align:right;">
-56.4
+10.5
 </td>
 <td style="text-align:right;">
-91.0
+55.8
 </td>
 <td style="text-align:right;">
-65.3
+68.0
 </td>
 <td style="text-align:right;">
-76.1
+74.3
 </td>
 <td style="text-align:right;">
-81.2
+49.6
+</td>
+<td style="text-align:right;">
+47.0
 </td>
 </tr>
 <tr>
@@ -1091,22 +1075,25 @@ X2077
 1992
 </td>
 <td style="text-align:right;">
-42.7
+20.4
 </td>
 <td style="text-align:right;">
-33.5
+9.0
 </td>
 <td style="text-align:right;">
-42.7
+47.5
 </td>
 <td style="text-align:right;">
-42.0
+30.5
 </td>
 <td style="text-align:right;">
-41.5
+66.4
 </td>
 <td style="text-align:right;">
-43.8
+21.1
+</td>
+<td style="text-align:right;">
+40.0
 </td>
 </tr>
 <tr>
@@ -1114,22 +1101,25 @@ X2077
 1993
 </td>
 <td style="text-align:right;">
-69.4
+13.5
 </td>
 <td style="text-align:right;">
-52.8
+9.4
 </td>
 <td style="text-align:right;">
-89.0
+40.0
 </td>
 <td style="text-align:right;">
-49.5
+31.4
 </td>
 <td style="text-align:right;">
-67.6
+61.2
 </td>
 <td style="text-align:right;">
-72.1
+22.0
+</td>
+<td style="text-align:right;">
+42.0
 </td>
 </tr>
 <tr>
@@ -1137,22 +1127,25 @@ X2077
 1994
 </td>
 <td style="text-align:right;">
-35.1
+23.5
 </td>
 <td style="text-align:right;">
-40.0
+7.8
 </td>
 <td style="text-align:right;">
-26.0
+30.7
 </td>
 <td style="text-align:right;">
-25.0
+23.1
+</td>
+<td style="text-align:right;">
+37.5
+</td>
+<td style="text-align:right;">
+16.2
 </td>
 <td style="text-align:right;">
 35.0
-</td>
-<td style="text-align:right;">
-33.3
 </td>
 </tr>
 <tr>
@@ -1160,22 +1153,25 @@ X2077
 1995
 </td>
 <td style="text-align:right;">
-54.5
+66.0
 </td>
 <td style="text-align:right;">
-57.0
+4.7
 </td>
 <td style="text-align:right;">
-61.5
+60.0
 </td>
 <td style="text-align:right;">
-57.5
+45.9
 </td>
 <td style="text-align:right;">
-71.0
+60.3
 </td>
 <td style="text-align:right;">
-58.0
+52.8
+</td>
+<td style="text-align:right;">
+21.0
 </td>
 </tr>
 <tr>
@@ -1183,226 +1179,22 @@ X2077
 1996
 </td>
 <td style="text-align:right;">
-33.0
+56.3
 </td>
 <td style="text-align:right;">
-26.7
+8.1
 </td>
 <td style="text-align:right;">
-35.3
+57.9
 </td>
 <td style="text-align:right;">
-26.0
+49.5
 </td>
 <td style="text-align:right;">
-44.0
+58.8
 </td>
 <td style="text-align:right;">
-34.3
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1997
-</td>
-<td style="text-align:right;">
-36.6
-</td>
-<td style="text-align:right;">
-44.6
-</td>
-<td style="text-align:right;">
-15.3
-</td>
-<td style="text-align:right;">
-39.0
-</td>
-<td style="text-align:right;">
-59.0
-</td>
-<td style="text-align:right;">
-34.6
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1998
-</td>
-<td style="text-align:right;">
-62.1
-</td>
-<td style="text-align:right;">
-46.0
-</td>
-<td style="text-align:right;">
-70.2
-</td>
-<td style="text-align:right;">
-62.0
-</td>
-<td style="text-align:right;">
-47.0
-</td>
-<td style="text-align:right;">
-63.2
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1999
-</td>
-<td style="text-align:right;">
-21.6
-</td>
-<td style="text-align:right;">
-37.9
-</td>
-<td style="text-align:right;">
-21.0
-</td>
-<td style="text-align:right;">
-19.0
-</td>
-<td style="text-align:right;">
-20.4
-</td>
-<td style="text-align:right;">
-21.3
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2000
-</td>
-<td style="text-align:right;">
-21.0
-</td>
-<td style="text-align:right;">
-32.8
-</td>
-<td style="text-align:right;">
-24.3
-</td>
-<td style="text-align:right;">
-34.0
-</td>
-<td style="text-align:right;">
-32.0
-</td>
-<td style="text-align:right;">
-27.0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2001
-</td>
-<td style="text-align:right;">
-28.0
-</td>
-<td style="text-align:right;">
-29.6
-</td>
-<td style="text-align:right;">
-26.5
-</td>
-<td style="text-align:right;">
-29.0
-</td>
-<td style="text-align:right;">
-24.0
-</td>
-<td style="text-align:right;">
-29.0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2002
-</td>
-<td style="text-align:right;">
-21.0
-</td>
-<td style="text-align:right;">
-15.0
-</td>
-<td style="text-align:right;">
-16.5
-</td>
-<td style="text-align:right;">
-10.0
-</td>
-<td style="text-align:right;">
-16.0
-</td>
-<td style="text-align:right;">
-20.0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2003
-</td>
-<td style="text-align:right;">
-24.5
-</td>
-<td style="text-align:right;">
-31.4
-</td>
-<td style="text-align:right;">
-41.6
-</td>
-<td style="text-align:right;">
-43.0
-</td>
-<td style="text-align:right;">
-38.6
-</td>
-<td style="text-align:right;">
-69.0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2004
-</td>
-<td style="text-align:right;">
-125.0
-</td>
-<td style="text-align:right;">
-63.7
-</td>
-<td style="text-align:right;">
-69.1
-</td>
-<td style="text-align:right;">
-70.0
-</td>
-<td style="text-align:right;">
-42.0
-</td>
-<td style="text-align:right;">
-80.0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2005
-</td>
-<td style="text-align:right;">
-26.5
-</td>
-<td style="text-align:right;">
-34.2
-</td>
-<td style="text-align:right;">
-29.8
-</td>
-<td style="text-align:right;">
-23.0
-</td>
-<td style="text-align:right;">
-28.4
+81.4
 </td>
 <td style="text-align:right;">
 36.0
@@ -1410,160 +1202,155 @@ X2077
 </tr>
 <tr>
 <td style="text-align:right;">
-2006
+1997
 </td>
 <td style="text-align:right;">
-24.0
+60.5
 </td>
 <td style="text-align:right;">
-25.7
+9.5
 </td>
 <td style="text-align:right;">
-28.0
+35.7
 </td>
 <td style="text-align:right;">
-24.0
+50.0
 </td>
 <td style="text-align:right;">
-23.7
+34.8
 </td>
 <td style="text-align:right;">
-22.8
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2007
+29.2
 </td>
 <td style="text-align:right;">
-45.0
-</td>
-<td style="text-align:right;">
-41.0
-</td>
-<td style="text-align:right;">
-54.5
-</td>
-<td style="text-align:right;">
-43.0
-</td>
-<td style="text-align:right;">
-45.0
-</td>
-<td style="text-align:right;">
-23.0
+42.2
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-2008
+1998
 </td>
 <td style="text-align:right;">
-34.0
+62.5
 </td>
 <td style="text-align:right;">
-27.5
+9.3
 </td>
 <td style="text-align:right;">
-42.6
-</td>
-<td style="text-align:right;">
-33.0
-</td>
-<td style="text-align:right;">
-45.0
-</td>
-<td style="text-align:right;">
-62.0
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2009
+52.4
 </td>
 <td style="text-align:right;">
 53.0
 </td>
 <td style="text-align:right;">
-33.7
+61.5
 </td>
 <td style="text-align:right;">
-23.5
+25.8
 </td>
 <td style="text-align:right;">
-17.5
-</td>
-<td style="text-align:right;">
-51.0
-</td>
-<td style="text-align:right;">
-57.0
+41.6
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-2010
+1999
 </td>
 <td style="text-align:right;">
-74.0
+60.5
 </td>
 <td style="text-align:right;">
-89.2
+7.7
 </td>
 <td style="text-align:right;">
-75.0
+42.4
 </td>
 <td style="text-align:right;">
-66.4
+93.5
 </td>
 <td style="text-align:right;">
-62.0
+36.3
 </td>
 <td style="text-align:right;">
-60.0
+48.0
+</td>
+<td style="text-align:right;">
+34.2
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-2011
+2000
+</td>
+<td style="text-align:right;">
+65.6
+</td>
+<td style="text-align:right;">
+8.5
+</td>
+<td style="text-align:right;">
+51.9
+</td>
+<td style="text-align:right;">
+54.0
+</td>
+<td style="text-align:right;">
+23.7
 </td>
 <td style="text-align:right;">
 40.0
 </td>
 <td style="text-align:right;">
-59.0
-</td>
-<td style="text-align:right;">
-44.0
-</td>
-<td style="text-align:right;">
-48.3
-</td>
-<td style="text-align:right;">
-82.0
-</td>
-<td style="text-align:right;">
-65.0
+38.0
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-2012
+2001
 </td>
 <td style="text-align:right;">
-46.1
+65.0
 </td>
 <td style="text-align:right;">
-39.4
+12.7
 </td>
 <td style="text-align:right;">
-45.0
+75.5
 </td>
 <td style="text-align:right;">
-37.7
+56.5
 </td>
 <td style="text-align:right;">
-57.0
+79.7
+</td>
+<td style="text-align:right;">
+49.6
+</td>
+<td style="text-align:right;">
+56.5
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2002
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+10.3
+</td>
+<td style="text-align:right;">
+80.0
+</td>
+<td style="text-align:right;">
+66.9
+</td>
+<td style="text-align:right;">
+53.6
+</td>
+<td style="text-align:right;">
+40.0
 </td>
 <td style="text-align:right;">
 46.0
@@ -1571,25 +1358,288 @@ X2077
 </tr>
 <tr>
 <td style="text-align:right;">
+2003
+</td>
+<td style="text-align:right;">
+70.0
+</td>
+<td style="text-align:right;">
+13.0
+</td>
+<td style="text-align:right;">
+84.7
+</td>
+<td style="text-align:right;">
+92.0
+</td>
+<td style="text-align:right;">
+96.7
+</td>
+<td style="text-align:right;">
+52.9
+</td>
+<td style="text-align:right;">
+58.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2004
+</td>
+<td style="text-align:right;">
+70.0
+</td>
+<td style="text-align:right;">
+11.2
+</td>
+<td style="text-align:right;">
+61.1
+</td>
+<td style="text-align:right;">
+72.4
+</td>
+<td style="text-align:right;">
+79.6
+</td>
+<td style="text-align:right;">
+45.3
+</td>
+<td style="text-align:right;">
+50.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2005
+</td>
+<td style="text-align:right;">
+40.0
+</td>
+<td style="text-align:right;">
+7.4
+</td>
+<td style="text-align:right;">
+55.6
+</td>
+<td style="text-align:right;">
+69.0
+</td>
+<td style="text-align:right;">
+48.6
+</td>
+<td style="text-align:right;">
+42.8
+</td>
+<td style="text-align:right;">
+33.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2006
+</td>
+<td style="text-align:right;">
+60.0
+</td>
+<td style="text-align:right;">
+13.4
+</td>
+<td style="text-align:right;">
+62.3
+</td>
+<td style="text-align:right;">
+70.4
+</td>
+<td style="text-align:right;">
+132.5
+</td>
+<td style="text-align:right;">
+39.4
+</td>
+<td style="text-align:right;">
+60.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2007
+</td>
+<td style="text-align:right;">
+39.0
+</td>
+<td style="text-align:right;">
+9.9
+</td>
+<td style="text-align:right;">
+50.5
+</td>
+<td style="text-align:right;">
+49.2
+</td>
+<td style="text-align:right;">
+62.6
+</td>
+<td style="text-align:right;">
+34.5
+</td>
+<td style="text-align:right;">
+44.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2008
+</td>
+<td style="text-align:right;">
+31.1
+</td>
+<td style="text-align:right;">
+7.9
+</td>
+<td style="text-align:right;">
+50.3
+</td>
+<td style="text-align:right;">
+40.1
+</td>
+<td style="text-align:right;">
+57.4
+</td>
+<td style="text-align:right;">
+27.4
+</td>
+<td style="text-align:right;">
+35.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2009
+</td>
+<td style="text-align:right;">
+81.4
+</td>
+<td style="text-align:right;">
+20.6
+</td>
+<td style="text-align:right;">
+85.9
+</td>
+<td style="text-align:right;">
+128.9
+</td>
+<td style="text-align:right;">
+120.4
+</td>
+<td style="text-align:right;">
+72.4
+</td>
+<td style="text-align:right;">
+92.0
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2010
+</td>
+<td style="text-align:right;">
+42.1
+</td>
+<td style="text-align:right;">
+10.8
+</td>
+<td style="text-align:right;">
+62.0
+</td>
+<td style="text-align:right;">
+104.4
+</td>
+<td style="text-align:right;">
+62.7
+</td>
+<td style="text-align:right;">
+63.3
+</td>
+<td style="text-align:right;">
+48.2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+38.6
+</td>
+<td style="text-align:right;">
+9.8
+</td>
+<td style="text-align:right;">
+69.5
+</td>
+<td style="text-align:right;">
+51.0
+</td>
+<td style="text-align:right;">
+56.7
+</td>
+<td style="text-align:right;">
+34.4
+</td>
+<td style="text-align:right;">
+43.6
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:right;">
+37.8
+</td>
+<td style="text-align:right;">
+9.6
+</td>
+<td style="text-align:right;">
+46.5
+</td>
+<td style="text-align:right;">
+60.5
+</td>
+<td style="text-align:right;">
+56.0
+</td>
+<td style="text-align:right;">
+33.7
+</td>
+<td style="text-align:right;">
+42.8
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
 2013
 </td>
 <td style="text-align:right;">
-49.0
+39.6
 </td>
 <td style="text-align:right;">
-40.5
+10.1
 </td>
 <td style="text-align:right;">
-30.0
+56.1
 </td>
 <td style="text-align:right;">
-46.7
+74.5
 </td>
 <td style="text-align:right;">
-28.0
+53.0
 </td>
 <td style="text-align:right;">
-38.0
+35.8
+</td>
+<td style="text-align:right;">
+45.0
 </td>
 </tr>
 <tr>
@@ -1597,22 +1647,25 @@ X2077
 2014
 </td>
 <td style="text-align:right;">
-22.0
+33.3
 </td>
 <td style="text-align:right;">
-33.0
+8.4
 </td>
 <td style="text-align:right;">
-22.5
+67.5
 </td>
 <td style="text-align:right;">
-21.4
+60.0
 </td>
 <td style="text-align:right;">
-21.0
+41.5
 </td>
 <td style="text-align:right;">
-31.0
+29.8
+</td>
+<td style="text-align:right;">
+37.7
 </td>
 </tr>
 <tr>
@@ -1620,22 +1673,25 @@ X2077
 2015
 </td>
 <td style="text-align:right;">
-28.0
+20.0
 </td>
 <td style="text-align:right;">
-26.5
+13.4
 </td>
 <td style="text-align:right;">
-67.0
+94.7
 </td>
 <td style="text-align:right;">
-20.2
+80.5
 </td>
 <td style="text-align:right;">
-48.0
+82.0
 </td>
 <td style="text-align:right;">
-34.5
+30.8
+</td>
+<td style="text-align:right;">
+60.0
 </td>
 </tr>
 <tr>
@@ -1643,22 +1699,25 @@ X2077
 2016
 </td>
 <td style="text-align:right;">
-53.0
+60.0
 </td>
 <td style="text-align:right;">
-31.5
+19.3
 </td>
 <td style="text-align:right;">
-76.5
+67.1
 </td>
 <td style="text-align:right;">
-33.8
+69.0
 </td>
 <td style="text-align:right;">
-50.0
+42.0
 </td>
 <td style="text-align:right;">
-43.0
+47.3
+</td>
+<td style="text-align:right;">
+86.0
 </td>
 </tr>
 <tr>
@@ -1666,22 +1725,25 @@ X2077
 2017
 </td>
 <td style="text-align:right;">
-63.0
+65.0
 </td>
 <td style="text-align:right;">
-44.2
+17.6
 </td>
 <td style="text-align:right;">
-58.7
+88.0
 </td>
 <td style="text-align:right;">
-33.5
+32.3
 </td>
 <td style="text-align:right;">
-38.0
+75.0
 </td>
 <td style="text-align:right;">
-70.5
+28.2
+</td>
+<td style="text-align:right;">
+78.6
 </td>
 </tr>
 <tr>
@@ -1689,7 +1751,13 @@ X2077
 2018
 </td>
 <td style="text-align:right;">
-30.0
+50.0
+</td>
+<td style="text-align:right;">
+10.9
+</td>
+<td style="text-align:right;">
+39.5
 </td>
 <td style="text-align:right;">
 22.5
@@ -1698,13 +1766,10 @@ X2077
 52.0
 </td>
 <td style="text-align:right;">
-32.5
+55.4
 </td>
 <td style="text-align:right;">
-25.5
-</td>
-<td style="text-align:right;">
-30.0
+48.7
 </td>
 </tr>
 <tr>
@@ -1712,81 +1777,65 @@ X2077
 2019
 </td>
 <td style="text-align:right;">
-57.9
+30.0
 </td>
 <td style="text-align:right;">
-35.8
+10.0
 </td>
 <td style="text-align:right;">
-57.5
+76.9
 </td>
 <td style="text-align:right;">
-46.5
+23.6
 </td>
 <td style="text-align:right;">
-73.0
+47.0
 </td>
 <td style="text-align:right;">
-42.5
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2020
+47.3
 </td>
 <td style="text-align:right;">
-24.5
-</td>
-<td style="text-align:right;">
-56.5
-</td>
-<td style="text-align:right;">
-33.0
-</td>
-<td style="text-align:right;">
-22.0
-</td>
-<td style="text-align:right;">
-26.0
-</td>
-<td style="text-align:right;">
-25.0
+44.6
 </td>
 </tr>
 </tbody>
 </table>
 <p>Se genera el gráfico <a href="modelo-meteorológico.html#fig:figura-precipesthomogen">3.2</a> para visualizar la distribución temporal de los datos climatológicos de las 6 estaciones homogenizadas.</p>
 <div class="figure"><span style="display:block;" id="fig:figura-precipesthomogen"></span>
-<img src="reportehidrologia_files/figure-html/figura-precipesthomogen-1.png" alt="Distribución de precipitaciones homogenizadas" width="672" />
+<img src="ReporteGranjaTilapia_files/figure-html/figura-precipesthomogen-1.png" alt="Distribución de precipitaciones homogenizadas" width="672" />
 <p class="caption">
 Figura 3.2: Distribución de precipitaciones homogenizadas
 </p>
 </div>
 <p>Se ha optado por aplicar la prueba de <span class="math inline">\(X\)</span><sup>2</sup> para la prueba de independencia a los datos climatológicos homogenizados, en donde, para determinar que las muestras son independientes se revisa <em>p&gt;0.05</em>.</p>
-<p>$X2164</p>
+<p>$X22058</p>
 <pre><code>Pearson&#39;s Chi-squared test</code></pre>
 <p>data: contingency_table
-X-squared = 1476, df = 1440, p-value = 0.249</p>
-<p>$X2118</p>
+X-squared = 1110, df = 1080, p-value = 0.2566</p>
+<p>$X22067</p>
 <pre><code>Pearson&#39;s Chi-squared test</code></pre>
 <p>data: contingency_table
-X-squared = 1599, df = 1560, p-value = 0.2406</p>
-<p>$X2036</p>
+X-squared = 1147, df = 1116, p-value = 0.2533</p>
+<p>$X22063</p>
 <pre><code>Pearson&#39;s Chi-squared test</code></pre>
 <p>data: contingency_table
-X-squared = 1599, df = 1560, p-value = 0.2406</p>
-<p>$X2001</p>
+X-squared = 1332, df = 1296, p-value = 0.2377</p>
+<p>$X22070</p>
 <pre><code>Pearson&#39;s Chi-squared test</code></pre>
 <p>data: contingency_table
-X-squared = 1476, df = 1440, p-value = 0.249</p>
-<p>$X2004</p>
+X-squared = 1295, df = 1260, p-value = 0.2407</p>
+<p>$X22004</p>
 <pre><code>Pearson&#39;s Chi-squared test</code></pre>
 <p>data: contingency_table
-X-squared = 1394, df = 1360, p-value = 0.2548</p>
-<p>$X2077</p>
+X-squared = 1332, df = 1296, p-value = 0.2377</p>
+<p>$X22046</p>
 <pre><code>Pearson&#39;s Chi-squared test</code></pre>
 <p>data: contingency_table
-X-squared = 1640, df = 1600, p-value = 0.2379</p>
+X-squared = 1221, df = 1188, p-value = 0.2468</p>
+<p>$X22067.2</p>
+<pre><code>Pearson&#39;s Chi-squared test</code></pre>
+<p>data: contingency_table
+X-squared = 1184, df = 1152, p-value = 0.25</p>
 <p>Conforme a los resultados de las pruebas de independencia se puede decir que las muestras son independientes.</p>
 </div>
 <div id="funciones-de-las-distribuciones-probabilísticas-de-las-estaciones-climatológicas" class="section level2 hasAnchor" number="3.3">
@@ -1804,38 +1853,39 @@ X-squared = 1640, df = 1600, p-value = 0.2379</p>
 <li>la tabla con las distribuciones de eventos extremos para diferentes períodos de retorno.</li>
 </ul>
 <p>En este capítulo, se presentará la información completa de una estación climatológica como ejemplo. Para el resto de las estaciones solo se presenta la tabla con la distribución de probabilidad ajustada a los parámetros de la función recomendada por MSClaio2008. La información completa de las 5 estaciones restantes se encuentra en el <a href="apéndice.html#apéndice-del-modelo-meteorológico">Apéndice del Modelo Meteorológico</a>.</p>
-<p>Se presenta la información de la <strong>estación 2118</strong> para comparar las distribuciones probabilísticas <em>Gumbel</em> y <em>Log-Normal</em>. Ya que en algunos reportes puede ser obligatorio calcular las disrtibuciones probabilísticas usando la distribución de Gumbel, sin embargo para este estudio, ocuparemos las distribuciones recomendadas por los resultados que arroja la función <em>MSClaio2008</em>.</p>
-<p><img src="reportehidrologia_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p>Se presenta la información de la <strong>estación Santa Teresa</strong>.</p>
+<p><img src="ReporteGranjaTilapia_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <pre><code>
 ------------------------
 Akaike Information Criterion (AIC):
   NORM      LN  GUMBEL      P3     LP3     GEV  
- 342.0   334.0   334.1   336.0   336.0   336.0  
+ 328.7   331.1   329.6   329.9   328.7   329.7  
 ------------------------
 Corrected Akaike Information Criterion (AICc):
   NORM      LN  GUMBEL      P3     LP3     GEV  
- 342.3   334.3   334.4   336.7   336.7   336.7  
+ 329.0   331.4   330.0   330.7   329.4   330.4  
 ------------------------
 Bayesian Information Criterion (BIC):
   NORM      LN  GUMBEL      P3     LP3     GEV  
- 345.4   337.4   337.5   341.2   341.2   341.2  
+ 331.9   334.3   332.9   334.8   333.5   334.5  
 ------------------------
 Anderson-Darling Criterion (ADC):
-   NORM       LN   GUMBEL       P3      LP3      GEV  
-0.59558  0.05712  0.05863  0.08499  0.07964  0.07092  </code></pre>
+  NORM      LN  GUMBEL      P3     LP3     GEV  
+0.1830  0.3296  0.2158  0.2333  0.1452  0.2063  </code></pre>
 <pre><code>
 Tested distributions:
 [1]  NORM    LN      GUMBEL  P3      LP3     GEV   
 ------------------------
 Chosen distributions:
  AIC  AICc   BIC   ADC  
-  LN    LN    LN    LN  
+ LP3  NORM  NORM   LP3  
 whose Maximum-Likelihood parameters are:
-NORM parameters of log(x):  3.594576  0.3719667  </code></pre>
-<p><img src="reportehidrologia_files/figure-html/unnamed-chunk-49-2.png" width="672" /></p>
-<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+NORM parameters of x:  49.91351  19.46211  
+P3 parameters of log(x):  4.758897  -0.2155336  4.342562  </code></pre>
+<p><img src="ReporteGranjaTilapia_files/figure-html/unnamed-chunk-36-2.png" width="672" /></p>
+<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-52">Tabla 3.3: </span>Comparación de distribuciones probabilísticas de precipitaciones de la estación 2118 (Log-Nom vs Gumbel)
+<span id="tab:unnamed-chunk-40">Tabla 3.3: </span>Comparación de las distribuciones probabilísticas de precipitaciones de la estación Santa Teresa
 </caption>
 <thead>
 <tr>
@@ -1843,10 +1893,16 @@ NORM parameters of log(x):  3.594576  0.3719667  </code></pre>
 Tr
 </th>
 <th style="text-align:right;">
-Precipitación_2118_LN
+Precipitación_SantaTeresa_Gumbell
 </th>
 <th style="text-align:right;">
-Precipitación_2118_Gumbel
+Precipitación_SantaTeresa_Normal
+</th>
+<th style="text-align:right;">
+Precipitación_SantaTeresa_LP3mom
+</th>
+<th style="text-align:right;">
+Precipitación_SantaTeresa_LP3mv
 </th>
 </tr>
 </thead>
@@ -1856,188 +1912,16 @@ Precipitación_2118_Gumbel
 2
 </td>
 <td style="text-align:right;">
-36.4003
+46.4695
 </td>
 <td style="text-align:right;">
-36.4937
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
+49.9135
 </td>
 <td style="text-align:right;">
-49.7809
+48.9239
 </td>
 <td style="text-align:right;">
-49.9898
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-58.6314
-</td>
-<td style="text-align:right;">
-58.9254
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:right;">
-67.1149
-</td>
-<td style="text-align:right;">
-67.4966
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-25
-</td>
-<td style="text-align:right;">
-69.8097
-</td>
-<td style="text-align:right;">
-70.2155
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-78.1400
-</td>
-<td style="text-align:right;">
-78.5912
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-86.4789
-</td>
-<td style="text-align:right;">
-86.9050
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-94.8881
-</td>
-<td style="text-align:right;">
-95.1885
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-500
-</td>
-<td style="text-align:right;">
-106.1822
-</td>
-<td style="text-align:right;">
-106.1170
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-114.8974
-</td>
-<td style="text-align:right;">
-114.3765
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5000
-</td>
-<td style="text-align:right;">
-135.8253
-</td>
-<td style="text-align:right;">
-133.5454
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-10000
-</td>
-<td style="text-align:right;">
-145.1730
-</td>
-<td style="text-align:right;">
-141.7995
-</td>
-</tr>
-</tbody>
-</table>
-<p>Realmente las dos distribuciones presentan resultados muy similares. Por lo que no representa problema escoger una sobre la otra.</p>
-<p>Después de procesar las 5 estaciones, se obtiene la tabla final con las distribuciones de las 6 estaciones.</p>
-<table class=" lightable-classic-2" style="font-size: 10px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">
-<span id="tab:tabla-estacionesdistribuidas">Tabla 3.4: </span>Distribuciones probabilísticas de precipitaciones de las 6 estaciones
-</caption>
-<thead>
-<tr>
-<th style="text-align:right;">
-Tr
-</th>
-<th style="text-align:right;">
-Precipitación_2164_P3
-</th>
-<th style="text-align:right;">
-Precipitación_2077_P3
-</th>
-<th style="text-align:right;">
-Precipitación_2004_LN
-</th>
-<th style="text-align:right;">
-Precipitación_2001_LN
-</th>
-<th style="text-align:right;">
-Precipitación_2036_P3
-</th>
-<th style="text-align:right;">
-Precipitación_2118_LN
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-37.6310
-</td>
-<td style="text-align:right;">
-40.6909
-</td>
-<td style="text-align:right;">
-40.8746
-</td>
-<td style="text-align:right;">
-34.3628
-</td>
-<td style="text-align:right;">
-42.5610
-</td>
-<td style="text-align:right;">
-36.4003
+49.0927
 </td>
 </tr>
 <tr>
@@ -2045,22 +1929,16 @@ Precipitación_2118_LN
 5
 </td>
 <td style="text-align:right;">
-59.2662
+64.9972
 </td>
 <td style="text-align:right;">
-60.3957
+66.2932
 </td>
 <td style="text-align:right;">
-58.5914
+67.5200
 </td>
 <td style="text-align:right;">
-51.3484
-</td>
-<td style="text-align:right;">
-65.1366
-</td>
-<td style="text-align:right;">
-49.7809
+67.0844
 </td>
 </tr>
 <tr>
@@ -2068,22 +1946,16 @@ Precipitación_2118_LN
 10
 </td>
 <td style="text-align:right;">
-75.0462
+77.2642
 </td>
 <td style="text-align:right;">
-73.5634
+74.8552
 </td>
 <td style="text-align:right;">
-70.7256
+77.1786
 </td>
 <td style="text-align:right;">
-63.3445
-</td>
-<td style="text-align:right;">
-79.6166
-</td>
-<td style="text-align:right;">
-58.6314
+76.1699
 </td>
 </tr>
 <tr>
@@ -2091,22 +1963,16 @@ Precipitación_2118_LN
 20
 </td>
 <td style="text-align:right;">
-90.5811
+89.0310
 </td>
 <td style="text-align:right;">
-86.0168
+81.9258
 </td>
 <td style="text-align:right;">
-82.6192
+84.7886
 </td>
 <td style="text-align:right;">
-75.3371
-</td>
-<td style="text-align:right;">
-93.0375
-</td>
-<td style="text-align:right;">
-67.1149
+83.1752
 </td>
 </tr>
 <tr>
@@ -2114,22 +1980,16 @@ Precipitación_2118_LN
 25
 </td>
 <td style="text-align:right;">
-95.5461
+92.7635
 </td>
 <td style="text-align:right;">
-89.9207
+83.9856
 </td>
 <td style="text-align:right;">
-86.4461
+86.9152
 </td>
 <td style="text-align:right;">
-79.2399
-</td>
-<td style="text-align:right;">
-97.2023
-</td>
-<td style="text-align:right;">
-69.8097
+85.1053
 </td>
 </tr>
 <tr>
@@ -2137,22 +1997,16 @@ Precipitación_2118_LN
 50
 </td>
 <td style="text-align:right;">
-110.8850
+104.2618
 </td>
 <td style="text-align:right;">
-101.8033
+89.8838
 </td>
 <td style="text-align:right;">
-98.4140
+92.7294
 </td>
 <td style="text-align:right;">
-91.5711
-</td>
-<td style="text-align:right;">
-109.7774
-</td>
-<td style="text-align:right;">
-78.1400
+90.3135
 </td>
 </tr>
 <tr>
@@ -2160,22 +2014,16 @@ Precipitación_2118_LN
 100
 </td>
 <td style="text-align:right;">
-126.1249
+115.6752
 </td>
 <td style="text-align:right;">
-113.3960
+95.1891
 </td>
 <td style="text-align:right;">
-110.5881
+97.5652
 </td>
 <td style="text-align:right;">
-104.2938
-</td>
-<td style="text-align:right;">
-121.9224
-</td>
-<td style="text-align:right;">
-86.4789
+94.5594
 </td>
 </tr>
 <tr>
@@ -2183,22 +2031,16 @@ Precipitación_2118_LN
 200
 </td>
 <td style="text-align:right;">
-141.2902
+127.0470
 </td>
 <td style="text-align:right;">
-124.7692
+100.0446
 </td>
 <td style="text-align:right;">
-123.0450
+101.6289
 </td>
 <td style="text-align:right;">
-117.4809
-</td>
-<td style="text-align:right;">
-133.7409
-</td>
-<td style="text-align:right;">
-94.8881
+98.0578
 </td>
 </tr>
 <tr>
@@ -2206,22 +2048,16 @@ Precipitación_2118_LN
 500
 </td>
 <td style="text-align:right;">
-161.2503
+142.0499
 </td>
 <td style="text-align:right;">
-139.5448
+105.9286
 </td>
 <td style="text-align:right;">
-140.0360
+106.0626
 </td>
 <td style="text-align:right;">
-135.7157
-</td>
-<td style="text-align:right;">
-148.9777
-</td>
-<td style="text-align:right;">
-106.1822
+101.7900
 </td>
 </tr>
 <tr>
@@ -2229,22 +2065,16 @@ Precipitación_2118_LN
 1000
 </td>
 <td style="text-align:right;">
-176.2973
+153.3887
 </td>
 <td style="text-align:right;">
-150.5663
+110.0560
 </td>
 <td style="text-align:right;">
-153.3360
+108.8443
 </td>
 <td style="text-align:right;">
-150.1706
-</td>
-<td style="text-align:right;">
-160.2709
-</td>
-<td style="text-align:right;">
-114.8974
+104.0792
 </td>
 </tr>
 <tr>
@@ -2252,22 +2082,16 @@ Precipitación_2118_LN
 5000
 </td>
 <td style="text-align:right;">
-211.1048
+179.7041
 </td>
 <td style="text-align:right;">
-175.7644
+118.8110
 </td>
 <td style="text-align:right;">
-185.8790
+113.8586
 </td>
 <td style="text-align:right;">
-186.1329
-</td>
-<td style="text-align:right;">
-185.9024
-</td>
-<td style="text-align:right;">
-135.8253
+108.0804
 </td>
 </tr>
 <tr>
@@ -2275,256 +2099,20 @@ Precipitación_2118_LN
 10000
 </td>
 <td style="text-align:right;">
-226.0510
+191.0356
 </td>
 <td style="text-align:right;">
-186.4817
+122.2934
 </td>
 <td style="text-align:right;">
-200.6677
+115.5307
 </td>
 <td style="text-align:right;">
-202.7260
-</td>
-<td style="text-align:right;">
-196.7378
-</td>
-<td style="text-align:right;">
-145.1730
+109.3713
 </td>
 </tr>
 </tbody>
 </table>
-<p>Ahora, se obtiene la precipitación ponderada de las 6 estaciones. Se presentan dos propuestas para obtener el valor ponderado.</p>
-<p>En la primera propuesta, se asignaron pesos a cada estación tomando como criterio los resultados de la calidad/singularidad de las estaciones del proceso de homogenización.</p>
-<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">
-<span id="tab:tabla-esthomogenclimatol">Tabla 3.5: </span>Estaciones homogenizadas
-</caption>
-<thead>
-<tr>
-<th style="text-align:right;">
-Tr_años
-</th>
-<th style="text-align:right;">
-lluvia_max_24h
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-37.4954
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-55.6591
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-68.2428
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:right;">
-80.5619
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-25
-</td>
-<td style="text-align:right;">
-84.5143
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-96.8259
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-109.2638
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-121.8963
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-500
-</td>
-<td style="text-align:right;">
-138.9742
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-152.2252
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5000
-</td>
-<td style="text-align:right;">
-184.2557
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-10000
-</td>
-<td style="text-align:right;">
-198.6468
-</td>
-</tr>
-</tbody>
-</table>
-<p>En la segunda propuesta se obtiene la precipitación ponderada por polígonos de Voronoi.</p>
-<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">
-<span id="tab:tabla-esthogemvoronoi">Tabla 3.6: </span>Estaciones homogenizadas
-</caption>
-<thead>
-<tr>
-<th style="text-align:right;">
-Tr
-</th>
-<th style="text-align:right;">
-Precipitacion
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-38.2270
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5
-</td>
-<td style="text-align:right;">
-56.5309
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-69.0658
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-20
-</td>
-<td style="text-align:right;">
-81.2284
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-25
-</td>
-<td style="text-align:right;">
-85.1091
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-50
-</td>
-<td style="text-align:right;">
-97.1346
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-100
-</td>
-<td style="text-align:right;">
-109.1925
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-200
-</td>
-<td style="text-align:right;">
-121.3527
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-500
-</td>
-<td style="text-align:right;">
-137.6649
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:right;">
-150.2289
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-5000
-</td>
-<td style="text-align:right;">
-180.2995
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-10000
-</td>
-<td style="text-align:right;">
-193.6857
-</td>
-</tr>
-</tbody>
-</table>
-<p>Las precipitaciones ponderadas por polígonos de Voronoi tienen valores más elevados que las precipitaciones ponderadas usando el criterio de la calidad/singularidad de las estaciones. Para los cálculos posteriores se usa la ponderación por polígonos de Voronoi.</p>
 </div>
 <div id="curvas-idtr-y-pdtr" class="section level2 hasAnchor" number="3.4">
 <h2><span class="header-section-number">3.4</span> Curvas IDTR y PDTR<a href="modelo-meteorológico.html#curvas-idtr-y-pdtr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -2532,7 +2120,7 @@ Precipitacion
 <p>Las curvas Intensidad-Duración-Período de Retorno (IDTR) son herramientas gráficas que permiten definir las características de las tormentas en una región específica, considerando las variables mencionadas.</p>
 <p>Para obtener las curvas IDTR, es necesario transformar los datos de precipitación máxima en 24 horas a precipitaciones de diferentes duraciones y períodos de retorno. Debido a la escasez de registros de lluvia de corta duración, ha surgido la necesidad de utilizar las relaciones promedio entre lluvias encontradas en otros países <span class="citation">(<a href="#ref-camposaranda1990">Daniel Francisco Campos Aranda 1990</a>)</span>. La Secretaría de Comunicaciones y Transportes (SCT) ha documentado estas relaciones en forma de isoyetas, las cuales permiten representar cartográficamente los puntos terrestres que comparten el mismo indicador de pluviosidad media anual.</p>
 <div class="figure"><span style="display:block;" id="fig:isoyetas1060"></span>
-<img src="isoyetas%201060.png" alt="Ejemplo del uso de las isoyetas para calcular las precipitaciones asociadas al Tr" width="1754" />
+<img src="isoyetas%201060.jpg" alt="Ejemplo del uso de las isoyetas para calcular las precipitaciones asociadas al Tr" width="825" />
 <p class="caption">
 Figura 3.3: Ejemplo del uso de las isoyetas para calcular las precipitaciones asociadas al Tr
 </p>
@@ -2541,36 +2129,36 @@ Figura 3.3: Ejemplo del uso de las isoyetas para calcular las precipitaciones as
 <p>Se importan a RStudio las capas vectoriales de la cuenca cortadas por mapas de Isoyetas (las vigentes datan del año 2015). Estos mapas de isoyetas se han georeferenciado para poder usar las herramientas de QGIS y superponer la cuenca para obtener la pluviosidad asociada a la cuenca.</p>
 <p>Se localizan las intensidades con duración de 60 minutos para los periodos de retorno de 10, 25 y 50 años.</p>
 <p>P<sub>1hr</sub><sup>10años</sup>:
-30.28211
+40
 mm/hr</p>
 <p>P<sub>1hr</sub><sup>25años</sup>:
-36.64212
+50
 mm/hr</p>
 <p>P<sub>1hr</sub><sup>50años</sup>:
-43.0048
+55
 mm/hr</p>
 <p>Se corrigen las frecuencias por factor de Weiss y se obtienen los diferentes parámetros que se ocupan para el cálculo de la tabla IDTR.</p>
 <p>Primero se obteniene R<sub>prom</sub>, se debe revisar si cae en rango [0.1-0.6] o [0.2-0.7] para cálculos posteriores.</p>
-<p>R<sub>prom</sub>: 0.3880115</p>
+<p>R<sub>prom</sub>: 0.4647273</p>
 <p>Dependiendo del rango en el que este R<sub>prom</sub> se usan diferentes ecuaciones para obtener los parámetros a,b,c. </p>
 <p>Parámetro a:
-21.46084</p>
+28.86927</p>
 <p>Parámetro b:
-7.070807</p>
+9.611515</p>
 <p>Parámetro c:
-0.7258312</p>
+0.8022871</p>
 <p>Se obtiene F.</p>
-<p>F: 1.580993</p>
+<p>F: 1.241427</p>
 <p>Con los parámetros calculados se procede a graficar las curvas IDTR.</p>
 <div class="figure"><span style="display:block;" id="fig:figura-IDTR"></span>
-<img src="reportehidrologia_files/figure-html/figura-IDTR-1.png" alt="Gráfico de las curvas Intensidad - Duración -  Tiempo de Retorno" width="672" />
+<img src="ReporteGranjaTilapia_files/figure-html/figura-IDTR-1.png" alt="Gráfico de las curvas Intensidad - Duración -  Tiempo de Retorno" width="672" />
 <p class="caption">
 Figura 3.4: Gráfico de las curvas Intensidad - Duración - Tiempo de Retorno
 </p>
 </div>
 <p>Después se hacen los cálculos necesarios para obtener las curvas PDTR. La memoria de cálculo se encuentra en el <a href="apéndice.html#apéndice-del-modelo-meteorológico">Apéndice del Modelo Meteorológico</a>.</p>
 <div class="figure"><span style="display:block;" id="fig:figura-PDTR"></span>
-<img src="reportehidrologia_files/figure-html/figura-PDTR-1.png" alt="Gráfico de las curvas Precipitación - Duración -  Tiempo de Retorno" width="672" />
+<img src="ReporteGranjaTilapia_files/figure-html/figura-PDTR-1.png" alt="Gráfico de las curvas Precipitación - Duración -  Tiempo de Retorno" width="672" />
 <p class="caption">
 Figura 3.5: Gráfico de las curvas Precipitación - Duración - Tiempo de Retorno
 </p>
@@ -2580,11 +2168,11 @@ Figura 3.5: Gráfico de las curvas Precipitación - Duración - Tiempo de Retorn
 <h2><span class="header-section-number">3.5</span> Hietograma<a href="modelo-meteorológico.html#hietograma" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Cuando no se dispone de registros climáticos e hidrométricos completos, el proceso de conversión de precipitación en escorrentía se aborda mediante la modelación de la tormenta incidente en la cuenca y la fase terrestre del ciclo hidrológico que se desarrolla en ella. En este enfoque, las tormentas de diseño son el punto de partida para las estimaciones hidrológicas de escurrimientos, tanto en cuencas rurales como urbanas, en ausencia de información hidrométrica directa.</p>
 <p>Existen dos tipos fundamentales de tormentas de diseño: históricas y sintéticas o hipotéticas. Las tormentas históricas son eventos severos o extraordinarios que han ocurrido en el pasado y fueron registrados, pudiendo estar bien documentados en relación con los problemas y daños causados a las áreas urbanas y sus sistemas de drenaje. Por otro lado, las tormentas sintéticas o hipotéticas se obtienen a partir del estudio y generalización de un gran número de tormentas severas observadas, con el objetivo de estimar un hietograma que represente las características de las tormentas en la zona de estudio <span class="citation">(<a href="#ref-campos2010">Aranda 2010</a>)</span>.</p>
-<p>En el presente estudio, se obtendrá el hietograma de diseño utilizando la metodología propuesta por el NRCS. El período de retorno se selecciona con base en en la tabla del Anexo 1 del memorando de CONAGUA de 2017 <span class="citation">(<a href="#ref-conagua2017">CONAGUA 2017</a>)</span>. El período de retorno que marca el memorando para el punto de control de la zona de estudio es de 50 a 100 años para puentes carreteros en caminos regionales. Para los cálculos de este estudio se usará un período de retorno de 100 años.</p>
-<div class="figure"><span style="display:block;" id="fig:figura-hietograma"></span>
-<img src="reportehidrologia_files/figure-html/figura-hietograma-1.png" alt="Hietograma para el Periodo de Retorno 100 años" width="672" />
+<p>En el presente estudio, se obtendrá el hietograma de diseño utilizando la metodología propuesta por el NRCS. El período de retorno se selecciona con base en en la tabla del Anexo 1 del memorando de CONAGUA de 2017 <span class="citation">(<a href="#ref-conagua2017">CONAGUA 2017</a>)</span>. El período de retorno que marca el memorando para el punto de control de la zona de estudio es de 10 años para redes de drenaje de zonas industriales.</p>
+<div class="figure">
+<img src="ReporteGranjaTilapia_files/figure-html/hietograma,%20figura-hietograma-1.png" alt="Hietograma para el Periodo de Retorno 100 años" width="672" />
 <p class="caption">
-Figura 3.6: Hietograma para el Periodo de Retorno 100 años
+(#fig:hietograma, figura-hietograma)Hietograma para el Periodo de Retorno 100 años
 </p>
 </div>
 

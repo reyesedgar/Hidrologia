@@ -38,15 +38,19 @@ En los últimos años, se han realizado numerosos estudios en diferentes países
 
 En el proceso de modelación hidrológica, la selección adecuada de estaciones climatológicas es crucial para garantizar la calidad y representatividad de los datos de precipitación utilizados. En el presente estudio, el criterio para determinar la cantidad de estaciones a considerar se fundamenta en las recomendaciones de la librería climatol, la cual sugiere el uso de al menos seis estaciones para obtener mejores resultados en la homogeneización de los datos climatológicos.
 
-Afortunadamente, la cuenca en estudio cuenta con un número suficiente de estaciones climatológicas para cumplir con este criterio. Las tablas con los datos climatológicos de las seis estaciones seleccionadas fueron descargadas del portal de CONAGUA e importadas en RStudio para ser tratadas mediante las funciones de la librería climatol.
+Afortunadamente, la zona de estudio cuenta con un número suficiente de estaciones climatológicas para cumplir con este criterio. Las tablas con los datos climatológicos de las seis estaciones seleccionadas fueron descargadas del portal de CONAGUA e importadas en RStudio para ser tratadas mediante las funciones de la librería climatol.
 
 La selección de estaciones climatológicas representativas es un paso crucial en el análisis hidrológico, ya que los datos de precipitación obtenidos servirán como entrada en el modelo hidrológico para simular el ciclo hidrológico y predecir el suministro de agua en la región. Una adecuada cobertura espacial de las estaciones garantiza que se capturen las variaciones locales en los patrones de precipitación, lo cual es esencial para obtener estimaciones precisas de los caudales y volúmenes de escorrentía.
 
 Además de la cantidad de estaciones, es importante considerar otros factores como la distribución espacial, la longitud y calidad de los registros históricos, y la presencia de posibles fuentes de error o inconsistencias en los datos. La aplicación de técnicas de homogeneización, como las proporcionadas por la librería climatol, permiten identificar y tratar valores atípicos o faltantes, mejorando la confiabilidad de los datos utilizados en el modelo hidrológico.
 
-```{r, echo=FALSE, figura-voronoi , fig.cap="Polígonos de Voronoi para analizar la influencia de las estaciones en la subcuenca R. Guadalupe"}
+Se usan los polígonos de Voronoi para determinar que estación es la que se va a usar después de que se haya homogenizado, haciendo uso de 5 estaciones adicionales para homogenizar los datos de la estación Santa Teresa, que es la que según los polígonos de Voronoi tiene influencia sobre el predio.
+
+```{r, echo=FALSE, figura-voronoi , fig.cap="Polígonos de Voronoi para seleccionar la estación de influencia en la zona de estudio"}
 knitr::include_graphics("voronoi.png")
 ```
+
+
 
 ```{r, include=FALSE}
 #Función para importar lluvia maxima 24h de estación
@@ -82,33 +86,33 @@ importar_estacion <- function(nombre_df, ruta_archivo) {
 
 ```{r, include=FALSE}
 #Importamos lluvia maxima de 24 horas de las estaciones de interés
-# estacion 2001
-importar_estacion("estacion_2001", "mes02001.TXT")
+# estacion_elbatan
+importar_estacion("estacion_elbatan", "mes22004.TXT")
 
-# estacion 2036
-importar_estacion("estacion_2036", "mes02036.TXT")
+# estacion_nogales
+importar_estacion("estacion_nogales", "mes22046.TXT")
 
-# estacion 2118
-importar_estacion("estacion_2118", "mes02118.TXT")
+# estacion_santateresa
+importar_estacion("estacion_santateresa", "mes22058.TXT")
 
-# estacion 2164
-importar_estacion("estacion_2164", "mes02164.TXT") 
+# estacion_queretaro
+importar_estacion("estacion_queretaro", "mes22063.TXT") 
 
-# estacion 2004
-importar_estacion("estacion_2004", "mes02004.TXT") 
+# estacion_laventa
+importar_estacion("estacion_laventa", "mes22067.TXT") 
 
-# estacion 2077
-importar_estacion("estacion_2077", "mes02077.TXT") 
+# estacion_plantel7
+importar_estacion("estacion_plantel7", "mes22070.TXT") 
 ```
 
-Se muestra una extracción de la tabla \@ref(tab:tabla-pre2001) con las precipitaciones extremas de la estación 2001 . Las 6 tablas originales se encuentran en el [Apéndice del Modelo Meteorológico][Apéndice del Modelo Meteorológico].
+Se muestra una extracción de la tabla \@ref(tab:tabla-pre2001) con las precipitaciones extremas de la estación de Santa Teresa . Las 6 tablas originales se encuentran en el [Apéndice del Modelo Meteorológico][Apéndice del Modelo Meteorológico].
 
 ```{r, tabla-pre2001, echo=FALSE}
- knitr::kable(estacion_2001%>%
+ knitr::kable(estacion_santateresa%>%
                 head(10), 
                digits = 4, 
                booktabs = TRUE, 
-               caption = "Previsualización de los registros mensuales de Pmax~24h~ de la estación 2001", label = NA)%>%
+               caption = "Previsualización de los registros mensuales de Pmax~24h~ de la estación Santa Teresa", label = NA)%>%
   kable_classic_2(bootstrap_options = "condensed", 
                   full_width = F, 
                   font_size = 12, 
@@ -118,6 +122,9 @@ Se muestra una extracción de la tabla \@ref(tab:tabla-pre2001) con las precipit
 
 ```{r, eval=FALSE, include=FALSE}
 #Revisar estaciones y quitar año en curso para que no se incluya en el análisis de datos faltantes.
+
+#ejemplo
+
 estacion_2164  %<>%
   filter(AÑO != '2024')
 ```
@@ -130,98 +137,98 @@ Se tiene que preparar la información para presentarla conforme los requerimient
 ```{r, eval=FALSE, include=FALSE}
 
 #preparar dataframes para poder usar paquete climatol()
-estacion_2001clima <- pivot_longer(estacion_2001, cols = c(2:13), names_to = "mes", values_to = "precipitacion")
+estacion_elbatanclima <- pivot_longer(estacion_elbatan, cols = c(2:13), names_to = "mes", values_to = "precipitacion")
 
 
-estacion_2001clima %<>%
-  mutate(dia = 1, codigo = 2001) %>%
+estacion_elbatanclima %<>%
+  mutate(dia = 1, codigo = 22004) %>%
   dplyr::select(codigo, year = AÑO, mes, dia, precipitacion)
 
 # Crear un vector de nombres de meses
 nombres_meses <- c("ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC")
 
 # Aplicar la correspondencia a la columna mes del dataframe
-estacion_2001clima$mes <- match(estacion_2001clima$mes, nombres_meses)
+estacion_elbatanclima$mes <- match(estacion_elbatanclima$mes, nombres_meses)
 
 library("xlsx")    
 # Escribir el dataframe en un archivo CSV
-write.xlsx(estacion_2001clima, file = "D:/CIRSS/hidrologia/T8_Proyecto Final/clima/data_xls/dir1/estacion_2001clima.xls", showNA = FALSE)
+write.xlsx(estacion_elbatanclima, file = "D:/CIRSS/proyectos/Tilapia/clima/data_xls/dir1/estacion_elbatanclima.xls", showNA = FALSE)
 
 
 
 
-estacion_2004clima <- pivot_longer(estacion_2004, cols = c(2:13), names_to = "mes", values_to = "precipitacion")
+estacion_laventaclima <- pivot_longer(estacion_laventa, cols = c(2:13), names_to = "mes", values_to = "precipitacion")
 
-estacion_2004clima %<>%
-  mutate(dia = 1, codigo = 2004) %>%
+estacion_laventaclima %<>%
+  mutate(dia = 1, codigo = 22067) %>%
  dplyr::select(codigo, year = AÑO, mes, dia, precipitacion)
 
 # Aplicar la correspondencia a la columna mes del dataframe
-estacion_2004clima$mes <- match(estacion_2004clima$mes, nombres_meses)
+estacion_laventaclima$mes <- match(estacion_laventaclima$mes, nombres_meses)
 
 # Escribir el dataframe en un archivo CSV
-write.xlsx(estacion_2004clima, file = "D:/CIRSS/hidrologia/T8_Proyecto Final/clima/data_xls/dir1/estacion_2004clima.xls", showNA = FALSE)
+write.xlsx(estacion_laventaclima, file = "D:/CIRSS/proyectos/Tilapia/clima/data_xls/dir1/estacion_laventaclima.xls", showNA = FALSE)
 
 
 
 
-estacion_2036clima <- pivot_longer(estacion_2036, cols = c(2:13), names_to = "mes", values_to = "precipitacion")
+estacion_nogalesclima <- pivot_longer(estacion_nogales, cols = c(2:13), names_to = "mes", values_to = "precipitacion")
 
-estacion_2036clima %<>%
-  mutate(dia = 1, codigo = 2036) %>%
+estacion_nogalesclima %<>%
+  mutate(dia = 1, codigo = 22046) %>%
   dplyr::select(codigo, year = AÑO, mes, dia, precipitacion)
 
 # Aplicar la correspondencia a la columna mes del dataframe
-estacion_2036clima$mes <- match(estacion_2036clima$mes, nombres_meses)
+estacion_nogalesclima$mes <- match(estacion_nogalesclima$mes, nombres_meses)
 
 # Escribir el dataframe en un archivo CSV
-write.xlsx(estacion_2036clima, file = "D:/CIRSS/hidrologia/T8_Proyecto Final/clima/data_xls/dir1/estacion_2036clima.xls", showNA = FALSE)
+write.xlsx(estacion_nogalesclima, file = "D:/CIRSS/proyectos/Tilapia/clima/data_xls/dir1/estacion_nogalesclima.xls", showNA = FALSE)
 
 
 
 
-estacion_2077clima <- pivot_longer(estacion_2077, cols = c(2:13), names_to = "mes", values_to = "precipitacion")
+estacion_plantel7clima <- pivot_longer(estacion_plantel7, cols = c(2:13), names_to = "mes", values_to = "precipitacion")
 
-estacion_2077clima %<>%
-  mutate(dia = 1, codigo = 2077) %>%
+estacion_plantel7clima %<>%
+  mutate(dia = 1, codigo = 22070) %>%
   dplyr::select(codigo, year = AÑO, mes, dia, precipitacion)
 
 # Aplicar la correspondencia a la columna mes del dataframe
-estacion_2077clima$mes <- match(estacion_2077clima$mes, nombres_meses)
+estacion_plantel7clima$mes <- match(estacion_plantel7clima$mes, nombres_meses)
 
 # Escribir el dataframe en un archivo CSV
-write.xlsx(estacion_2077clima, file = "D:/CIRSS/hidrologia/T8_Proyecto Final/clima/data_xls/dir1/estacion_2077clima.xls", showNA = FALSE)
+write.xlsx(estacion_plantel7clima, file = "D:/CIRSS/proyectos/Tilapia/clima/data_xls/dir1/estacion_plantel7clima.xls", showNA = FALSE)
 
 
 
 
-estacion_2118clima <- pivot_longer(estacion_2118, cols = c(2:13), names_to = "mes", values_to = "precipitacion")
+estacion_queretaroclima <- pivot_longer(estacion_queretaro, cols = c(2:13), names_to = "mes", values_to = "precipitacion")
 
-estacion_2118clima %<>%
-  mutate(dia = 1, codigo = 2118) %>%
+estacion_queretaroclima %<>%
+  mutate(dia = 1, codigo = 22063) %>%
   dplyr::select(codigo, year = AÑO, mes, dia, precipitacion)
 
 # Aplicar la correspondencia a la columna mes del dataframe
-estacion_2118clima$mes <- match(estacion_2118clima$mes, nombres_meses)
+estacion_queretaroclima$mes <- match(estacion_queretaroclima$mes, nombres_meses)
 
 # Escribir el dataframe en un archivo CSV
-write.xlsx(estacion_2118clima, file = "D:/CIRSS/hidrologia/T8_Proyecto Final/clima/data_xls/dir1/estacion_2118clima.xls", showNA = FALSE)
+write.xlsx(estacion_queretaroclima, file = "D:/CIRSS/proyectos/Tilapia/clima/data_xls/dir1/estacion_queretaroclima.xls", showNA = FALSE)
 
 
 
 
 
-estacion_2164clima <- pivot_longer(estacion_2164, cols = c(2:13), names_to = "mes", values_to = "precipitacion")
+estacion_santateresaclima <- pivot_longer(estacion_santateresa, cols = c(2:13), names_to = "mes", values_to = "precipitacion")
 
-estacion_2164clima %<>%
-  mutate(dia = 1, codigo = 2164) %>%
+estacion_santateresaclima %<>%
+  mutate(dia = 1, codigo = 22058) %>%
   dplyr::select(codigo, year = AÑO, mes, dia, precipitacion)
 
 # Aplicar la correspondencia a la columna mes del dataframe
-estacion_2164clima$mes <- match(estacion_2164clima$mes, nombres_meses)
+estacion_santateresaclima$mes <- match(estacion_santateresaclima$mes, nombres_meses)
 
 # Escribir el dataframe en un archivo CSV
-write.xlsx(estacion_2164clima, file = "D:/CIRSS/hidrologia/T8_Proyecto Final/clima/data_xls/dir1/estacion_2164clima.xls", showNA = FALSE)
+write.xlsx(estacion_santateresaclima, file = "D:/CIRSS/proyectos/Tilapia/clima/data_xls/dir1/estacion_santateresaclima.xls", showNA = FALSE)
 
 
 ```
@@ -277,8 +284,8 @@ csv2climatol("xls_precipitacion_data.csv",
              stnfile = "estaciones.csv", 
              stncol = 1:5,
              varcli = "precipitacion", 
-             anyi = 1980,
-             anyf = 2020,
+             anyi = 1983,
+             anyf = 2019,
              mindat = 60, 
              sep = ",",
              dec = ".",
@@ -291,14 +298,17 @@ csv2climatol("xls_precipitacion_data.csv",
 ```
 
 
-El algoritmo realiza una serie de pasos y presenta parámetros estadigráficos de la prueba, el error cuadrático medio del valor estimado, el porcentaje de los datos originales, las anomalías presentes en los diferentes intervalos de confianza y el rango derecho del intervalo de confianza para la prueba estadística. El algoritmo también genera archivos que se pueden usar para cálculos posteriores, así como un reporte de los diferentes resultados que genera el proceso de homogenización de datos como el control de calidad de las series, el resumen de los datos disponibles, gráficos de detección y corrección de anomalías, etc.
+El algoritmo realiza una serie de pasos y presenta parámetros estadigráficos de la prueba, el error cuadrático medio del valor estimado, el porcentaje de los datos originales, las anomalías presentes en los diferentes intervalos de confianza y el rango derecho del intervalo de confianza para la prueba estadística. 
+El algoritmo también genera archivos que se pueden usar para cálculos posteriores, así como un reporte de los diferentes resultados que genera el proceso de homogenización de datos como el control de calidad de las series, el resumen de los datos disponibles, gráficos de detección y corrección de anomalías, etc.
+
+De las estaciones climatológicas se usan los años de 1983 a 2019, pues en casi todas las estaciones incluyen este rango de años.
 
 ```{r, collapse=TRUE, comment = "", echo=FALSE, warning=FALSE} 
 #results='hide'
 #obtener estaciones homogenizadas
 homogen(varcli = "precipitacion",  # Nombre corto de la variable climática
-        anyi = 1980,                # Año inicial de los datos
-        anyf = 2020,                # Año final de los datos
+        anyi = 1983,                # Año inicial de los datos
+        anyf = 2019,                # Año final de los datos
         test = "snht",              # Prueba de homogeneidad a aplicar
         nref = NULL,                # Número máximo de referencias para la estimación de datos
         std = NA,                   # Tipo de normalización
@@ -350,7 +360,7 @@ homogen(varcli = "precipitacion",  # Nombre corto de la variable climática
 
 ```{r, include=FALSE}
 #extraer csv con estaciones homogenizadas
-dahstat('Precipitacion', 1980, 2020, stat = 'series', all = TRUE, long = TRUE)
+dahstat('Precipitacion', 1983, 2019, stat = 'series', all = TRUE, long = TRUE)
 ```
 
 
@@ -358,7 +368,7 @@ Se extrae uno de los archivos generados por la función para poder construir la 
 
 ```{r, include=FALSE}
 #importar csv con estaciones
-estaciones_homogenizadas <- read.csv("Precipitacion_1980-2020_series.csv")
+estaciones_homogenizadas <- read.csv("Precipitacion_1983-2019_series.csv")
 
 # Convertir la columna Date a objeto de fecha
 #estaciones_homogenizadas$Date <- as.Date(estaciones_homogenizadas$Date, format = "%m/%d/%Y")
@@ -383,33 +393,6 @@ estaciones_lluviamax24h <- estaciones_homogenizadas %>%
 
 ```
 
-
-```{r, include=FALSE, eval=FALSE}
-# Convertir Year a factor para evitar que se interprete como variable continua en el gráfico
-estaciones_lluviamax24h$Year <- as.factor(estaciones_lluviamax24h$Year)
-
-# Función para crear gráficos de líneas para cada estación
-plot_station_line <- function(data, station_name) {
-  ggplot(data, aes(x = Year, y = !!rlang::sym(station_name), group = 1)) +
-    geom_line(color = "skyblue") +
-    labs(title = paste("Distribución de lluvias máximas en 24 horas -", station_name),
-         x = "Año", y = "Precipitaciones") +
-    theme_minimal()
-}
-
-# Crear gráficos de líneas para cada estación
-line_plots <- lapply(names(estaciones_lluviamax24h)[-1], function(station) {
-  plot_station_line(estaciones_lluviamax24h, station)
-})
-
-
-
-# Visualizar los gráficos de líneas y de dispersión para las demás estaciones
-for (i in 1:length(line_plots)) {
-  print(line_plots[[i]])    # Mostrar el gráfico de líneas para la estación i
-}
-
-```
 
 Se genera el gráfico \@ref(fig:figura-precipesthomogen) para visualizar la distribución temporal de los datos climatológicos de las 6 estaciones homogenizadas.
 
@@ -492,7 +475,7 @@ for (col_X in columnas_X) {
   assign(nombre_df, nuevo_df)
   
   # Guardar la columna precipitacion en un archivo de texto
-  write.table(nuevo_df$precipitacion, file = paste0("D:/CIRSS/hidrologia/T8_Proyecto Final/clima/", nombre_df, "_precipitacion.txt"), row.names = FALSE)
+  write.table(nuevo_df$precipitacion, file = paste0("D:/CIRSS/proyectos/Tilapia/Hidrologia/", nombre_df, "_precipitacion.txt"), row.names = FALSE)
 }
 
 # Verificar los nombres de los nuevos dataframes creados
@@ -529,42 +512,71 @@ Para cada estación se documenta:
 
 En este capítulo, se presentará la información completa de una estación climatológica como ejemplo. Para el resto de las estaciones solo se presenta la tabla con la distribución de probabilidad ajustada a los parámetros de la función recomendada por MSClaio2008. La información completa de las 5 estaciones restantes se encuentra en el [Apéndice del Modelo Meteorológico][Apéndice del Modelo Meteorológico].
 
-Se presenta la información de la **estación 2118** para comparar las distribuciones probabilísticas *Gumbel* y *Log-Normal*. Ya que en algunos reportes puede ser obligatorio calcular las disrtibuciones probabilísticas usando la distribución de Gumbel, sin embargo para este estudio, ocuparemos las distribuciones recomendadas por los resultados que arroja la función *MSClaio2008*.
+Se presenta la información de la **estación Santa Teresa**.
 
 ```{r,  echo=FALSE, warning=FALSE, comment = ""}
-hist(estaciones_lluviamax24h$X2118, freq = FALSE, col = "skyblue", main = "Histograma de precipitaciones de  la estación 2118")
-lines(density(estaciones_lluviamax24h$X2118), col = "red", lwd = 2)
+hist(estaciones_lluviamax24h$X22058, freq = FALSE, col = "skyblue", main = "Histograma de precipitaciones de  la estación Santa Teresa")
+lines(density(estaciones_lluviamax24h$X22058), col = "red", lwd = 2)
 
-MSClaio2008(estaciones_lluviamax24h$X2118, 
+MSClaio2008(estaciones_lluviamax24h$X22058, 
                          dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC"))
 
-summary(MSClaio2008(estaciones_lluviamax24h$X2118, 
+summary(MSClaio2008(estaciones_lluviamax24h$X22058, 
                          dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC")))
 
-plot(MSClaio2008(estaciones_lluviamax24h$X2118, 
+plot(MSClaio2008(estaciones_lluviamax24h$X22058, 
                          dist = c("NORM", "LN", "GUMBEL", "P3", "LP3", "GEV"), crit=c("AIC", "AICc", "BIC", "ADC")))
-```
-
-
-```{r,  echo=FALSE, warning=FALSE, comment = ""}
-# Parámetros de la distribución Log-Normal
-mu <- 3.594576
-sigma <- 0.3719667
-
-# Calcular los cuantiles para cada período de retorno
-est2118_LN_cuantiles <- qlnorm(probabilidad_Tr$Probabilidad_Inversa, meanlog = mu, sdlog = sigma)
 ```
 
 
 ```{r,  echo=FALSE, warning=FALSE, comment = ""}
 # Calcular los L-momentos de los datos de la estación X2118
-est2118_LMOM <- Lmoments(estaciones_lluviamax24h$X2118)
+est222058_LMOM <- Lmoments(estaciones_lluviamax24h$X22058)
 
 # Calcular los parámetros de la distribución Gumbel
-est2118_params_gumbel <- par.gumb(est2118_LMOM[1], est2118_LMOM[2])
+est22058_params_gumbel <- par.gumb(est222058_LMOM[1], est222058_LMOM[2])
 
 # Calcular los cuantiles para cada período de retorno
-est2118_cuantiles_gumbel <- invF.gumb(probabilidad_Tr$Probabilidad_Inversa, est2118_params_gumbel$xi, est2118_params_gumbel$alfa)
+est22058_cuantiles_gumbel <- invF.gumb(probabilidad_Tr$Probabilidad_Inversa, est22058_params_gumbel$xi, est22058_params_gumbel$alfa)
+```
+
+
+```{r,  echo=FALSE, warning=FALSE, comment = ""}
+# Parámetros de la distribución normal
+mu <- 49.91351
+sigma <- 19.46211
+
+# Cálculo de los cuantiles utilizando la distribución normal
+est22058_cuantiles_norm <- qnorm(probabilidad_Tr$Probabilidad_Inversa, mean = mu, sd = sigma)
+
+
+```
+
+
+```{r, include=FALSE}
+# Calcular los cuantiles correspondientes a las probabilidades dadas usando los parametros que arroja MSClaio2008, se usa exp para transformar el log de vuelta.
+
+est22058_LP3mv_cuantiles <- exp(invF.gamma(probabilidad_Tr$Probabilidad_Inversa, 4.758897, -0.2155336, 4.342562))
+
+#ahora se calcula los cuantiles pero usando los momentos que calcula la libreria nsRFA
+# Calcular los L-momentos de los datos transformados a log de la estación X22058
+est22058_LMOM <- Lmoments(log(estaciones_lluviamax24h$X22058))
+
+# Extraer los L-momentos necesarios
+lambda1 <- est22058_LMOM[1]
+lambda2 <- est22058_LMOM[2]
+tau3 <- est22058_LMOM[4]
+
+# Estimar los parámetros de la distribución de Pearson III utilizando L-momentos
+parametros <- par.gamma(lambda1, lambda2, tau3)
+
+# Extraer los parámetros estimados
+xi <- parametros$xi
+beta <- parametros$beta
+alfa <- parametros$alfa
+
+
+est22058_LP3mom_cuantiles <- exp(invF.gamma(probabilidad_Tr$Probabilidad_Inversa, xi, beta, alfa))
 ```
 
 
@@ -572,204 +584,21 @@ est2118_cuantiles_gumbel <- invF.gumb(probabilidad_Tr$Probabilidad_Inversa, est2
 
 # Crear la tabla de períodos de retorno y cuantiles
   knitr::kable(data.frame(Tr = probabilidad_Tr$Tr, 
-                          Precipitación_2118_LN = est2118_LN_cuantiles, 
-                          Precipitación_2118_Gumbel = est2118_cuantiles_gumbel), 
+                          Precipitación_SantaTeresa_Gumbell = est22058_cuantiles_gumbel,
+                          Precipitación_SantaTeresa_Normal = est22058_cuantiles_norm,
+                          Precipitación_SantaTeresa_LP3mom = est22058_LP3mom_cuantiles,
+                          Precipitación_SantaTeresa_LP3mv = est22058_LP3mv_cuantiles), 
                digits = 4, 
                booktabs = TRUE, 
-               caption = "Comparación de distribuciones probabilísticas de precipitaciones de la estación 2118 (Log-Nom vs Gumbel)", label = NA) %>%
-  kable_classic_2(full_width = F, 
+               caption = "Comparación de las distribuciones probabilísticas de precipitaciones de la estación Santa Teresa", label = NA) %>%
+  kable_classic_2(bootstrap_options = "condensed",
+                  full_width = T, 
                   font_size = 12, 
                   position = "center")
 ```
 
 
-```{r,  echo=FALSE, warning=FALSE, comment = ""}
-# Calcular los L-momentos de la muestra
-lmom <- Lmoments(estaciones_lluviamax24h$X2164)
 
-# Extraer los L-momentos necesarios
-lambda1 <- lmom[1]
-lambda2 <- lmom[2]
-tau3 <- lmom[4]
-
-# Estimar los parámetros de la distribución de Pearson III utilizando L-momentos
-parametros <- par.gamma(lambda1, lambda2, tau3)
-
-# Extraer los parámetros estimados
-xi <- parametros$xi
-beta <- parametros$beta
-alfa <- parametros$alfa
-
-# Calcular los cuantiles correspondientes a las probabilidades dadas
-est2164_P3_cuantiles <- invF.gamma(probabilidad_Tr$Probabilidad_Inversa, xi, beta, alfa)
-```
-
-```{r, echo=FALSE, warning=FALSE, comment = ""}
-
-# Calcular los L-momentos de la muestra
-lmom <- Lmoments(estaciones_lluviamax24h$X2036)
-
-# Extraer los L-momentos necesarios
-lambda1 <- lmom[1]
-lambda2 <- lmom[2]
-tau3 <- lmom[4]
-
-# Estimar los parámetros de la distribución de Pearson III utilizando L-momentos
-parametros <- par.gamma(lambda1, lambda2, tau3)
-
-# Extraer los parámetros estimados
-xi <- parametros$xi
-beta <- parametros$beta
-alfa <- parametros$alfa
-
-# Calcular los cuantiles correspondientes a las probabilidades dadas
-est2036_P3_cuantiles <- invF.gamma(probabilidad_Tr$Probabilidad_Inversa, xi, beta, alfa)
-```
-
-```{r,  echo=FALSE, warning=FALSE, comment = ""}
-# Parámetros de la distribución Log-Normal
-mu <- 3.536975
-sigma <- 0.4772446
-
-# Calcular los cuantiles para cada período de retorno
-est2001_LN_cuantiles <- qlnorm(probabilidad_Tr$Probabilidad_Inversa, meanlog = mu, sdlog = sigma)
-
-```
-
-```{r, echo=FALSE, warning=FALSE, comment = ""}
-# Parámetros de la distribución Log-Normal
-mu <- 3.710509
-sigma <- 0.4278393
-
-# Calcular los cuantiles para cada período de retorno
-est2004_LN_cuantiles <- qlnorm(probabilidad_Tr$Probabilidad_Inversa, meanlog = mu, sdlog = sigma)
-
-
-```
-
-```{r, echo=FALSE, warning=FALSE, comment = ""}
-
-# Calcular los L-momentos de la muestra
-lmom <- Lmoments(estaciones_lluviamax24h$X2077)
-
-# Extraer los L-momentos necesarios
-lambda1 <- lmom[1]
-lambda2 <- lmom[2]
-tau3 <- lmom[4]
-
-# Estimar los parámetros de la distribución de Pearson III utilizando L-momentos
-parametros <- par.gamma(lambda1, lambda2, tau3)
-
-# Extraer los parámetros estimados
-xi <- parametros$xi
-beta <- parametros$beta
-alfa <- parametros$alfa
-
-# Calcular los cuantiles correspondientes a las probabilidades dadas
-est2077_P3_cuantiles <- invF.gamma(probabilidad_Tr$Probabilidad_Inversa, xi, beta, alfa)
-```
-
-Realmente las dos distribuciones presentan resultados muy similares. Por lo que no representa problema escoger una sobre la otra.
-
-Después de procesar las 5 estaciones, se obtiene la tabla final con las distribuciones de las 6 estaciones.
-
-```{r, echo=FALSE, tabla-estacionesdistribuidas}
-# Mostrar los resultados
-  knitr::kable(data.frame(Tr = probabilidad_Tr$Tr,
-                          Precipitación_2164_P3 = est2164_P3_cuantiles,
-                          Precipitación_2077_P3 = est2077_P3_cuantiles,
-                          Precipitación_2004_LN = est2004_LN_cuantiles,
-                          Precipitación_2001_LN = est2001_LN_cuantiles,
-                          Precipitación_2036_P3 = est2036_P3_cuantiles,
-                          Precipitación_2118_LN = est2118_LN_cuantiles), 
-               digits = 4, 
-               booktabs = TRUE, 
-               caption = "Distribuciones probabilísticas de precipitaciones de las 6 estaciones", label = NA) %>%
-  kable_classic_2(bootstrap_options = "condensed", 
-                  full_width = F, 
-                  font_size = 10, 
-                  position = "center")
-```
-
-Ahora, se obtiene la precipitación ponderada de las 6 estaciones. Se presentan dos propuestas para obtener el valor ponderado.  
-
-En la primera propuesta, se asignaron pesos a cada estación tomando como criterio los resultados de la calidad/singularidad de las estaciones del proceso de homogenización.
-
-```{r, tabla-esthomogenclimatol, comment = "", echo=FALSE, warning=FALSE}
-# Combinar los 6 dataframes en una lista
-estaciones_pma <- list(
-  data.frame(Tr = probabilidad_Tr$Tr, Precipitacion = est2164_P3_cuantiles),
-  data.frame(Tr = probabilidad_Tr$Tr, Precipitacion = est2118_LN_cuantiles),
-  data.frame(Tr = probabilidad_Tr$Tr, Precipitacion = est2036_P3_cuantiles),
-  data.frame(Tr = probabilidad_Tr$Tr, Precipitacion = est2001_LN_cuantiles),
-  data.frame(Tr = probabilidad_Tr$Tr, Precipitacion = est2004_LN_cuantiles),
-  data.frame(Tr = probabilidad_Tr$Tr, Precipitacion = est2077_P3_cuantiles)
-)
-
-# Función para calcular la media ponderada
-weighted_mean <- function(values, weights) {
-  sum(values * weights) / sum(weights)
-}
-
-# Calcular los pesos para cada estación
-pesos <- c(0.15, 0.1, 0.1, 0.4, 0.2, 0.05)  # Ajusta los pesos según tus criterios
-
-# Calcular los cuantiles ponderados para cada período de retorno
-estaciones_cuantiles_ponderados <- sapply(estaciones_pma[[1]]$Tr, function(tr) {
-  cuantiles <- sapply(estaciones_pma, function(df) df$Precipitacion[df$Tr == tr])
-  weighted_mean(cuantiles, pesos)
-})
-
-# Crear un nuevo dataframe con los períodos de retorno y los cuantiles ponderados
-estacion_pma <- data.frame(Tr_años = estaciones_pma[[1]]$Tr, lluvia_max_24h = estaciones_cuantiles_ponderados)
-
-# Imprimir el resultado
-  knitr::kable(estacion_pma, 
-               digits = 4, 
-               booktabs = TRUE, 
-               caption = "Estaciones homogenizadas", label = NA) %>%
-  kable_classic_2(bootstrap_options = "condensed", 
-                  full_width = F, 
-                  font_size = 12, 
-                  position = "center")
-```
-
-
-En la segunda propuesta se obtiene la precipitación ponderada por polígonos de Voronoi. 
-
-```{r, include=FALSE}
-estaciones_poligonos <- st_read("poligonos_thiessen_30%buffer.shp")
-estaciones_poligonos$area <- st_area(estaciones_poligonos)
-estaciones_poligonos$prop_influencia <- (estaciones_poligonos$area / sum(estaciones_poligonos$area))
-estaciones_poligonos$prop_influencia<-set_units(estaciones_poligonos$prop_influencia, "%")
-estaciones_poligonos$prop_influencia<-drop_units(estaciones_poligonos$prop_influencia)
-estaciones_poligonos$prop_influencia <- estaciones_poligonos$prop_influencia/100
-
-```
-
-```{r, tabla-esthogemvoronoi, comment = "", echo=FALSE, warning=FALSE}
-estacion_pma_ponderada <- lapply(1:length(estaciones_pma), function(i) {
-  Tr <- estaciones_pma[[i]]$Tr
-  Precipitacion <- estaciones_pma[[i]]$Precipitacion * estaciones_poligonos$prop_influencia[i]
-  data.frame(Tr, Precipitacion)
-})
-
-estacion_pma_ponderada1 <- do.call(rbind, estacion_pma_ponderada)
-
-estacion_pma_ponderada2 <- aggregate(Precipitacion ~ Tr, data = estacion_pma_ponderada1, sum)
-
-
-  knitr::kable(estacion_pma_ponderada2, 
-               digits = 4, 
-               booktabs = TRUE, 
-               caption = "Estaciones homogenizadas", label = NA) %>%
-  kable_classic_2(bootstrap_options = "condensed", 
-                  full_width = F, 
-                  font_size = 12, 
-                  position = "center")
-```
-
-Las precipitaciones ponderadas por polígonos de Voronoi tienen valores más elevados que las precipitaciones ponderadas usando el criterio de la calidad/singularidad de las estaciones. Para los cálculos posteriores se usa la ponderación por polígonos de Voronoi.
 
 ## Curvas IDTR  y PDTR
 
@@ -780,32 +609,22 @@ Las curvas Intensidad-Duración-Período de Retorno (IDTR) son herramientas grá
 Para obtener las curvas IDTR, es necesario transformar los datos de precipitación máxima en 24 horas a precipitaciones de diferentes duraciones y períodos de retorno. Debido a la escasez de registros de lluvia de corta duración, ha surgido la necesidad de utilizar las relaciones promedio entre lluvias encontradas en otros países [@camposaranda1990]. La Secretaría de Comunicaciones y Transportes (SCT) ha documentado estas relaciones en forma de isoyetas, las cuales permiten representar cartográficamente los puntos terrestres que comparten el mismo indicador de pluviosidad media anual.
 
 ```{r, echo=FALSE, isoyetas1060, fig.cap="Ejemplo del uso de las isoyetas para calcular las precipitaciones asociadas al Tr"}
-knitr::include_graphics("isoyetas 1060.png")
+knitr::include_graphics("isoyetas 1060.jpg")
 ```
 
 Para el cálculo de las curvas de Intensidad - Duración - Tiempo de Retorno se usa la metodología de *Chen modificado*.
 
 Se importan a RStudio las capas vectoriales de la cuenca cortadas por mapas de Isoyetas (las vigentes datan del año 2015). Estos mapas de isoyetas se han georeferenciado para poder usar las herramientas de QGIS y superponer la cuenca para obtener la pluviosidad asociada a la cuenca.
 
-```{r, include=FALSE}
-isoyetas_1060 <- st_read("cem_cuenca_tr10_60.shp")
-isoyetas_2560 <- st_read("cem_cuenca_tr25_60.shp")
-isoyetas_5060 <- st_read("cem_cuenca_tr50_60.shp")
-
-# Guardar el shapefile
-#st_write(cuenca, "D:/CIRSS/hidrologia/T8_Proyecto Final/cem_cuenca_geomcorreg.shp")
-
-```
-
 
 Se localizan las intensidades con duración de 60 minutos para los periodos de retorno de 10, 25 y 50 años.
 
 ```{r, results='asis', comment = "", echo=FALSE, warning=FALSE}
-P1hr_10a <- sum(isoyetas_1060$isoyet_pro * isoyetas_1060$area_km2) / sum(isoyetas_1060$area_km2)
+P1hr_10a <- 40
 
-P1hr_25a <- sum(isoyetas_2560$isoyet_pro * isoyetas_2560$area_km2) / sum(isoyetas_2560$area_km2)
+P1hr_25a <- 50
 
-P1hr_50a <- sum(isoyetas_5060$isoyet_pro * isoyetas_5060$area_km2) / sum(isoyetas_5060$area_km2)
+P1hr_50a <- 55
 
 cat("P~1hr~^10años^: ", P1hr_10a, " mm/hr\n", sep = "\n")
 cat("P~1hr~^25años^: ", P1hr_25a, " mm/hr\n", sep = "\n")
@@ -817,15 +636,18 @@ Se corrigen las frecuencias por factor de Weiss y se obtienen los diferentes par
 ```{r, include=FALSE}
 #corregir frecuencias por factor de weiss
 
-estacion_pma_ponderada2$frecuencia_ajustada_weiss <- estacion_pma_ponderada2$Precipitacion * 1.13
+est22058_homogenizada <- data.frame(Tr = probabilidad_Tr$Tr,
+                                    Precipitacion = est22058_LP3mv_cuantiles)
+
+est22058_homogenizada$frecuencia_ajustada_weiss <- est22058_homogenizada$Precipitacion * 1.13
 ```
 
 Primero se obteniene R~prom~, se debe revisar si cae en rango [0.1-0.6] o [0.2-0.7] para cálculos posteriores. 
 
 ```{r, results='asis', comment = "", echo=FALSE, warning=FALSE}
-R_prom <- mean(P1hr_10a/as.numeric(estacion_pma_ponderada2$frecuencia_ajustada_weiss[estacion_pma_ponderada2$Tr == 10]),
-               P1hr_25a/as.numeric(estacion_pma_ponderada2$frecuencia_ajustada_weiss[estacion_pma_ponderada2$Tr == 25]),
-               P1hr_50a/as.numeric(estacion_pma_ponderada2$frecuencia_ajustada_weiss[estacion_pma_ponderada2$Tr == 50]))
+R_prom <- mean(P1hr_10a/as.numeric(est22058_homogenizada$frecuencia_ajustada_weiss[est22058_homogenizada$Tr == 10]),
+               P1hr_25a/as.numeric(est22058_homogenizada$frecuencia_ajustada_weiss[est22058_homogenizada$Tr == 25]),
+               P1hr_50a/as.numeric(est22058_homogenizada$frecuencia_ajustada_weiss[est22058_homogenizada$Tr == 50]))
 
 cat(" R~prom~: ", R_prom)
 ```
@@ -864,7 +686,7 @@ cat("Parámetro c:", c, "\n", sep = "\n")
 Se obtiene F.
 
 ```{r, results='asis', comment = "", echo=FALSE, warning=FALSE}
-F_ <- as.numeric(estacion_pma_ponderada2$frecuencia_ajustada_weiss[estacion_pma_ponderada2$Tr == 100]) / as.numeric(estacion_pma_ponderada2$frecuencia_ajustada_weiss[estacion_pma_ponderada2$Tr == 10])
+F_ <- as.numeric(est22058_homogenizada$frecuencia_ajustada_weiss[est22058_homogenizada$Tr == 100]) / as.numeric(est22058_homogenizada$frecuencia_ajustada_weiss[est22058_homogenizada$Tr == 10])
 
 cat("F: ", F_)
 ```
@@ -966,13 +788,13 @@ Cuando no se dispone de registros climáticos e hidrométricos completos, el pro
 
 Existen dos tipos fundamentales de tormentas de diseño: históricas y sintéticas o hipotéticas. Las tormentas históricas son eventos severos o extraordinarios que han ocurrido en el pasado y fueron registrados, pudiendo estar bien documentados en relación con los problemas y daños causados a las áreas urbanas y sus sistemas de drenaje. Por otro lado, las tormentas sintéticas o hipotéticas se obtienen a partir del estudio y generalización de un gran número de tormentas severas observadas, con el objetivo de estimar un hietograma que represente las características de las tormentas en la zona de estudio [@campos2010].
 
-En el presente estudio, se obtendrá el hietograma de diseño utilizando la metodología propuesta por el NRCS. El período de retorno se selecciona con base en en la tabla del Anexo 1 del memorando de CONAGUA de 2017 [@conagua2017]. El período de retorno que marca el memorando para el punto de control de la zona de estudio es de 50 a 100 años para puentes carreteros en caminos regionales. Para los cálculos de este estudio se usará un período de retorno de 100 años.
+En el presente estudio, se obtendrá el hietograma de diseño utilizando la metodología propuesta por el NRCS. El período de retorno se selecciona con base en en la tabla del Anexo 1 del memorando de CONAGUA de 2017 [@conagua2017]. El período de retorno que marca el memorando para el punto de control de la zona de estudio es de 10 años para redes de drenaje de zonas industriales. 
 
 ```{r, include=FALSE}
 distribuciones_NRCS <- read_excel("D:\\CIRSS\\hidrologia\\T5_ModeloMeteorologico\\tabla_hietograma1.xlsx")
 ```
 
-```{r, figura-hietograma, fig.cap= "Hietograma para el Periodo de Retorno 100 años" , comment = "", echo=FALSE, warning=FALSE}
+```{r, hietograma, figura-hietograma, fig.cap= "Hietograma para el Periodo de Retorno 100 años" , comment = "", echo=FALSE, warning=FALSE}
 # Crear la columna "duracion" con incrementos de 30 hasta 1440. El profesor recomienda 20 o 30, de preferencia 30.
 duracion <- seq(0, 1440, by = 30)
 
@@ -989,9 +811,9 @@ FRA <- (1 - (0.091293*(1 - exp(-0.005794*cuenca$area_km2))))
 
 
 # Crear columnas en hietograma_duracion para cada Tr
-for (tr in estacion_pma_ponderada2$Tr) {
+for (tr in est22058_homogenizada$Tr) {
   # Obtener el valor de frecuencia_ajustada_weiss correspondiente a Tr
-  frecuencia <- estacion_pma_ponderada2$frecuencia_ajustada_weiss[estacion_pma_ponderada2$Tr == tr]
+  frecuencia <- est22058_homogenizada$frecuencia_ajustada_weiss[est22058_homogenizada$Tr == tr]
   
   # Calcular los valores para la columna
   valores <- hietograma_duracion$distr_temp * frecuencia * FRA

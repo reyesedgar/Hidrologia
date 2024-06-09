@@ -8,8 +8,7 @@ bibliography:
 biblio-style: apalike
 link-citations: true
 cover-image: logo.png
-description: Este es un ejemplo de la automatización de un reporte de un estudio hidrológico
-  usando QGIS y RStudio
+description: Este es un estudio hidrológico de la Granja Tilapia
 site: bookdown::bookdown_site
 ---
 
@@ -17,20 +16,17 @@ site: bookdown::bookdown_site
 
 # Presentación {.unlisted .unnumbered}
 
-**Estudio hidrológico de control de la subcuenca R. Guadalupe**
+**Estudio hidrológico de La Granja Tilapia**
 
-**Instituo Enzo Levi**
+**Centro de Investigación para la Restauración y Saturación del Suelo en colaboración con Regenerative Skills**
 
-**Centro de Investigación para la Restauración y Saturación del Suelo**
+**Elaboró: Ing. Edgar Reyes Vargas**
 
-**Elaboró: Ing. Edgar Reyes Vargas **
-
-**Revisor: Ing. Edson Regalado**
 
 <div style="display:flex; justify-content:center; align-items:center; margin-top:20px;">
-<img src="D:/CIRSS/hidrologia/R/Hidrologia/logo.png" style="height:250px; margin-right:20px;">
-<img src="D:/CIRSS/hidrologia/R/Hidrologia/logoenzo.png" style="height:100px;">
+<img src="D:/CIRSS/proyectos/Tilapia/Hidrologia/logo.png" style="height:250px; margin-right:20px;">
 </div>
 
 </div>
+
 

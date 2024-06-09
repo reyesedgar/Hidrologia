@@ -4,26 +4,26 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 4 Modelo Hidrológico | reportehidrologia.knit</title>
-  <meta name="description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <title>Capítulo 4 Modelo Hidrológico | ReporteGranjaTilapia.knit</title>
+  <meta name="description" content="Este es un estudio hidrológico de la Granja Tilapia" />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 4 Modelo Hidrológico | reportehidrologia.knit" />
+  <meta property="og:title" content="Capítulo 4 Modelo Hidrológico | ReporteGranjaTilapia.knit" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="/logo.png" />
-  <meta property="og:description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <meta property="og:description" content="Este es un estudio hidrológico de la Granja Tilapia" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 4 Modelo Hidrológico | reportehidrologia.knit" />
+  <meta name="twitter:title" content="Capítulo 4 Modelo Hidrológico | ReporteGranjaTilapia.knit" />
   
-  <meta name="twitter:description" content="Este es un ejemplo de la automatización de un reporte de un estudio hidrológico usando QGIS y RStudio" />
+  <meta name="twitter:description" content="Este es un estudio hidrológico de la Granja Tilapia" />
   <meta name="twitter:image" content="/logo.png" />
 
 <meta name="author" content="" />
 
 
-<meta name="date" content="2024-05-20" />
+<meta name="date" content="2024-06-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -104,6 +104,7 @@ div.csl-indent {
 <li class="chapter" data-level="1.1" data-path="introducción.html"><a href="introducción.html#objetivo"><i class="fa fa-check"></i><b>1.1</b> Objetivo</a></li>
 <li class="chapter" data-level="1.2" data-path="introducción.html"><a href="introducción.html#normativa-aplicada"><i class="fa fa-check"></i><b>1.2</b> Normativa aplicada</a></li>
 <li class="chapter" data-level="1.3" data-path="introducción.html"><a href="introducción.html#localización-del-proyecto"><i class="fa fa-check"></i><b>1.3</b> Localización del proyecto</a></li>
+<li class="chapter" data-level="1.4" data-path="introducción.html"><a href="introducción.html#english-abstract"><i class="fa fa-check"></i><b>1.4</b> English abstract</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html"><i class="fa fa-check"></i><b>2</b> Modelo Fisiográfico</a>
 <ul>
@@ -114,21 +115,13 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#análisis-de-pendiente-del-cauce-principal-de-la-cuenca"><i class="fa fa-check"></i><b>2.4.1</b> Análisis de pendiente del cauce principal de la cuenca</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#breve-introducción-a-la-estimación-del-coeficiente-de-escurrimiento"><i class="fa fa-check"></i><b>2.5</b> Breve introducción a la estimación del coeficiente de escurrimiento</a></li>
-<li class="chapter" data-level="2.6" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-de-tipo-de-suelo"><i class="fa fa-check"></i><b>2.6</b> Identificación de tipo de suelo</a></li>
-<li class="chapter" data-level="2.7" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-del-grupo-hidrológico-del-suelo"><i class="fa fa-check"></i><b>2.7</b> Identificación del grupo hidrológico del suelo</a></li>
-<li class="chapter" data-level="2.8" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#identificación-de-uso-de-suelo-y-vegetación"><i class="fa fa-check"></i><b>2.8</b> Identificación de uso de suelo y vegetación</a></li>
-<li class="chapter" data-level="2.9" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#número-de-curva"><i class="fa fa-check"></i><b>2.9</b> Número de Curva</a>
+<li class="chapter" data-level="2.5" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#estimación-del-coeficiente-de-escurrimiento"><i class="fa fa-check"></i><b>2.5</b> Estimación del coeficiente de escurrimiento</a></li>
+<li class="chapter" data-level="2.6" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempos-de-estudio"><i class="fa fa-check"></i><b>2.6</b> Tiempos de estudio</a>
 <ul>
-<li class="chapter" data-level="2.9.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#nc-calculado-por-imta"><i class="fa fa-check"></i><b>2.9.1</b> NC calculado por IMTA</a></li>
-<li class="chapter" data-level="2.9.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#nc-semiautomatizado"><i class="fa fa-check"></i><b>2.9.2</b> NC semiautomatizado</a></li>
-<li class="chapter" data-level="2.9.3" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#discusión-final-sobre-el-cálculo-del-número-de-curva"><i class="fa fa-check"></i><b>2.9.3</b> Discusión final sobre el cálculo del Número de Curva</a></li>
+<li class="chapter" data-level="2.6.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-kirpich"><i class="fa fa-check"></i><b>2.6.1</b> Tiempo de concentracion por kirpich</a></li>
+<li class="chapter" data-level="2.6.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-rowe"><i class="fa fa-check"></i><b>2.6.2</b> Tiempo de concentracion por Rowe</a></li>
 </ul></li>
-<li class="chapter" data-level="2.10" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempos-de-estudio"><i class="fa fa-check"></i><b>2.10</b> Tiempos de estudio</a>
-<ul>
-<li class="chapter" data-level="2.10.1" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-kirpich"><i class="fa fa-check"></i><b>2.10.1</b> Tiempo de concentracion por kirpich</a></li>
-<li class="chapter" data-level="2.10.2" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#tiempo-de-concentracion-por-rowe"><i class="fa fa-check"></i><b>2.10.2</b> Tiempo de concentracion por Rowe</a></li>
-</ul></li>
+<li class="chapter" data-level="2.7" data-path="modelo-fisiográfico.html"><a href="modelo-fisiográfico.html#granja-familia-tilapia"><i class="fa fa-check"></i><b>2.7</b> Granja Familia Tilapia</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="modelo-meteorológico.html"><a href="modelo-meteorológico.html"><i class="fa fa-check"></i><b>3</b> Modelo meteorológico</a>
 <ul>
@@ -180,21 +173,22 @@ div.csl-indent {
 <h2><span class="header-section-number">4.1</span> Cálculo de caudales<a href="modelo-hidrológico.html#cálculo-de-caudales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Ante la falta de información hidrológica en una zona en estudio, para hacer una estimación de los gastos de escurrimiento se recomiendan los métodos empíricos, ecuaciones que consideran uno o dos parámetros deducidos de una región o ciudad <span class="citation">(<a href="#ref-conagua2019">CONAGUA 2019</a>)</span>.</p>
 <p>Los parámetros que se ocupan para los cálculos de las metodologías presentadas, son los siguientes.</p>
-<p>El área de la cuenca es: 2403.79 km<sup>2</sup></p>
-<p>El número de curva corregido por pendiente por el IMTA es: 71.469</p>
-<p>La retención potencial máxima del suelo es: 101.4 mm</p>
-<p>La abstracción inicial es: 20.28 mm .</p>
-<p>El tiempo de concentración calculado por Kirpich para toda el área de estudio es: 19.78 horas o 1187 minutos</p>
-<p>El tiempo de retraso es: 11.87 horas</p>
-<p>La duración efectiva es: 8.9 horas</p>
-<p>El tiempo pico es: 16.32 horas</p>
-<p>El tiempo base es: 43.57 horas</p>
-<p>El coeficiente FRA es: 0.91</p>
+<p>El área de la cuenca es: 1.04 km<sup>2</sup></p>
+<p>El número de curva es: 93</p>
+<p>La retención potencial máxima del suelo es: 19.12 mm</p>
+<p>La abstracción inicial es: 3.82 mm .</p>
+<p>El tiempo de concentración calculado por Kirpich para toda el área de estudio es: 0.41 horas o 24.66 minutos</p>
+<p>El tiempo de retraso es: 0.25 horas</p>
+<p>La duración efectiva es: 1.28 horas</p>
+<p>El tiempo pico es: 0.89 horas</p>
+<p>El tiempo base es: 2.37 horas</p>
+<p>El coeficiente FRA es: 1</p>
 <p>El FRA se calcula con la ecuación <span class="math display">\[ FRA = 1.0 - 0.091293 \cdot \left(1.0 - e^{-0.005794 \cdot A}\right) \]</span></p>
 <p>El tiempo de retraso se calcula con la ecuación <span class="math display">\[ T~r~ = 0.6 \cdot \ T~c~ \]</span></p>
 <p>La duración efectiva se calcula con la ecuación <span class="math display">\[ de = 2 \cdot \sqrt{T~c~} \]</span></p>
 <p>El tiempo pico se calcula con la ecuación <span class="math display">\[ T~p~ = \frac{de}{2} + T~r~ \]</span></p>
 <p>El tiempo base se calcula con la ecuación <span class="math display">\[ T~b~ = 2.67 \cdot T~p~ \]</span></p>
+<p>El número de curva se obtuvo de la tabla 2-2 ‘Número de curva para áreas urbanas’ del USDA TR 55.</p>
 <div id="caudal-q-por-hut-hidrograma-uniforme-triangular" class="section level3 hasAnchor" number="4.1.1">
 <h3><span class="header-section-number">4.1.1</span> Caudal Q por HUT (Hidrograma Uniforme Triangular)<a href="modelo-hidrológico.html#caudal-q-por-hut-hidrograma-uniforme-triangular" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La técnica del hidrograma unitario tiene una base teórica y es bastante consistente, por ello ha alcanzado gran universalidad. El hidrograma unitario se define como el hidrograma de gasto resultante de una lluvia en exceso unitaria ocurriendo uniformemente sobre la cuenca y durante la duración unitaria especificada. La definición anterior limita a los 1,300 km<sup>2</sup>, el tamaño máximo de las cuencas en las que el método puede ser aplicado sin ser subdivididas, ya que en tales cuencas es todavía muy probable que la lluvia procedente de un fenómeno no ciclónico iguale la magnitud de las crecientes originadas por las precipitaciones ciclónicas. <span class="math display">\[ Q = \frac {0.208 * P_e * A} {T_p} \]</span>.</p>
@@ -251,46 +245,46 @@ Tr_10000
 <tbody>
 <tr>
 <td style="text-align:left;">
-533.741779439795
+76.9342197345612
 </td>
 <td style="text-align:right;">
-4.007
+26.7917
 </td>
 <td style="text-align:right;">
-5.5669
+29.8882
 </td>
 <td style="text-align:right;">
-6.7469
+32.2306
 </td>
 <td style="text-align:right;">
-7.9269
+34.573
 </td>
 <td style="text-align:right;">
-8.3067
+35.3271
 </td>
 <td style="text-align:right;">
-9.4867
+37.6695
 </td>
 <td style="text-align:right;">
-10.6667
+40.012
 </td>
 <td style="text-align:right;">
-11.8468
+42.3544
 </td>
 <td style="text-align:right;">
-13.4066
+45.4509
 </td>
 <td style="text-align:right;">
-14.5866
+47.7933
 </td>
 <td style="text-align:right;">
-15.7666
+50.1357
 </td>
 <td style="text-align:right;">
-17.3265
+53.2322
 </td>
 <td style="text-align:right;">
-18.5065
+55.5746
 </td>
 </tr>
 </tbody>
@@ -348,46 +342,46 @@ Tr_10000
 <tbody>
 <tr>
 <td style="text-align:left;">
-533.741779439795
+76.9342197345612
 </td>
 <td style="text-align:right;">
-32.3908
+34.3345
 </td>
 <td style="text-align:right;">
-45.0002
+38.3028
 </td>
 <td style="text-align:right;">
-54.5389
+41.3046
 </td>
 <td style="text-align:right;">
-64.0775
+44.3065
 </td>
 <td style="text-align:right;">
-67.1483
+45.2729
 </td>
 <td style="text-align:right;">
-76.6869
+48.2748
 </td>
 <td style="text-align:right;">
-86.2255
+51.2767
 </td>
 <td style="text-align:right;">
-95.7642
+54.2786
 </td>
 <td style="text-align:right;">
-108.3736
+58.2469
 </td>
 <td style="text-align:right;">
-117.9122
+61.2488
 </td>
 <td style="text-align:right;">
-127.4509
+64.2506
 </td>
 <td style="text-align:right;">
-140.0603
+68.2189
 </td>
 <td style="text-align:right;">
-149.5989
+71.2208
 </td>
 </tr>
 </tbody>
@@ -444,46 +438,46 @@ Tr_10000
 <tbody>
 <tr>
 <td style="text-align:left;">
-533.741779439795
+76.9342197345612
 </td>
 <td style="text-align:right;">
-1.2922
+18.7573
 </td>
 <td style="text-align:right;">
-4.8454
+22.1803
 </td>
 <td style="text-align:right;">
-8.6518
+24.8205
 </td>
 <td style="text-align:right;">
-13.2113
+27.4972
 </td>
 <td style="text-align:right;">
-14.8155
+28.3657
 </td>
 <td style="text-align:right;">
-20.1625
+31.0826
 </td>
 <td style="text-align:right;">
-25.9874
+33.8252
 </td>
 <td style="text-align:right;">
-32.2128
+36.5902
 </td>
 <td style="text-align:right;">
-40.9542
+40.275
 </td>
 <td style="text-align:right;">
-47.8925
+43.082
 </td>
 <td style="text-align:right;">
-55.0686
+45.9037
 </td>
 <td style="text-align:right;">
-64.8676
+49.6536
 </td>
 <td style="text-align:right;">
-72.4843
+52.5037
 </td>
 </tr>
 </tbody>
@@ -541,46 +535,46 @@ Tr_10000
 <tbody>
 <tr>
 <td style="text-align:left;">
-533.741779439795
+76.9342197345612
 </td>
 <td style="text-align:right;">
-39.5939
+4.5667
 </td>
 <td style="text-align:right;">
-148.4666
+5.4001
 </td>
 <td style="text-align:right;">
-265.0965
+6.0429
 </td>
 <td style="text-align:right;">
-404.8036
+6.6946
 </td>
 <td style="text-align:right;">
-453.9562
+6.906
 </td>
 <td style="text-align:right;">
-617.7916
+7.5675
 </td>
 <td style="text-align:right;">
-796.2686
+8.2352
 </td>
 <td style="text-align:right;">
-987.0185
+8.9084
 </td>
 <td style="text-align:right;">
-1254.862
+9.8055
 </td>
 <td style="text-align:right;">
-1467.454
+10.4889
 </td>
 <td style="text-align:right;">
-1687.334
+11.1759
 </td>
 <td style="text-align:right;">
-1987.582
+12.0889
 </td>
 <td style="text-align:right;">
-2220.964
+12.7828
 </td>
 </tr>
 </tbody>
@@ -588,108 +582,12 @@ Tr_10000
 </div>
 <div id="método-racional" class="section level3 hasAnchor" number="4.1.2">
 <h3><span class="header-section-number">4.1.2</span> MÉTODO RACIONAL<a href="modelo-hidrológico.html#método-racional" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La concepción fundamental del método Racional establece que la intensidad de lluvia i comienza instantáneamente y continúa indefinidamente, la cantidad de escurrImiento se va incrementando hasta alcanzar el tiempo de concentración (T<sub>c</sub>), cuando toda la cuenca está contribuyendo al flujo en su salida. Por lo anterior, la intensidad i tiene una duración igual al T<sub>c</sub> y corresponde al periodo de retomo de la creciente o gasto máximo que se estima. El cociente entre el producto de la intensidad de lluvia i por el área de cuenca A y el gasto máximo Q, que ocurre al llegar al T<sub>c</sub>, se denomina coeficiente de escurrimiento C y lógicamente varía de cero a uno.</p>
+<p>La concepción fundamental del método Racional establece que la intensidad de lluvia i comienza instantáneamente y continúa indefinidamente, la cantidad de escurrImiento se va incrementando hasta alcanzar el tiempo de concentración (T<sub>c</sub>), cuando toda la cuenca está contribuyendo al flujo en su salida. Por lo anterior, la intensidad i tiene una duración igual al T<sub>c</sub> y corresponde al periodo de retomo de la creciente o gasto máximo que se estima. El cociente entre el producto de la intensidad de lluvia i por el área de cuenca A y el gasto máximo Q, que ocurre al llegar al T<sub>c</sub>, se denomina coeficiente de escurrimiento C y lógicamente varía de cero a uno. Con base al Manual de CONAGUA se determina que el coeficiente de escurrimiento para un uso de terreno industrial denso para un período de retorno de 10 años es ‘0.85’.</p>
 <p><span class="math display">\[ 0.278 * C * I * A \]</span></p>
-<table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">
-<span id="tab:tabla-coefesc">Tabla 4.5: </span>Coeficiente de escurrimiento
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:right;">
-Tr_2
-</th>
-<th style="text-align:right;">
-Tr_5
-</th>
-<th style="text-align:right;">
-Tr_10
-</th>
-<th style="text-align:right;">
-Tr_20
-</th>
-<th style="text-align:right;">
-Tr_25
-</th>
-<th style="text-align:right;">
-Tr_50
-</th>
-<th style="text-align:right;">
-Tr_100
-</th>
-<th style="text-align:right;">
-Tr_200
-</th>
-<th style="text-align:right;">
-Tr_500
-</th>
-<th style="text-align:right;">
-Tr_1000
-</th>
-<th style="text-align:right;">
-Tr_2000
-</th>
-<th style="text-align:right;">
-Tr_5000
-</th>
-<th style="text-align:right;">
-Tr_10000
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-533.741779439795
-</td>
-<td style="text-align:right;">
-0.0399
-</td>
-<td style="text-align:right;">
-0.1077
-</td>
-<td style="text-align:right;">
-0.1586
-</td>
-<td style="text-align:right;">
-0.2062
-</td>
-<td style="text-align:right;">
-0.2206
-</td>
-<td style="text-align:right;">
-0.2629
-</td>
-<td style="text-align:right;">
-0.3014
-</td>
-<td style="text-align:right;">
-0.3364
-</td>
-<td style="text-align:right;">
-0.3779
-</td>
-<td style="text-align:right;">
-0.4062
-</td>
-<td style="text-align:right;">
-0.4321
-</td>
-<td style="text-align:right;">
-0.4631
-</td>
-<td style="text-align:right;">
-0.4845
-</td>
-</tr>
-</tbody>
-</table>
 <p>Después de realizar las operaciones, el método racional arroja los siguientes caudales.</p>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tabla-qrac">Tabla 4.6: </span>Caudales (m<sup>3</sup>/s) calculados por el método Racional
+<span id="tab:tabla-qrac">Tabla 4.5: </span>Caudales (m<sup>3</sup>/s) calculados por el método Racional
 </caption>
 <thead>
 <tr>
@@ -739,46 +637,46 @@ Tr_10000
 <tbody>
 <tr>
 <td style="text-align:left;">
-533.741779439795
+76.9342197345612
 </td>
 <td style="text-align:right;">
-106.8239
+6.5784
 </td>
 <td style="text-align:right;">
-400.5618
+7.3387
 </td>
 <td style="text-align:right;">
-715.2285
+7.9139
 </td>
 <td style="text-align:right;">
-1092.157
+8.489
 </td>
 <td style="text-align:right;">
-1224.771
+8.6742
 </td>
 <td style="text-align:right;">
-1666.797
+9.2494
 </td>
 <td style="text-align:right;">
-2148.327
+9.8245
 </td>
 <td style="text-align:right;">
-2662.969
+10.3997
 </td>
 <td style="text-align:right;">
-3385.608
+11.16
 </td>
 <td style="text-align:right;">
-3959.18
+11.7351
 </td>
 <td style="text-align:right;">
-4552.415
+12.3103
 </td>
 <td style="text-align:right;">
-5362.482
+13.0706
 </td>
 <td style="text-align:right;">
-5992.146
+13.6458
 </td>
 </tr>
 </tbody>
@@ -787,11 +685,11 @@ Tr_10000
 <div id="metodo-ven-te-chow" class="section level3 hasAnchor" number="4.1.3">
 <h3><span class="header-section-number">4.1.3</span> METODO VEN TE CHOW<a href="modelo-hidrológico.html#metodo-ven-te-chow" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Este método es aplicable a cuencas menores de 24.3 km<sup>2</sup>, está basado en la teoría del hidrograma unitario y de la curva S la cual permite obtener otros hidrogramas unitarios con duraciones diferentes. El caudal se expresa mediante la ecuación <span class="math display">\[ Q = A * X * Y * Z \]</span>.</p>
-<p>La formula sugerida en la hoja de cálculo para calcular T<sub>r</sub> por Ven Te Chow esta indicada para cuencas pequeñas en el instructivo de CONAGUA, mismo libro que dice que para cuencas grandes, se debe usar <span class="math display">\[ t_r = 0.6\times t_c \]</span>.</p>
+<p>La formula sugerida en la hoja de cálculo para calcular T<sub>r</sub> por Ven Te Chow es <span class="math display">\[Tr_chow = 0.00505 \left(\frac{L}{\sqrt{S}}\right)^{0.64}\]</span> conforme al instructivo de CONAGUA.</p>
 <p>Después de realizar las operaciones, la fórmula de Chow arroja los siguientes caudales.</p>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tabla-qchow">Tabla 4.7: </span>Caudales (m<sup>3</sup>/s) calculados por Chow
+<span id="tab:tabla-qchow">Tabla 4.6: </span>Caudales (m<sup>3</sup>/s) calculados por Chow
 </caption>
 <thead>
 <tr>
@@ -809,7 +707,7 @@ Q_chow
 2 años
 </td>
 <td style="text-align:right;">
-116.7293
+5.4734
 </td>
 </tr>
 <tr>
@@ -817,7 +715,7 @@ Q_chow
 5 años
 </td>
 <td style="text-align:right;">
-312.8050
+6.7639
 </td>
 </tr>
 <tr>
@@ -825,7 +723,7 @@ Q_chow
 10 años
 </td>
 <td style="text-align:right;">
-502.2212
+7.7827
 </td>
 </tr>
 <tr>
@@ -833,7 +731,7 @@ Q_chow
 20 años
 </td>
 <td style="text-align:right;">
-718.1144
+8.8331
 </td>
 </tr>
 <tr>
@@ -841,7 +739,7 @@ Q_chow
 25 años
 </td>
 <td style="text-align:right;">
-792.2820
+9.1774
 </td>
 </tr>
 <tr>
@@ -849,7 +747,7 @@ Q_chow
 50 años
 </td>
 <td style="text-align:right;">
-1076.1717
+10.2867
 </td>
 </tr>
 <tr>
@@ -857,7 +755,7 @@ Q_chow
 100 años
 </td>
 <td style="text-align:right;">
-1455.2248
+11.5079
 </td>
 </tr>
 <tr>
@@ -865,7 +763,7 @@ Q_chow
 200 años
 </td>
 <td style="text-align:right;">
-1891.1887
+12.7599
 </td>
 </tr>
 <tr>
@@ -873,7 +771,7 @@ Q_chow
 500 años
 </td>
 <td style="text-align:right;">
-2551.1379
+14.4570
 </td>
 </tr>
 <tr>
@@ -881,7 +779,7 @@ Q_chow
 1000 años
 </td>
 <td style="text-align:right;">
-3110.8180
+15.7696
 </td>
 </tr>
 <tr>
@@ -889,7 +787,7 @@ Q_chow
 2000 años
 </td>
 <td style="text-align:right;">
-3720.0115
+17.1043
 </td>
 </tr>
 <tr>
@@ -897,7 +795,7 @@ Q_chow
 5000 años
 </td>
 <td style="text-align:right;">
-4597.3806
+18.8995
 </td>
 </tr>
 <tr>
@@ -905,7 +803,7 @@ Q_chow
 10000 años
 </td>
 <td style="text-align:right;">
-5313.1336
+20.2787
 </td>
 </tr>
 </tbody>
@@ -913,7 +811,7 @@ Q_chow
 <p>Se presentan los caudales de las 3 metodologías para poder compararlos y tomar la decisión de que caudal será el recomendado para diseñar las obras de control.</p>
 <table class=" lightable-classic-2" style="font-size: 12px; color: black; font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:tabla-qcomparativa">Tabla 4.8: </span>Comparación de caudales (m<sup>3</sup>/s) por 3 metodologías
+<span id="tab:tabla-qcomparativa">Tabla 4.7: </span>Comparación de caudales (m<sup>3</sup>/s) por 3 metodologías
 </caption>
 <thead>
 <tr>
@@ -942,13 +840,13 @@ Q_chow
 2 años
 </td>
 <td style="text-align:right;">
-39.5939
+4.5667
 </td>
 <td style="text-align:right;">
-106.8239
+6.5784
 </td>
 <td style="text-align:right;">
-116.7293
+5.4734
 </td>
 </tr>
 <tr>
@@ -959,13 +857,13 @@ Q_chow
 5 años
 </td>
 <td style="text-align:right;">
-148.4666
+5.4001
 </td>
 <td style="text-align:right;">
-400.5618
+7.3387
 </td>
 <td style="text-align:right;">
-312.8050
+6.7639
 </td>
 </tr>
 <tr>
@@ -976,13 +874,13 @@ Q_chow
 10 años
 </td>
 <td style="text-align:right;">
-265.0965
+6.0429
 </td>
 <td style="text-align:right;">
-715.2285
+7.9139
 </td>
 <td style="text-align:right;">
-502.2212
+7.7827
 </td>
 </tr>
 <tr>
@@ -993,13 +891,13 @@ Q_chow
 20 años
 </td>
 <td style="text-align:right;">
-404.8036
+6.6946
 </td>
 <td style="text-align:right;">
-1092.1572
+8.4890
 </td>
 <td style="text-align:right;">
-718.1144
+8.8331
 </td>
 </tr>
 <tr>
@@ -1010,13 +908,13 @@ Q_chow
 25 años
 </td>
 <td style="text-align:right;">
-453.9562
+6.9060
 </td>
 <td style="text-align:right;">
-1224.7705
+8.6742
 </td>
 <td style="text-align:right;">
-792.2820
+9.1774
 </td>
 </tr>
 <tr>
@@ -1027,13 +925,13 @@ Q_chow
 50 años
 </td>
 <td style="text-align:right;">
-617.7916
+7.5675
 </td>
 <td style="text-align:right;">
-1666.7975
+9.2494
 </td>
 <td style="text-align:right;">
-1076.1717
+10.2867
 </td>
 </tr>
 <tr>
@@ -1044,13 +942,13 @@ Q_chow
 100 años
 </td>
 <td style="text-align:right;">
-796.2686
+8.2352
 </td>
 <td style="text-align:right;">
-2148.3272
+9.8245
 </td>
 <td style="text-align:right;">
-1455.2248
+11.5079
 </td>
 </tr>
 <tr>
@@ -1061,13 +959,13 @@ Q_chow
 200 años
 </td>
 <td style="text-align:right;">
-987.0185
+8.9084
 </td>
 <td style="text-align:right;">
-2662.9688
+10.3997
 </td>
 <td style="text-align:right;">
-1891.1887
+12.7599
 </td>
 </tr>
 <tr>
@@ -1078,13 +976,13 @@ Q_chow
 500 años
 </td>
 <td style="text-align:right;">
-1254.8617
+9.8055
 </td>
 <td style="text-align:right;">
-3385.6079
+11.1600
 </td>
 <td style="text-align:right;">
-2551.1379
+14.4570
 </td>
 </tr>
 <tr>
@@ -1095,13 +993,13 @@ Q_chow
 1000 años
 </td>
 <td style="text-align:right;">
-1467.4539
+10.4889
 </td>
 <td style="text-align:right;">
-3959.1801
+11.7351
 </td>
 <td style="text-align:right;">
-3110.8180
+15.7696
 </td>
 </tr>
 <tr>
@@ -1112,13 +1010,13 @@ Q_chow
 2000 años
 </td>
 <td style="text-align:right;">
-1687.3339
+11.1759
 </td>
 <td style="text-align:right;">
-4552.4150
+12.3103
 </td>
 <td style="text-align:right;">
-3720.0115
+17.1043
 </td>
 </tr>
 <tr>
@@ -1129,13 +1027,13 @@ Q_chow
 5000 años
 </td>
 <td style="text-align:right;">
-1987.5820
+12.0889
 </td>
 <td style="text-align:right;">
-5362.4822
+13.0706
 </td>
 <td style="text-align:right;">
-4597.3806
+18.8995
 </td>
 </tr>
 <tr>
@@ -1146,24 +1044,24 @@ Q_chow
 10000 años
 </td>
 <td style="text-align:right;">
-2220.9642
+12.7828
 </td>
 <td style="text-align:right;">
-5992.1456
+13.6458
 </td>
 <td style="text-align:right;">
-5313.1336
+20.2787
 </td>
 </tr>
 </tbody>
 </table>
-<p>La metodología sugerida a usar es la de HUT, debido que es la que más se asemeja a las características de la cuenca y además arroja los resultados más conservadores.</p>
+<p>La metodología sugerida a usar es la de racional, debido que es la que más se asemeja a las características de la cuenca.</p>
 </div>
 </div>
 <div id="hidrograma" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> HIDROGRAMA<a href="modelo-hidrológico.html#hidrograma" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Se presenta el hidrograma para el Perído de Retorno de diseño, 100 años. El hidrograma se elaboró siguiendo la metodología HUT.</p>
-<p><img src="reportehidrologia_files/figure-html/figura-hidrograma-1.png" width="672" /></p>
+<p>Se presenta el hidrograma para el Perído de Retorno de diseño, 10 años. El hidrograma se elaboró siguiendo la metodología racional.</p>
+<p><img src="ReporteGranjaTilapia_files/figure-html/hidrograma,%20figura-hidrograma-1.png" width="672" /></p>
 
 </div>
 </div>

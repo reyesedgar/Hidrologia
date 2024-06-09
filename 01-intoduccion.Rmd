@@ -1,23 +1,20 @@
 # Introducción
 
-La hidrología es la ciencia que estudia el ciclo hidrológico y los procesos que rigen el movimiento y distribución del agua en la Tierra [@campos1998]. El ciclo hidrológico es un proceso continuo donde el agua circula entre la atmósfera, la superficie terrestre y el subsuelo, a través de fenómenos como la precipitación, la escorrentía, la infiltración, la evaporación y la condensación.
 
-Una proporción del agua precipitada se infiltra en el suelo formando acuíferos o capas freáticas, mientras que otra parte escurre superficialmente hasta llegar a ríos, lagos u océanos. Esta distribución depende de factores como la permeabilidad del sustrato, la pendiente y la cobertura vegetal. La falta de cobertura vegetal constituye un problema ambiental crítico, ya que favorece la erosión hídrica del suelo y el aumento de sedimentos y contaminantes en los cuerpos de agua.
+El presente reporte tiene como objetivo presentar soluciones que mitiguen los riesgos de inundación en la granja Familia Tilapia y además aprovechar el agua en ciertas zonas que están actualmente desaprovechadas. Para ello, se requiere un análisis detallado de la geomorfología de la zona de estudio, que contemple los parámetros que describen las propiedades de la superficie y determinan el movimiento del agua, así como un análisis meteorológico que caracterice los patrones de precipitación en la región.
 
-En las últimas décadas, el cambio climático ha exacerbado la ocurrencia de eventos climáticos extremos como precipitaciones intensas e inundaciones [@ruiz2024; @bbc2024], así como sequías prolongadas [@foxsports2024]. Ante estos desafíos, la hidrología desempeña un papel fundamental en la prevención y gestión de riesgos asociados a estos fenómenos, brindando herramientas y modelos para el diseño de soluciones de protección territorial.
+El contexto de La Granja es que se encuentra aguas abajo del Parque Industrial El Marqués, el cual descarga sus aguas pluviales en un drenaje de tormenta que pasa por un costado de La Granja, el cual se desborda en algunas secciones generando inundaciones en La Granga. 
 
-En este contexto, el presente estudio tiene como objetivo desarrollar un modelo hidrológico confiable para estimar las avenidas máximas en una cuenca hidrográfica costera, con el fin de dimensionar adecuadamente las obras de protección para un puente de una carretera federal. Para ello, se requiere un análisis detallado de la geomorfología de la zona de estudio, que contemple los parámetros que describen las propiedades de la superficie y determinan el movimiento del agua, así como un análisis meteorológico que caracterice los patrones de precipitación en la región.
+Se realizó un levantamiento topográfico con Dron Mavic 3 Enterprise con módulo RTK y GNSS Emlid Reach RS2 del terreno, por medidas de seguridad se optó por no volar sobre el Parque Industrial El Marqués, por lo que se uso el MDE del **Continuo de Elevaciones Mexicano 3.0** [@CEM3.0] para el análisis geomorfológico que se usará para calcular el caudal que pasa por el drenaje de tormenta. La información levantada con el dron y GNSS se usará para el diseño de las SbN en La Granja.
  
 Para la generación del modelo fisiográfico se usa el software GIS de código libre **QGIS**, y dentro del ambiente se usan las  extensiones *GDAL* para gestionar capas vectoriales y rasters, *GRASS* para delimitar el área y red de drenaje, y  *SAGA NEXT GEN* para procesos auxiliares. 
 
 Para la generación del modelo meteorológico, se utiliza el software de código libre **RStudio** que se basa en el lenguaje *R*, un lenguaje de programación computacional estadística. Dentro del ambiente, se hace uso de librerías especializadas para el uso de datos climatológicos y para la selección de modelos probabilísticos para estimar las tormentas de diseño.
 
-De manera particular se revisan metodologías para el cálculo del *Número de Curva* y para el cálculo del *caudal*, considerando que la cuenca no está aforada y se deben hacer ajustes para poder emplear las metodologías propuestas.
-
 
 ## Objetivo
 
-Determinar el caudal de diseño para la propuesta de una obra de protección localizada sobre el punto de control PC-008 para el seguro encauzamiento de agua de acuerdo con el periodo de retorno de estudio propuesto.
+Diseñar Soluciones basadas en la Naturaleza (SbN) para mitigar los riesgos presentes por inundación que permitan aprovechar las aguas pluviales en zonas que actualmente están desaprovechadas. 
 
 
 ## Normativa aplicada
@@ -28,12 +25,25 @@ Para el diseño del modelo hidrológico se ha seguido la normativa establecida e
 ## Localización del proyecto
 
 
-El área de estudio comprende una cuenca hidrográfica ubicada en el estado de Baja California, México, abarcando territorios de los municipios de Ensenada, Playas de Rosarito, Tijuana y Tecate. La cuenca presenta características predominantemente rurales, con algunos asentamientos urbanos dispersos en su porción final, como las colonias Francisco Zarco y Ejido El Porvenir.
+El área de estudio comprende una una granja de tilapias ubicada en el estado de Querétaro, México, en el municipio del Marqués. La granja se encuentra en la localidad Caro, dentro del Colorado, pertenece a la región hidrográfica Lerma - Santiago, a la cuenca Río Laja y específicamente a la subcuenca Río Apaseo.
 
-El punto de control establecido para el análisis hidrológico se encuentra en el puente La Misión, localizado en las coordenadas geográficas -116.88258°, 32.08942°, con SRC EPSG:4326 - WGS 84 en unidades angulares. El puente pasa sobre la carretera federal Transpeninsular de Baja California, en el kilómetro 69+338. Este puente cruza el cauce principal de la cuenca y su dimensionamiento adecuado es crucial para garantizar la protección de la infraestructura vial ante eventos de avenidas extraordinarias.
+El punto de control establecido para el análisis hidrológico se encuentra en el un drenaje de tormenta, localizado en las coordenadas UTM 369084.2299,	2273451.56, con SRC EPSG:32614 - WGS 84 / UTM zona 14N, en unidades métricas. El drenaje de tormenta drena el agua pluvial del parque industrial El Marqués, el cual pasa a un costado de la granja y por debajo de una escuela primaria que acaban de construir. 
 
-La caracterización detallada de la fisiografía de la cuenca, incluyendo su topografía, red de drenaje, tipos de suelo y cobertura vegetal, así como el análisis de los patrones de precipitación en la región, son elementos clave para el desarrollo del modelo hidrológico y la estimación confiable de los caudales máximos esperados en el punto de control.
 
-```{r, echo=FALSE, figura-contextoterritorial , fig.cap="Contexto territorial de la subcuenca R. Gudalupe"}
+```{r, echo=FALSE, figura-contextoterritorial , fig.cap="Contexto territorial de la granja Familia Tilapia"}
 knitr::include_graphics("Mapa contexto territorial.png")
 ```
+
+## English abstract
+
+The Familia Tilapia farm, located downstream of the El Marqués Industrial Park, faces significant flood risks due to the overflow of the adjacent storm drain during heavy rainfall events. This report presents a comprehensive analysis of the geomorphology and meteorology of the study area to develop Nature-based Solutions (NbS) that mitigate flood risks and optimize water utilization in currently underutilized zones of the farm.
+
+A topographic survey was conducted using a Mavic 3 Enterprise Drone with an RTK module and an Emlid Reach RS2 GNSS. Due to safety concerns, the survey did not cover the El Marqués Industrial Park; instead, the Digital Elevation Model (DEM) from the Continuo de Elevaciones Mexicano 3.0 was utilized for the geomorphological analysis to estimate the flow rate through the storm drain. Although the DEM does not accurately represent the current runoff area generated by the industrial park, it provides an approximation of the flow rate necessary for sizing the NbS.
+
+The farm's soil type is predominantly vertisol, a heavy soil characterized by its formation under alternating conditions of saturation and dryness. Vertisols have high expandable clay content (>30%) and form wide, abundant, and deep cracks when dry. With proper tillage and drainage management, these soils can be highly fertile for agriculture due to their excellent moisture retention capacity and mineral exchange properties with plants.
+
+A meteorogical analysis was conducted with the aid of non supervised algorithms were used to predict future storms probabilities. 
+
+Then a hydrological analysis was conducted to estimate the flow rate at the entrance of the storm drain. 3 methodologies are compared.
+
+The primary flood risk area is identified as contribution basin 1, where the open channel overflows during storms, inundating contribution basin 2 and several facilities in contribution basin 5. The information gathered from the drone and GNSS survey will be crucial in designing effective NbS to mitigate these flood risks and optimize water utilization throughout the farm.

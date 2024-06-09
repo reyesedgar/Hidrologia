@@ -1,23 +1,2 @@
 # Conclusiones
 
-El presente estudio ha permitido caracterizar la respuesta de la subcuenca R. Guadalupe al ciclo hidrológico, destacando la importancia de un enfoque integral en la gestión de los recursos hídricos y la conservación de los ecosistemas asociados a la cuenca.
-
-El uso de Sistemas de Información Geográfica (SIG) ha demostrado ser una herramienta valiosa para generar el modelo fisiográfico, integrando datos espaciales y permitiendo un análisis detallado de las características topográficas, edáficas y de cobertura vegetal de la cuenca.
-
-En cuanto al modelo meteorológico, se ha presentado la inclusión de modelos de aprendizaje automático y algoritmos robustos para abordar la aleatoriedad inherente a los fenómenos hidrológicos, como las precipitaciones extremas.
-
-Como se ha mencionado a lo largo del Capítulo 2, la capacidad de respuesta de la cuenca al ciclo hidrológico depende en gran medida de las prácticas humanas, las cuales afectan directa o indirectamente la cobertura vegetal, elemento imprescindible para que el territorio pueda asimilar la lluvia y controlar las escorrentías.
-
-En determinados puntos del estudio, se han comparado metodologías y se ha tomado la decisión de escoger un valor sobre otro. El criterio de elección ha sido el conservador, salvo en el cálculo de la precipitación ponderada de las estaciones, donde se ha evaluado la validez del criterio propuesto por el autor del estudio.
-
-Si bien suelen preferirse resultados conservadores debido al costo elevado de las obras de protección y la incertidumbre inherente a las metodologías empíricas probabilísticas, el cambio climático y la recurrencia de catástrofes debidas a eventos climatológicos extremos plantean la interrogante de si trabajar con datos conservadores es un protocolo adecuado para la prevención de riesgos.
-
-El presente estudio se ha centrado en el caudal pico en un punto de control situado aguas abajo, donde se prevé una obra de protección. Sin embargo, se ha documentado que la restauración hidrológica debería iniciarse aguas arriba, implementando soluciones basadas en la naturaleza (SbN) que disminuyan la velocidad del agua y permitan su aprovechamiento en las actividades ecosistémicas.
-
-Este enfoque es de particular interés para la cuenca en estudio, de carácter rural y con una importante actividad agrícola de riego permanente. Las imágenes satelitales revelan suelo desnudo y cauces secos, lo que probablemente esté generando erosión hídrica a nivel de cuenca.
-
-Además, según las cartas edafológicas, el uso del suelo en la mayor parte del territorio podría ser inadecuado, ya que los suelos del tipo Leptosol, con profundidad somera, se recomiendan para agostaderos en lugar de prácticas agrícolas intensivas.
-
-Por lo tanto, si se pretenden desarrollar obras de protección, estas no deberían verse de manera puntual en un punto de descarga, sino a nivel cuenca, favoreciendo a los habitantes y promoviendo la regeneración del territorio.
-
-Se recomienda explorar herramientas como el paquete 'soilwater' [@soilwater] en RStudio, que busca apoyar a los hidrólogos en el estudio de la relación entre el contenido de agua y el potencial hídrico del suelo, con el fin de aprovechar las escorrentías.

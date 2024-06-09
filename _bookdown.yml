@@ -1,8 +1,8 @@
-book_filename: "reportehidrologia"
+book_filename: "ReporteGranjaTilapia"
 output_dir: docs
 delete_merged_file: true
-edit: https://github.com/reyesedgar/Hidrologia/edit/main/%s
-view: https://github.com/reyesedgar/Hidrologia/blob/main/%s
+edit: https://github.com/reyesedgar/FamiliaTilapia/edit/main/%s
+view: https://github.com/reyesedgar/FamiliaTilapia/blob/main/%s
 language:
   label:
     fig: "Figura "
